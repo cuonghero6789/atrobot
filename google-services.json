@@ -1,0 +1,92 @@
+{
+  "project_info": {
+    "project_number": "970774422293",
+    "project_id": "astrobot-cb8dd",
+    "storage_bucket": "astrobot-cb8dd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970774422293:android:31f8db30b6cf4d9583bf1c",
+        "android_client_info": {
+          "package_name": "com.atrobot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "970774422293-lgol5g5jeie59s4gope8d7tso7vfecdl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.atrobot",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "970774422293-u230dd9ec24vij3927k5gniv9182glp5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCW6dt978o2TObIoTUGHnFd4oaT8pc7P6U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "970774422293-u230dd9ec24vij3927k5gniv9182glp5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "970774422293-afcordi2tc2to3rfs41g0q556nnu3d9e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "vn.unikon.astrobot",
+                "app_store_id": "6587577804"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970774422293:android:e06acdd9eb381a0e83bf1c",
+        "android_client_info": {
+          "package_name": "vn.unikon.astrobot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "970774422293-u230dd9ec24vij3927k5gniv9182glp5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCW6dt978o2TObIoTUGHnFd4oaT8pc7P6U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "970774422293-u230dd9ec24vij3927k5gniv9182glp5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "970774422293-afcordi2tc2to3rfs41g0q556nnu3d9e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "vn.unikon.astrobot",
+                "app_store_id": "6587577804"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
