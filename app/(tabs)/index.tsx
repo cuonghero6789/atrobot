@@ -4,8 +4,15 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import {Link, router} from 'expo-router';
+import { useEffect } from 'react';
+export default function DailyScreen() {
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     router.push('../auth/login');
+  //   }, 3000);
+  // }, []);
 
-export default function HomeScreen() {
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
