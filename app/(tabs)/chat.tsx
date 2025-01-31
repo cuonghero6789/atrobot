@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 export default function ChatScreen() {
     return (
         <LinearGradient
-          colors={['#2D79E5', '#FFFFFF']}
+          colors={[ '#FFFFFF','#2D79E5']}
           start={[0, 0]}
           end={[0, 1]}
           style={styles.container}
