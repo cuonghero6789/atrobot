@@ -84,6 +84,13 @@
           "isAutoInitEnabled": true,
           "iosUserTrackingPermission": "This identifier will be used to deliver personalized ads to you."
         }
+      ],
+      "expo-localization",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
       ]
     ],
     "experiments": {

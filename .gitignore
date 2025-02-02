@@ -34,5 +34,8 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
-
+*.keystore
+credentials.json
 app-example
+
+.codegpt

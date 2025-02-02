@@ -4,10 +4,10 @@ import { Platform, Image, StyleSheet, View, ImageBackground, Dimensions, Text } 
 import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
+import Colors from '@/constants/Colors';
 const { width, height } = Dimensions.get('window');
 const TAB_HEIGHT = width * 214 / 780;
 
@@ -17,7 +17,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: Colors.tint,
         tabBarInactiveTintColor: 'white',
         headerShown: false,
         tabBarButton: HapticTab,

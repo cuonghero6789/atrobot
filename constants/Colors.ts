@@ -1,28 +1,33 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
-
-const tintColorLight = '#1A2380';
-const tintColorDark = '#212CAO';
-
-export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#201E1E',
-    tabBackground:"#7B8C9F87",
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tabBackground:"#7B8C9F87",
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
-  },
+const Colors = {
+  tint: "#1A2380",
+  white: '#FFFFFF',
+  black: '#141414',
+  black2: "#201E1E",
+  background: '#E8E8E8',
+  gray: '#707070',
+  bgColor: '#3B3B3B',
+  bgColor1: '#1F1F1F',
+  bgColor2: '#1A1A1A',
+  bgColor3: '#4F4F4F',
+  bgColor4: '#2B2B2B',
+  bgColor5: '#3B3B3B',
+  bgColor6: '#262626',
+  bgColor7: '#363636',
+  bgColor8: '#383333',
+  bgColor9: '#18223868',
+  gray2: '#ADADAD',
+  gray3: '#B0ABAB',
+  borderColor: '#4F4A4A',
+  borderColor2: '#4D4D4D',
+  grayBarChart: '#383D3B',
+  textColor: '#A8B0AD',
+  textColor2: '#CCCCCC',
+  line: '#424242',
+  line2: '#DEDEDE',
+  yellow: '#E1AD46',
+  yellow2: "#E4C084",
+  yellow3: "#FFEECC",
+  red: '#6F3636',
 };
+
+export default Colors;
