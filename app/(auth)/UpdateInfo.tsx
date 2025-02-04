@@ -1,15 +1,14 @@
-import { Stack } from "expo-router";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-export default function LoginScreen() {
+export default function UpdateInfoScreen() {
     useEffect(() => {
         // alert("cuonghero login");
         // router.replace('/auth/login');
     }, []);
 
     return <View style={styles.container}>
-            <Text>Login</Text>
+        <Text>Login</Text>
     </View>;
 }
 

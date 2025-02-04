@@ -215,5 +215,8 @@ let strings = new I18n({
     linkFacebook: "Theo dõi chúng tôi trên Facebook"
   },
 });
+strings.enableFallback = true;
+strings.defaultLocale = 'en';
+strings.locale = 'en';
 
 export default strings;

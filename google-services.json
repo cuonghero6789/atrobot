@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "970774422293",
     "project_id": "astrobot-cb8dd",
-    "storage_bucket": "astrobot-cb8dd.appspot.com"
+    "storage_bucket": "astrobot-cb8dd.firebasestorage.app"
   },
   "client": [
     {
@@ -14,11 +14,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "970774422293-a3edfn623r2iqs3q3vdlfsld3v09ard7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.atrobot",
+            "certificate_hash": "b02d341d8c296cee355eea3cb01bf474bf71ddef"
+          }
+        },
+        {
           "client_id": "970774422293-lgol5g5jeie59s4gope8d7tso7vfecdl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.atrobot",
             "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "970774422293-rtf4dkh493jbq0jkfho5ak2871b5hrgh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.atrobot",
+            "certificate_hash": "f3aa42fa4f0f8f5a926ce499ddeeba567c374bc9"
           }
         },
         {

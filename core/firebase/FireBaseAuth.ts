@@ -1,19 +1,60 @@
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
-import appleAuth from '@invertase/react-native-apple-authentication';
-import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
+import * as AppleAuthentication from 'expo-apple-authentication';
+import { LoginManager, AccessToken, AuthenticationToken } from 'react-native-fbsdk-next';
+import * as Crypto from 'expo-crypto';
+// 970774422293-u230dd9ec24vij3927k5gniv9182glp5.apps.googleusercontent.com
+// 745936822115-8abv2v3uj5u9dkcepc059cv1i207mdf1.apps.googleusercontent.com
 GoogleSignin.configure({
-    webClientId: '745936822115-8abv2v3uj5u9dkcepc059cv1i207mdf1.apps.googleusercontent.com',
+    webClientId: '970774422293-u230dd9ec24vij3927k5gniv9182glp5.apps.googleusercontent.com',
     offlineAccess: false
 });
 export default class FireBaseAuth {
     static async getIdToken() {
         return await auth().currentUser?.getIdToken();
     }
+
+    static async onFacebookLimitedLogin() {
+        // Create a nonce and the corresponding
+        // sha256 hash of the nonce
+        const nonce = Date.now().toString();
+        const nonceSha2562 = await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, nonce);
+        // Attempt login with permissions and limited login
+        const result = await LoginManager.logInWithPermissions(
+            ['public_profile', 'email'],
+            'limited',
+            nonceSha2562,
+        );
+
+        if (result.isCancelled) {
+            global.loadingRef.current?.hide();
+            throw 'User cancelled the login process';
+        }
+
+        // Once signed in, get the users AuthenticationToken
+        const data = await AuthenticationToken.getAuthenticationTokenIOS();
+        console.log('data ===', data);
+
+        if (!data) {
+            throw 'Something went wrong obtaining authentication token';
+        }
+
+        // Create a Firebase credential with the AuthenticationToken
+        // and the nonce (Firebase will validates the hash against the nonce)
+        const facebookCredential = auth.FacebookAuthProvider.credential(
+            data.authenticationToken,
+            nonce,
+        );
+
+        // Sign-in the user with the credential
+        await auth().signInWithCredential(facebookCredential);
+        const idToken = await auth()?.currentUser?.getIdToken();
+        console.log('idToken facebook login limited ==== ', idToken);
+        return idToken;
+    }
     static async onFacebookLogin() {
         // Attempt login with permissions
         const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
-
         if (result.isCancelled) {
             return null;
             // throw 'User cancelled the login process';
@@ -33,24 +74,34 @@ export default class FireBaseAuth {
         // Sign-in the user with the credential
         await auth().signInWithCredential(facebookCredential);
         const _idToken = await auth()?.currentUser?.getIdToken();
+        console.log('idToken facebook login ==== ', _idToken);
         return _idToken;
     }
     static async onAppleLogin() {
-        const appleAuthRequestResponse = await appleAuth.performRequest({
-            requestedOperation: appleAuth.Operation.LOGIN,
-            requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
-        });
+        try {
+            const appleAuthRequestResponse = await AppleAuthentication.signInAsync({
+                requestedScopes: [
+                    AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+                    AppleAuthentication.AppleAuthenticationScope.EMAIL,
+                ],
+            });
             // Ensure Apple returned a user identityToken
             if (!appleAuthRequestResponse.identityToken) {
                 throw 'Apple Sign-In failed - no identify token returned';
             }
             // Create a Firebase credential from the response
-            const { identityToken, nonce } = appleAuthRequestResponse;
-            const appleCredential = auth.AppleAuthProvider.credential(identityToken, nonce);
+            const { identityToken } = appleAuthRequestResponse;
+            const appleCredential = auth.AppleAuthProvider.credential(identityToken);
             // Sign the user in with the credential
-             await auth().signInWithCredential(appleCredential);
+            await auth().signInWithCredential(appleCredential);
             const idToken = await auth()?.currentUser?.getIdToken();
             return idToken;
+            // signed in
+        } catch (e) {
+            console.log('error apple login ==== ', JSON.stringify(e));
+            return null;
+        }
+
     }
     static async onGoogleLogin() {
         try {
@@ -65,6 +116,7 @@ export default class FireBaseAuth {
             // Sign-in the user with the credential
             await auth().signInWithCredential(googleCredential);
             const _idToken = await auth()?.currentUser?.getIdToken();
+            console.log('idToken google login ==== ', _idToken);
             return _idToken;
 
         } catch (error: Error | any) {

@@ -1,15 +1,119 @@
 import { Stack } from "expo-router";
-import { useEffect } from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { useCallback, useEffect } from "react";
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
 import { Image, ImageBackground } from 'expo-image';
 import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "@/components/Button";
 import CustomButton from "@/components/CustomButton";
-const { width, height } = Dimensions.get('window');
 import { useRouter } from 'expo-router';
+import useAuthStore from "@/stores/AuthStore";
+import { AuthAction } from "@/stores/interfaces/IAuthState";
+import FireBaseAuth from "@/core/firebase/FireBaseAuth";
+import { useMutation, useQuery } from "@apollo/client";
+import { LOGIN } from "@/apollo/mutation";
+import { getDeviceInfo } from "@/core/utils/DeviceInfoUtil";
+import { ACCOUNT } from "@/apollo/query";
+import { UserModel } from "@/models/UserModel";
+import useAccountStore from "@/stores/AccountStore";
+import Colors from "@/constants/Colors";
+import strings from "@/localization";
+import ConfigUtil from "@/core/utils/ConfigUtil";
+import ChooseLanguage from "@/components/auth/ChooseLanguage";
 
 export default function IndexScreen() {
     const router = useRouter();
+    const status = useAuthStore(state => state.status);
+    const actions = useAuthStore(state => state.actions);
+    const actionsAccount = useAccountStore(state => state.actions);
+    const user = useAuthStore(state => state.user);
+    const userAccount = useAccountStore(state => state.user);
+    const [onLogin, { data, loading, error }] = useMutation(LOGIN);
+
+    const {
+        data: dataAccount,
+        loading: loadingAccount,
+        error: errorAccount,
+        refetch,
+    } = useQuery(ACCOUNT);
+
+    useEffect(() => {
+        if (status === AuthAction.AUTH_INFO) {
+            router.replace('/UpdateInfo');
+        }
+    }, [status]);
+
+    useEffect(() => {
+        if (data) {
+            global.token = data.login.token;
+            actions.setAuthUser(data.login.user, data.login.token);
+            global.loadingRef.current?.hide();
+            refetch();
+        }
+    }, [data]);
+
+    useEffect(() => {
+        if (dataAccount?.account && user) {
+            const user: UserModel = dataAccount.account;
+            actionsAccount.setAccount(user);
+            if (
+                user?.relationships &&
+                user?.birthday &&
+                user?.hometown &&
+                user?.gender &&
+                user?.ai_language
+            ) {
+                actions.setStatus(AuthAction.AUTH_HOME);
+            } else {
+                actions.setStatus(AuthAction.AUTH_INFO);
+            }
+        }
+    }, [dataAccount, user]);
+
+    const onGoogleLogin = useCallback(async () => {
+        global.loadingRef.current?.show();
+        const token = await FireBaseAuth.onGoogleLogin();
+        if (!token) {
+            global.loadingRef.current?.hide();
+            return;
+        }
+        onLogin({ variables: { token: token, ...getDeviceInfo() } });
+    }, []);
+
+    const onAppleLogin = useCallback(async () => {
+        const token = await FireBaseAuth.onAppleLogin();
+        global.loadingRef.current?.hide();
+        onLogin({variables: {token: token, ...getDeviceInfo()}});
+      }, []);
+
+    const onFacebookLogin = useCallback(async () => {
+        global.loadingRef.current?.show();
+        const token = await FireBaseAuth.onFacebookLimitedLogin();
+        if (!token) {
+            global.loadingRef.current?.hide();
+            return;
+        }
+        onLogin({ variables: { token: token, ...getDeviceInfo() } });
+    }, []);
+
+    const onPrivacy = useCallback(() => {
+        router.push({
+            pathname: '../WebScreen',
+            params: {
+                title: strings.t("termOfService"),
+                uri: ConfigUtil.URL_PRIVACY,
+            }
+        });
+    }, []);
+
+    const onTerms = useCallback(() => {
+        router.push({
+            pathname: '../WebScreen',
+            params: {
+                title: strings.t("termOfPrivacy"),
+                uri: ConfigUtil.URL_TERM_OF_USE,
+            }
+        });
+    }, []);
 
     return <SafeAreaView edges={['top']} style={styles.container}>
         <View style={styles.icon}>
@@ -17,15 +121,33 @@ export default function IndexScreen() {
         </View>
         <ImageBackground source={require('@/assets/images/bg_login.png')} style={{ flex: 1, justifyContent: 'center' }}>
             <ImageBackground source={require('@/assets/images/bg_astr.png')} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <View>
-                    <View>
-                        <Button containerStyle={{ marginBottom: 16 }} title="Continue witch Google" onPress={() => { }} />
-                        <Button containerStyle={{ marginBottom: 16 }} title="Continue witch Facebook" onPress={() => { }} />
-                        <CustomButton title="Continue witch Apple" onPress={() => { 
-                            router.replace('/(tabs)');
-                        }} />
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <View style={{ flex: 1 }} />
+                    <View style={{ paddingHorizontal: 48, flex: 1 }}>
+                        <Button containerStyle={{ marginBottom: 16 }} title={strings.t("continueGoogle")} onPress={onGoogleLogin} />
+                        <Button containerStyle={{ marginBottom: 16 }} title={strings.t("continueFacebook")} onPress={onFacebookLogin} />
+                        <CustomButton title={strings.t("continueApple")} onPress={onAppleLogin} />
                     </View>
-                    <View>
+                    <View style={styles.footer}>
+                        <ChooseLanguage />
+                        <Text style={styles.text}>
+                            {strings.t("bycontinue")}
+                            <Text
+                                onPress={() => {
+                                    onTerms();
+                                }}
+                                style={{ textDecorationLine: 'underline' }}>
+                                {strings.t("termOfService")}
+                            </Text>
+                            {strings.t("acknowledge")}
+                            <Text
+                                onPress={() => {
+                                    onPrivacy();
+                                }}
+                                style={{ textDecorationLine: 'underline' }}>
+                                {strings.t("termOfPrivacy")}
+                            </Text>
+                        </Text>
                     </View>
                 </View>
             </ImageBackground>
@@ -46,8 +168,22 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
+    footer: {
+        paddingHorizontal: 16,
+        flex: 1,
+        justifyContent: 'flex-end',
+        paddingBottom: 32
+    },
     text: {
-        color: '#000',
+        color: Colors.black,
+        fontSize: 14,
+        textAlign: 'center',
+        lineHeight: 21,
+    },
+    title: {
         fontSize: 20,
+        color: Colors.white,
+        textAlign: 'center',
+        marginTop: 60,
     },
 });

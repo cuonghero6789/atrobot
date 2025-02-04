@@ -1,15 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {UserModel} from '../../models/UserModel';
+import { UserModel } from '../../models/UserModel';
 import IAccountState from '../interfaces/IAccountState';
 import strings from '../../localization';
-
+import { getLocales } from 'expo-localization';
 export const setAccount = (set: any, get: any) => async (user: UserModel) => {
   try {
-    if (strings.getLanguage() !== user.language_code && user?.language_code) {
-      strings.setLanguage(user.language_code);
+    if (strings.locale !== user.language_code && user?.language_code) {
+      strings.locale = user.language_code || 'en';
     }
     /** save cache for login fast */
-    AsyncStorage.setItem('ACCOUNT_USER', JSON.stringify({user}));
+    AsyncStorage.setItem('ACCOUNT_USER', JSON.stringify({ user }));
     set(
       (state: IAccountState) => {
         state.user = user;
@@ -29,8 +29,8 @@ export const getAccount = (set: any, get: any) => async () => {
     if (value !== null) {
       /** save cache for login fast */
       const user = JSON.parse(value).user;
-      if (strings.getLanguage() !== user.language_code && user?.language_code) {
-        strings.setLanguage(user.language_code);
+      if (getLocales()[0].languageCode !== user.language_code && user?.language_code) {
+        strings.locale = user.language_code;
       }
 
       set(
@@ -42,10 +42,10 @@ export const getAccount = (set: any, get: any) => async () => {
       );
       /** save cache for login fast */
     } else {
-      strings.setLanguage('en');
+      strings.locale = 'en';
       set(
         (state: IAccountState) => {
-          state.user = {language_code: 'en'};
+          state.user = { language_code: 'en' };
         },
         false,
         'getAccountSuccess',

@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {UserModel} from '../../models/UserModel';
-import IAuthState, {AuthAction} from '../interfaces/IAuthState';
+import { UserModel } from '../../models/UserModel';
+import IAuthState, { AuthAction } from '../interfaces/IAuthState';
 import auth from '@react-native-firebase/auth';
 
 export const onLogout = (set: any, get: any) => async () => {
@@ -32,7 +32,7 @@ export const setAuthUser =
   (set: any, get: any) => async (user: UserModel, token: string) => {
     try {
       /** save cache for login fast */
-      AsyncStorage.setItem('AUTH_USER', JSON.stringify({user, token}));
+      AsyncStorage.setItem('AUTH_USER', JSON.stringify({ user, token }));
       set(
         (state: IAuthState) => {
           state.user = user;
@@ -50,7 +50,7 @@ export const setAuthUser =
 export const setStatus = (set: any, get: any) => async (status: number) => {
   try {
     /** save cache for login fast */
-    AsyncStorage.setItem('AUTH_STATUS', JSON.stringify({status}));
+    AsyncStorage.setItem('AUTH_STATUS', JSON.stringify({ status }));
     set(
       (state: IAuthState) => {
         state.status = status;
@@ -70,8 +70,8 @@ export const getCacheAuthUser = (set: any, get: any) => async () => {
     const authStatus = await AsyncStorage.getItem('AUTH_STATUS');
 
     if (value && authStatus) {
-      const {user, token} = JSON.parse(value) || {};
-      const {status = 1} = JSON.parse(authStatus) || {};
+      const { user, token } = JSON.parse(value) || {};
+      const { status = 1 } = JSON.parse(authStatus) || {};
       global.token = token;
       set(
         (state: IAuthState) => {
