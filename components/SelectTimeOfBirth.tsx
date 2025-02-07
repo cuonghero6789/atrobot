@@ -1,0 +1,50 @@
+import React, {useState, useRef} from 'react';
+import {View, Button, Text} from 'react-native';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import moment from 'moment';
+import InfoButton from './InfoButton';
+interface Props {
+  onSelectedTime?: (time: string) => void;
+}
+
+const SelectTimeOfBirth = ({onSelectedTime}: Props) => {
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [hours, setHours] = useState('00');
+  const [minutes, setMinutes] = useState('00');
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (date: any) => {
+    const hours = moment(date.toString()).format('HH').toString();
+    const minutes = moment(date.toString()).format('mm').toString();
+    setHours(hours);
+    setMinutes(minutes);
+    onSelectedTime?.(`${hours}:${minutes}`);
+    hideDatePicker();
+  };
+
+  return (
+    <View style={{flex: 1}}>
+      <InfoButton
+        placeholder="Hours:  00, Minutes: 00"
+        onPress={showDatePicker}
+        name={'Time of birth*'}
+        text={`Hours:  ${hours}, Minutes: ${minutes}`}
+      />
+      <DateTimePickerModal
+        isVisible={isDatePickerVisible}
+        mode="time"
+        onConfirm={handleConfirm}
+        onCancel={hideDatePicker}
+      />
+    </View>
+  );
+};
+
+export default SelectTimeOfBirth;

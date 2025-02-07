@@ -17,6 +17,7 @@ const Colors = {
   bgColor9: '#18223868',
   gray2: '#ADADAD',
   gray3: '#B0ABAB',
+  gray4: "#3C3B3BB2",
   borderColor: '#4F4A4A',
   borderColor2: '#4D4D4D',
   grayBarChart: '#383D3B',
@@ -28,6 +29,9 @@ const Colors = {
   yellow2: "#E4C084",
   yellow3: "#FFEECC",
   red: '#6F3636',
+  green: "#357FE9",
+  green2: "#357FE96E",
+  black1: "#3C3B3B"
 };
 
 export default Colors;

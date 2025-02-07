@@ -3,13 +3,15 @@ import { Text, TouchableOpacity, StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Rect, Defs, LinearGradient as SvgGradient, Stop } from 'react-native-svg';
 interface Props {
-    title: string;  // Title of the button
-    onPress: () => void;  // Callback function when the button is pressed        
-    containerStyle?: any;  // Optional style for the button    
+  title: string;  // Title of the button
+  onPress: () => void;  // Callback function when the button is pressed        
+  containerStyle?: any;  // Optional style for the button    
+  container?: any;
+  text?: any;
 }
-const CustomButton = ({ title, onPress }: Props) => {
+const CustomButton = ({ title, onPress, container, text }: Props) => {
   return (
-    <View style={styles.shadowWrapper}>
+    <View style={[styles.shadowWrapper, container]}>
       <TouchableOpacity onPress={onPress} style={styles.wrapper}>
         {/* Gradient Border */}
         <Svg height={50} width={270} style={styles.border}>
@@ -38,9 +40,9 @@ const CustomButton = ({ title, onPress }: Props) => {
           start={{ x: 0.2, y: 0 }} end={{ x: 1, y: 1 }}
           style={styles.gradientLayer}
         />
-        
+
         {/* Button Text */}
-        <Text style={styles.text}>{title}</Text>
+        <Text style={[styles.text, text]}>{title}</Text>
       </TouchableOpacity>
     </View>
   );

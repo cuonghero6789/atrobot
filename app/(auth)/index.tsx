@@ -37,10 +37,10 @@ export default function IndexScreen() {
     } = useQuery(ACCOUNT);
 
     useEffect(() => {
-        if (status === AuthAction.AUTH_INFO) {
+        if (status === AuthAction.AUTH_INFO && data) {
             router.replace('/UpdateInfo');
         }
-    }, [status]);
+    }, [status, data]);
 
     useEffect(() => {
         if (data) {
@@ -62,7 +62,7 @@ export default function IndexScreen() {
                 user?.gender &&
                 user?.ai_language
             ) {
-                actions.setStatus(AuthAction.AUTH_HOME);
+                actions.setStatus(AuthAction.AUTH_INFO);
             } else {
                 actions.setStatus(AuthAction.AUTH_INFO);
             }
