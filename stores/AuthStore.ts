@@ -4,6 +4,7 @@ import {
   onLogout,
   setAuthUser,
   setStatus,
+  setTmpUser,
 } from './actions/AuthAction';
 import IAuthState, { AuthAction } from './interfaces/IAuthState';
 
@@ -22,6 +23,7 @@ const authStore = (set: any, get: any) =>
     setStatus: setStatus(set, get),
     getCacheAuthUser: getCacheAuthUser(set, get),
     onLogout: onLogout(set, get),
+    setTmpUser: setTmpUser(set, get),
   },
 } as IAuthState);
 

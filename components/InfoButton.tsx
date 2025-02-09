@@ -8,13 +8,13 @@ interface Props {
     name?: string;
     style?: any;
     onPress: () => void;
-    text: string;
+    text?: string | null;
 }
 
 const InfoButton = ({ placeholder, style, name, text, onPress }: Props) => {
     return (
         <View style={{ padding: 16 }}>
-            {name && <Text style={styles.text}>{name}</Text>}
+            {name && <Text style={styles.name}>{name}</Text>}
             <TouchableOpacity onPress={onPress}>
                 <LinearGradient
                     colors={['rgba(234, 255, 254, 0.7)', 'rgba(205, 201, 241, 0.7)']}
@@ -24,7 +24,7 @@ const InfoButton = ({ placeholder, style, name, text, onPress }: Props) => {
                         colors={['#FFFFFF', 'rgba(255, 255, 255, 0)']}
                         style={styles.borderOverlay}
                     />
-                    <Text style={styles.placeholder}>{placeholder}</Text>
+                    <Text style={text ? styles.text : styles.placeholder}>{text || placeholder}</Text>
                 </LinearGradient>
             </TouchableOpacity>
         </View>
@@ -50,7 +50,12 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: Colors.black1,
         fontWeight: "600",
-        marginBottom: 8,
+    },
+    name: {
+        fontSize: 16,
+        color: Colors.black1,
+        fontWeight: "600",
+        marginBottom: spacing.margin.small
     },
     placeholder: {
         fontSize: 14,

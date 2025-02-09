@@ -14,6 +14,7 @@ export default interface IAuthState {
 
   actions: {
     setAuthUser: (user: UserModel, token: string) => void;
+    setTmpUser: (user: UserModel) => void;
     setStatus: (status: number) => void;
     getCacheAuthUser: () => void;
     onLogout: () => void;

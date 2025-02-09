@@ -1,17 +1,22 @@
 import Colors from "@/constants/Colors";
 import spacing from "@/constants/spacing";
 import { replationships } from "@/data";
+import { ItemPickerModel } from "@/models/ItemModel";
 import { memo, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+interface Props {
+    title: string;
+    onSelected: (text: string) => void;
+    text: string;
+    data: ItemPickerModel[];
+}
 
-function ChooseRelationship() {
-    const [relationShip, setRelationShip] = useState<string>(replationships[0].value);
-
+function ChooseList({ onSelected, text, data, title }: Props) {
     return <View style={styles.container}>
-        <Text style={styles.title}>{"i am:*"}</Text>
+        <Text style={styles.title}>{title}</Text>
         {
-            replationships.map((item, index) => {
-                return <TouchableOpacity onPress={() => setRelationShip(item.value)} key={`relationship-${index}`} style={relationShip === item.value ? styles.btnSelect : styles.btn}>
+            data.map((item, index) => {
+                return <TouchableOpacity onPress={() => onSelected(item.value)} key={`relationship-${index}`} style={text === item.value ? styles.btnSelect : styles.btn}>
                     <Text style={styles.text}>{item.label}</Text>
                 </TouchableOpacity>
             })
@@ -19,7 +24,7 @@ function ChooseRelationship() {
     </View>
 }
 
-export default memo(ChooseRelationship);
+export default memo(ChooseList);
 
 const styles = StyleSheet.create({
     title: {

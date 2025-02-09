@@ -36,12 +36,21 @@ export default function IndexScreen() {
         refetch,
     } = useQuery(ACCOUNT);
 
+    /**
+     * udpate info data when user missing info
+     */
     useEffect(() => {
         if (status === AuthAction.AUTH_INFO && data) {
             router.replace('/UpdateInfo');
         }
     }, [status, data]);
 
+    /**
+     *  data when user call request login
+     * token save to global 
+     * save info login to auth action
+     * refresh call request account info from BE
+     *  */
     useEffect(() => {
         if (data) {
             global.token = data.login.token;
@@ -51,6 +60,10 @@ export default function IndexScreen() {
         }
     }, [data]);
 
+    /**
+     * call request account info from BE
+     * check info input by user
+     */
     useEffect(() => {
         if (dataAccount?.account && user) {
             const user: UserModel = dataAccount.account;
@@ -62,7 +75,7 @@ export default function IndexScreen() {
                 user?.gender &&
                 user?.ai_language
             ) {
-                actions.setStatus(AuthAction.AUTH_INFO);
+                actions.setStatus(AuthAction.AUTH_HOME);
             } else {
                 actions.setStatus(AuthAction.AUTH_INFO);
             }

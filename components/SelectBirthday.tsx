@@ -1,5 +1,5 @@
-import React, {useState, useRef} from 'react';
-import {View, Button, Text} from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, Button, Text } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from 'moment';
 import InfoButton from './InfoButton';
@@ -7,7 +7,7 @@ interface Props {
   onSelectedDate?: (date: string) => void;
 }
 
-const SelectBirthday = ({onSelectedDate}: Props) => {
+const SelectBirthday = ({ onSelectedDate }: Props) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
 
@@ -27,12 +27,12 @@ const SelectBirthday = ({onSelectedDate}: Props) => {
   };
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <InfoButton
         onPress={showDatePicker}
         placeholder='Day/Month/Year*'
         name={'Birthdate*'}
-        text={selectedDate?.toString() || 'Day/Month/Year*'}
+        text={selectedDate?.toString()}
       />
       <DateTimePickerModal
         isVisible={isDatePickerVisible}

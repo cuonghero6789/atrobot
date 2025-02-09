@@ -28,6 +28,20 @@ export const onLogout = (set: any, get: any) => async () => {
   }
 };
 
+export const setTmpUser = (set: any, get: any) => async (user: UserModel) => {
+  try {
+    set(
+      (state: IAuthState) => {
+        state.user = user;
+      },
+      false,
+      'setTmpUserSuccess',
+    );
+  } catch (error: any) {
+    console.log('Login error:', error.message);
+  }
+}
+
 export const setAuthUser =
   (set: any, get: any) => async (user: UserModel, token: string) => {
     try {
