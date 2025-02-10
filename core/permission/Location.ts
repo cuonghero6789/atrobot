@@ -1,7 +1,7 @@
 import strings from '@/localization';
 import * as Location from 'expo-location';
 import { Alert, Linking } from 'react-native';
-async function getCurrentLocation(): Promise<Location.LocationObject | null> {
+export async function getCurrentLocation(): Promise<Location.LocationObject | null> {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
         Alert.alert(

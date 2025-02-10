@@ -110,7 +110,7 @@ export default function IndexScreen() {
 
     const onPrivacy = useCallback(() => {
         router.push({
-            pathname: '../WebScreen',
+            pathname: '/WebScreen',
             params: {
                 title: strings.t("termOfService"),
                 uri: ConfigUtil.URL_PRIVACY,
@@ -120,7 +120,7 @@ export default function IndexScreen() {
 
     const onTerms = useCallback(() => {
         router.push({
-            pathname: '../WebScreen',
+            pathname: '/WebScreen',
             params: {
                 title: strings.t("termOfPrivacy"),
                 uri: ConfigUtil.URL_TERM_OF_USE,
