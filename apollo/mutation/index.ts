@@ -55,6 +55,12 @@ const UPDATE_APP_LANGUAGE = gql`
   }
 `;
 
+const UPDATE_LANGUAGE = gql`
+  mutation UpdateLanguage($language_code: String!, $ai_language: String!) {
+    updateAccount(input: {language_code: $language_code, ai_language: $ai_language})
+  }
+`;
+
 const UPDATE_AI_LANGUAGE = gql`
   mutation UpdateAILanguage($ai_language: String!) {
     updateAccount(input: {ai_language: $ai_language})
@@ -125,19 +131,20 @@ const ASTROME_DOMINANT = gql`
   }
 `;
 export {
-    LOGIN,
-    UPDATE_ACCOUNT_INFO,
-    LOGOUT,
-    UPDATE_AI_LANGUAGE,
-    UPDATE_APP_LANGUAGE,
-    ASTROME,
-    ASTROME_GEN_QUESTION,
-    ASTROME_ANSWER_QUESTION,
-    ASTROME_DAILY,
-    ASTROME_QUOTE,
-    UPLOAD_AVATAR,
-    UPDATE_LOCATION_INFO,
-    ASTRO_BOT,
-    UPDATE_TIME_ZONE,
-    ASTROME_DOMINANT,
+  LOGIN,
+  UPDATE_ACCOUNT_INFO,
+  LOGOUT,
+  UPDATE_AI_LANGUAGE,
+  UPDATE_APP_LANGUAGE,
+  ASTROME,
+  ASTROME_GEN_QUESTION,
+  ASTROME_ANSWER_QUESTION,
+  ASTROME_DAILY,
+  ASTROME_QUOTE,
+  UPLOAD_AVATAR,
+  UPDATE_LOCATION_INFO,
+  ASTRO_BOT,
+  UPDATE_TIME_ZONE,
+  ASTROME_DOMINANT,
+  UPDATE_LANGUAGE,
 };

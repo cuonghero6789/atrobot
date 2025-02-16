@@ -32,7 +32,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (status === AuthAction.AUTH_HOME && !loading) {
-      router.replace('/(tabs)');
+      // router.replace('/(tabs)');
     }
   }, [status, loading]);
 
@@ -53,7 +53,8 @@ export default function RootLayout() {
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="WebScreen" options={{ headerShown: false }} />
-          <Stack.Screen name="SettingScreen" options={{ headerShown: false }} />
+          <Stack.Screen name="AnswerScreen" options={{ headerShown: false }} />
+          <Stack.Screen name="PlanetScreen" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
         <StatusBar style="auto" />

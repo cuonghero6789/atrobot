@@ -9,6 +9,7 @@ import useQuestionStore from '@/stores/QuestionStore';
 import useYouStore from '@/stores/YouStore';
 import { useRef, useEffect, useState, useCallback } from 'react';
 import { AppState, AppStateStatus, Alert } from 'react-native';
+import { useRouter } from 'expo-router';
 enum OP {
   ASTRO_ME = 'astro_me',
   ASTRO_GEN_QUESTION = 'astro_gen_question',
@@ -18,7 +19,8 @@ enum OP {
   ASTRO_BOT = 'astro_bot',
   ASTRO_ME_DOMINANT = 'astro_me_dominant',
 }
-const useWebSocket = (navigation: any, onAppActive: () => void) => {
+const useWebSocket = (onAppActive: () => void) => {
+  const router = useRouter();
   const actionPlanet = usePlanetStore(state => state.actions);
   const actionsQuestion = useQuestionStore(state => state.actions);
   const actionDaily = useDailyStore(state => state.actions);
@@ -48,7 +50,7 @@ const useWebSocket = (navigation: any, onAppActive: () => void) => {
       switch (op) {
         case OP.ASTRO_ME:
           actionPlanet.setPlanetSign(payload || '');
-          navigation.navigate('PlanetScreen');
+          router.push("/PlanetScreen");
           break;
         case OP.ASTRO_GEN_QUESTION:
           actionsQuestion.setQuestions(
@@ -58,7 +60,7 @@ const useWebSocket = (navigation: any, onAppActive: () => void) => {
           break;
         case OP.ASTRO_ANSWER_QUESTION:
           actionsQuestion.setAnswer(payload?.answer || '');
-          navigation.navigate('AnswerScreen');
+          router.push("/AnswerScreen");
           break;
         case OP.ASTRO_DAILY:
           if (payload?.daily?.length) {
@@ -86,7 +88,7 @@ const useWebSocket = (navigation: any, onAppActive: () => void) => {
       console.log('Message received from server: ', e.data);
     };
     ws.current.onerror = (error: Event) => {
-      if(!error.isTrusted) {
+      if (!error.isTrusted) {
         actionAuth.onLogout();
       }
       console.error('WebSocket error:', error);

@@ -36,12 +36,21 @@ export default function IndexScreen() {
         refetch,
     } = useQuery(ACCOUNT);
 
+    useEffect(() => {
+        setTimeout(() => {
+            router.replace('/UpdateLang');
+        }, 1000);
+    }, []);
     /**
      * udpate info data when user missing info
      */
     useEffect(() => {
-        if (status === AuthAction.AUTH_INFO && data) {
-            router.replace('/UpdateInfo');
+        if (data) {
+            if (status === AuthAction.AUTH_INFO) {
+                router.replace('/UpdateInfo');
+            } else if (status === AuthAction.AUTH_LANGUAGE) {
+                router.replace('/UpdateLang');
+            }
         }
     }, [status, data]);
 
@@ -95,8 +104,8 @@ export default function IndexScreen() {
     const onAppleLogin = useCallback(async () => {
         const token = await FireBaseAuth.onAppleLogin();
         global.loadingRef.current?.hide();
-        onLogin({variables: {token: token, ...getDeviceInfo()}});
-      }, []);
+        onLogin({ variables: { token: token, ...getDeviceInfo() } });
+    }, []);
 
     const onFacebookLogin = useCallback(async () => {
         global.loadingRef.current?.show();
