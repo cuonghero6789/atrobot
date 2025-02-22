@@ -8,7 +8,7 @@ import React, {
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { Modal } from 'react-native';
-import Colors from '@/constants/Colors';
+import Colors from '@/styles/Colors';
 
 export interface CanShowBottomSheet {
   show: () => void;

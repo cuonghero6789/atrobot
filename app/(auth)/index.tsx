@@ -15,7 +15,7 @@ import { getDeviceInfo } from "@/core/utils/DeviceInfoUtil";
 import { ACCOUNT } from "@/apollo/query";
 import { UserModel } from "@/models/UserModel";
 import useAccountStore from "@/stores/AccountStore";
-import Colors from "@/constants/Colors";
+import Colors from "@/styles/Colors";
 import strings from "@/localization";
 import ConfigUtil from "@/core/utils/ConfigUtil";
 import ChooseLanguage from "@/components/auth/ChooseLanguage";
@@ -36,11 +36,11 @@ export default function IndexScreen() {
         refetch,
     } = useQuery(ACCOUNT);
 
-    useEffect(() => {
-        setTimeout(() => {
-            router.replace('/UpdateLang');
-        }, 1000);
-    }, []);
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         router.replace('/UpdateLang');
+    //     }, 1000);
+    // }, []);
     /**
      * udpate info data when user missing info
      */

@@ -31,7 +31,11 @@ const Colors = {
   red: '#6F3636',
   green: "#357FE9",
   green2: "#357FE96E",
-  black1: "#3C3B3B"
+  black1: "#3C3B3B",
+  black3: "#3D3D3D",
+  primaryColor: "#2D79E5",
+  primaryColor2: "#B2D1FD",
+  black4: "#1E1E1E",
 };
 
 export default Colors;

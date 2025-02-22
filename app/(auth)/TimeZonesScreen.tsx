@@ -4,11 +4,11 @@ import strings from '../../localization';
 import { FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import moment from 'moment-timezone';
 import SearchInput from '../../components/SearchInput';
-import Colors from '@/constants/Colors';
+import Colors from '@/styles/Colors';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
-import spacing from '@/constants/spacing';
+import spacing from '@/styles/spacing';
 import useAuthStore from '@/stores/AuthStore';
 
 function TimeZonesScreen(): JSX.Element {

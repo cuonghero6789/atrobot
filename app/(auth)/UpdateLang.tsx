@@ -3,7 +3,7 @@ import ChooseValue from "@/components/auth/ChooseValue";
 import CustomButton from "@/components/CustomButton";
 import DropDownButton from "@/components/DropDownButton";
 import PopupBottomSheet, { CanShowBottomSheet } from "@/components/PopupBottomSheet";
-import Colors from "@/constants/Colors";
+import Colors from "@/styles/Colors";
 import { languages } from "@/data";
 import useAccountStore from "@/stores/AccountStore";
 import useAuthStore from "@/stores/AuthStore";
@@ -78,7 +78,6 @@ function UpdateLang() {
             </PopupBottomSheet>
         </ImageBackground>
     </LinearGradient>
-
 }
 
 export default memo(UpdateLang);

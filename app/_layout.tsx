@@ -32,7 +32,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (status === AuthAction.AUTH_HOME && !loading) {
-      // router.replace('/(tabs)');
+      router.replace('/(tabs)');
     }
   }, [status, loading]);
 

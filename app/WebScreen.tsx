@@ -2,7 +2,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import WebView from 'react-native-webview';
 import { StyleSheet } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
-import Colors from '@/constants/Colors';
+import Colors from '@/styles/Colors';
 import Header from '@/components/Header';
 
 function WebScreen() {

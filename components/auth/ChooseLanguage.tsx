@@ -1,4 +1,4 @@
-import Colors from "@/constants/Colors";
+import Colors from "@/styles/Colors";
 import useAccountStore from "@/stores/AccountStore";
 import useAuthStore from "@/stores/AuthStore";
 import { memo } from "react";

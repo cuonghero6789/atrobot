@@ -8,8 +8,8 @@ import {
   TextInput,
 } from 'react-native';
 import strings from '../localization';
-import Colors from '@/constants/Colors';
-import spacing from '@/constants/spacing';
+import Colors from '@/styles/Colors';
+import spacing from '@/styles/spacing';
 import { LinearGradient } from 'expo-linear-gradient';
 interface Props {
   style?: any;

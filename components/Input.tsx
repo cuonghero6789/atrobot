@@ -1,5 +1,6 @@
-import Colors from '@/constants/Colors';
-import spacing from '@/constants/spacing';
+import Colors from '@/styles/Colors';
+import spacing from '@/styles/spacing';
+import TypeStyles from '@/styles/TypeStyle';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
@@ -15,8 +16,8 @@ const Input = ({ placeholder, style, name, onChangeText, text }: Props) => {
     const [isFocused, setIsFocused] = React.useState(false);
 
     return (
-        <View style={{ padding: 16 }}>
-            {name && <Text style={styles.text}>{name}</Text>}
+        <View style={{ paddingTop: spacing.padding.large, paddingHorizontal: spacing.padding.large }}>
+            {name && <Text style={[TypeStyles.bodyTextBold, styles.text]}>{name}</Text>}
             <LinearGradient
                 colors={['rgba(234, 255, 254, 0.7)', 'rgba(205, 201, 241, 0.7)']}
                 style={styles.gradientBackground}
@@ -42,22 +43,19 @@ export default Input;
 
 const styles = StyleSheet.create({
     gradientBackground: {
-        padding: 20,
-        borderRadius: 10,
+        borderRadius: 5,
+        height: 56,
+        paddingHorizontal: spacing.padding.base,
+        justifyContent: 'center',
     },
     borderOverlay: {
         ...StyleSheet.absoluteFillObject,
-        borderRadius: 10,
+        borderRadius: 5,
         borderWidth: 1,
         borderColor: 'transparent',
     },
-    container: {
-        paddingTop: 32,
-    },
     text: {
-        fontSize: 16,
-        color: Colors.black1,
-        fontWeight: "600",
+        color: Colors.black3,
         marginBottom: 8,
     },
     inputFocus: {

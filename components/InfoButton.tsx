@@ -1,5 +1,5 @@
-import Colors from '@/constants/Colors';
-import spacing from '@/constants/spacing';
+import Colors from '@/styles/Colors';
+import spacing from '@/styles/spacing';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';

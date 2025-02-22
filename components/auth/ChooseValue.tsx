@@ -1,5 +1,5 @@
-import Colors from "@/constants/Colors";
-import spacing from "@/constants/spacing";
+import Colors from "@/styles/Colors";
+import spacing from "@/styles/spacing";
 import { replationships } from "@/data";
 import { ItemPickerModel } from "@/models/ItemModel";
 import { memo, useState } from "react";

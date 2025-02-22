@@ -1,4 +1,4 @@
-import Colors from "@/constants/Colors";
+import Colors from "@/styles/Colors";
 import React, { useCallback, useEffect, useState } from "react";
 import { View, Text, StyleSheet, Dimensions, KeyboardAvoidingView, Platform, ScrollView, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";

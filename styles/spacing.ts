@@ -39,6 +39,8 @@ export const margin = {
     large: 16,
     extraLarge: 24,
     big: 32,
+    bigx2: 64,
+    bigx3: 96,
 };
 
 export default {
