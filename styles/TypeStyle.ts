@@ -22,6 +22,18 @@ const TypeStyles = StyleSheet.create({
         fontSize: 15,
         fontWeight: 'bold'
     },
+    textBold2: {
+        fontFamily: 'Montserrat-Bold',
+        lineHeight: 24,
+        fontSize: 14,
+        fontWeight: 'bold'
+    },
+    textBold3: {
+        fontFamily: 'Montserrat-Bold',
+        lineHeight: 21,
+        fontSize: 12,
+        fontWeight: 'bold'
+    },
     title: {
         fontFamily: 'Montserrat-SemiBold',
         lineHeight: 22,
@@ -34,7 +46,8 @@ const TypeStyles = StyleSheet.create({
     },
     subTitle1: {
         fontFamily: 'Montserrat-SemiBold',
-        fontSize: 14
+        fontSize: 14,
+        lineHeight: 24
     },
     subTitle2: {
         fontFamily: 'Montserrat-SemiBold',
@@ -44,6 +57,13 @@ const TypeStyles = StyleSheet.create({
     subTitleMedium: {
         fontFamily: 'Montserrat-Medium',
         fontSize: 15
+    },
+    subTitleMedium1: {
+        fontFamily: 'Montserrat-Medium',
+        lineHeight: 21,
+        fontSize: 14,
+        color: '#1E1E1E',
+        fontWeight: 'normal'
     },
     largeText: {
         fontFamily: 'Montserrat-Regular',
@@ -62,6 +82,11 @@ const TypeStyles = StyleSheet.create({
     bodyText1: {
         fontFamily: 'Montserrat-Medium',
         lineHeight: 20,
+        fontSize: 13
+    },
+    bodyText2: {
+        fontFamily: 'Montserrat-Medium',
+        lineHeight: 24,
         fontSize: 13
     },
     bodyText3: {

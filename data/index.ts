@@ -44,25 +44,21 @@ const Topics = [
   {
     name: strings.t("self"),
     source: require('@/assets/images/topic/ic_self.png'),
-    sourceSelect: require('@/assets/images/topic/ic_self_select.png'),
     type: TopicsEnum.Self,
   },
   {
     name: strings.t("mood"),
-    source: require('@/assets/images/topic/ic_mood.png'),
-    sourceSelect: require('@/assets/images/topic/ic_mood_select.png'),
+    source: require('@/assets/images/topic/ic_emotion.png'),
     type: TopicsEnum.Mood,
   },
   {
     name: strings.t("love"),
-    source: require('@/assets/images/topic/ic_topic_love.png'),
-    sourceSelect: require('@/assets/images/topic/ic_topic_love_select.png'),
+    source: require('@/assets/images/topic/ic_career.png'),
     type: TopicsEnum.Love,
   },
   {
     name: strings.t("career"),
-    source: require('@/assets/images/topic/ic_career.png'),
-    sourceSelect: require('@/assets/images/topic/ic_career_select.png'),
+    source: require('@/assets/images/topic/ic_finance.png'),
     type: TopicsEnum.Work,
   },
 ];

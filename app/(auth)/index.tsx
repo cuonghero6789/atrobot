@@ -3,7 +3,6 @@ import { useCallback, useEffect } from "react";
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
 import { Image, ImageBackground } from 'expo-image';
 import { SafeAreaView } from "react-native-safe-area-context";
-import Button from "@/components/Button";
 import CustomButton from "@/components/CustomButton";
 import { useRouter } from 'expo-router';
 import useAuthStore from "@/stores/AuthStore";
@@ -19,6 +18,7 @@ import Colors from "@/styles/Colors";
 import strings from "@/localization";
 import ConfigUtil from "@/core/utils/ConfigUtil";
 import ChooseLanguage from "@/components/auth/ChooseLanguage";
+import { Button } from "@/components/Button";
 
 export default function IndexScreen() {
     const router = useRouter();

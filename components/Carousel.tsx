@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, Dimensions, StyleSheet } from 'react-native';
 import Carousel, { ICarouselInstance, Pagination } from 'react-native-reanimated-carousel';
-import Card from './Card';
 import spacing from '@/styles/spacing';
 import Colors from '@/styles/Colors';
 import { useSharedValue } from 'react-native-reanimated';
+import { Card } from './Card';
 
 const { width } = Dimensions.get('window');
 

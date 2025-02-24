@@ -5,10 +5,12 @@ import Colors from "@/styles/Colors";
 import spacing from "@/styles/spacing";
 import TypeStyles from "@/styles/TypeStyle";
 import { ImageBackground } from "expo-image";
+import { useRouter } from "expo-router";
 import { StyleSheet, View, Text, ScrollView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function DivineScreen() {
+    const router = useRouter();
     const insets = useSafeAreaInsets();
     return <ImageBackground source={require('@/assets/images/bg_manifest.png')} style={{ flex: 1 }}>
         <View style={[styles.info, { paddingTop: insets.top }]}>
@@ -23,7 +25,11 @@ export default function DivineScreen() {
                 <ManifestDays />
                 <CustomCarousel />
                 <View style={{ height: spacing.margin.large }} />
-                <HomeButtonBackground text="Tương lai của bạn" subText="thế nào" onPress={() => { }} />
+                <HomeButtonBackground text="Tương lai của bạn" subText="thế nào" onPress={() => {
+                    router.push({
+                        pathname: "/questions",
+                    });
+                 }} />
                 <View style={{ height: spacing.margin.large }} />
                 <HomeButtonBackground text="Tìm ngày may mắn" subText="của bạn" onPress={() => { }} />
             </ScrollView>

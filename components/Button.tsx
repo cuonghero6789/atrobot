@@ -1,23 +1,32 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Image } from 'expo-image';
 interface Props {
-    title: string;
-    onPress: () => void;
-    containerStyle?: any
-  }
-const Button = ({ title, onPress, containerStyle }: Props) => {
+  title?: string;
+  onPress: () => void;
+  containerStyle?: any;
+  buttonStyle?: any;
+  textStyle?: any
+}
+const Button = ({ title, onPress, containerStyle, buttonStyle, textStyle }: Props) => {
   return (
     <TouchableOpacity onPress={onPress} style={[styles.wrapper, containerStyle]}>
       <LinearGradient
         colors={['rgba(234, 255, 254, 0.5)', 'rgba(205, 201, 241, 0.5)']}
-        style={styles.button}
+        style={[styles.button, buttonStyle]}
       >
-        <Text style={styles.text}>{title}</Text>
+        <Text style={[styles.text, textStyle]}>{title}</Text>
       </LinearGradient>
     </TouchableOpacity>
   );
 };
+function BackButton({ onPress }: Props) {
+  return <TouchableOpacity onPress={onPress}>
+    <Image source={require('@/assets/images/ic_back.png')}
+      style={{ width: 56, height: 56, marginHorizontal: 16 }} />
+  </TouchableOpacity>
+}
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -45,4 +54,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Button;
+export { Button, BackButton };

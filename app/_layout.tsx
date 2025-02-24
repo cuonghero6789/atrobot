@@ -55,6 +55,7 @@ export default function RootLayout() {
           <Stack.Screen name="WebScreen" options={{ headerShown: false }} />
           <Stack.Screen name="AnswerScreen" options={{ headerShown: false }} />
           <Stack.Screen name="PlanetScreen" options={{ headerShown: false }} />
+          <Stack.Screen name="questions" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
         <StatusBar style="auto" />

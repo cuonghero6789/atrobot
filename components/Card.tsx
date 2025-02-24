@@ -6,7 +6,9 @@ import { CAROUSEL_HEIGHT, CAROUSEL_WIDTH } from './Carousel';
 import TypeStyles from '@/styles/TypeStyle';
 import { Image } from 'expo-image';
 import spacing from '@/styles/spacing';
-
+interface CardProps {
+    contanerStyle?: any
+}
 const Card = () => {
     return <LinearGradient
         colors={['rgba(45, 121, 229, 0.52)', 'rgba(39, 72, 119, 0.72)']}
@@ -25,7 +27,58 @@ const Card = () => {
     </LinearGradient>
 };
 
+const CardView = ({ contanerStyle }: CardProps) => {
+    return <View style={[styles.gradientView, contanerStyle]}>
+        <LinearGradient
+            colors={['#3C3B3BBF', '#357FE9BF']}
+            style={{ flex: 1, borderRadius: 20, borderWidth: 2, borderColor: Colors.white }}
+            start={{ x: 0.5, y: 0 }}
+            end={{ x: 0.5, y: 1 }}
+        >
+            <View style={{ flex: 1, padding: spacing.padding.large }}>
+                <Text style={[TypeStyles.subTitle1, { color: Colors.white }]}>{"Chào Quỳnh Anh, Bạn có dự định gì sắp tới không? Hãy để các vì sao tiết lộ điều gì đang chờ đón bạn! 😉"}</Text>
+            </View>
+        </LinearGradient>
+    </View>
+}
+const CardItem = () => {
+    return <View style={styles.gradientItem}>
+        <LinearGradient
+            colors={['rgba(255,255,255,0.8)', 'rgba(255,255,255,0)']}
+        />
+    </View>
+}
+
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#ddd",
+    },
+    gradientItem: {
+        flex: 1,
+        height: 500,
+        borderRadius: 30,
+        backgroundColor: "#7EADF1A6",//7EADF1A6
+        shadowOffset: {
+            width: 6,
+            height: 6
+        },
+        shadowOpacity: 0.37,
+        shadowRadius: 7.49,
+        elevation: 12,
+        shadowColor: "white",
+    },
+    gradientView: {
+        flex: 1,
+        borderRadius: 20,
+        shadowColor: "#000",
+        shadowOffset: { width: 5, height: 5 },
+        shadowOpacity: 0.4, // Similar to #00000052
+        shadowRadius: 4,
+        elevation: 6, // Required for Android
+    },
     gradient: {
         flex: 1,
         alignItems: 'center',
@@ -45,4 +98,8 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Card;
+export {
+    Card,
+    CardView,
+    CardItem,
+};

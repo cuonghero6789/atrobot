@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, Text, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
-import { LinearGradient } from "expo-linear-gradient";
 import { getCurrentLocation } from '@/core/permission/Location';
-import Card from '@/components/Card';
-import CarouselExample from '@/components/Carousel';
 import { Image, ImageBackground } from 'expo-image';
 import spacing from '@/styles/spacing';
 import Colors from '@/styles/Colors';
