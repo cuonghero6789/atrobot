@@ -7,14 +7,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   Bubble,
   GiftedChat,
+  IChatMessage,
   InputToolbar,
   Message,
   MessageText,
   Send,
+  Time,
 } from 'react-native-gifted-chat';
 import { useMutation, useQuery } from '@apollo/client';
 import moment from 'moment';
@@ -25,8 +27,11 @@ import useChatStore from '@/stores/ChatStore';
 import { ASTRO_BOT } from '@/apollo/mutation';
 import useAccountStore from '@/stores/AccountStore';
 import { MESSAGES } from '@/apollo/query';
+import { ImageBackground } from 'expo-image';
+import TypeStyles from '@/styles/TypeStyle';
 
-function ChatScreen({ navigation }: any): JSX.Element {
+function ChatScreen() {
+  const insets = useSafeAreaInsets();
   const chats = useChatStore(state => state.chats);
   const messages = useChatStore(state => state.messages);
   const loadingChat = useChatStore(state => state.loading);
@@ -44,34 +49,34 @@ function ChatScreen({ navigation }: any): JSX.Element {
     },
   });
 
-  const _keyboardDidShow = useCallback(() => {
-    navigation.setOptions({
-      tabBarVisible: false,
-    });
-  }, [navigation]);
+  // const _keyboardDidShow = useCallback(() => {
+  //   navigation.setOptions({
+  //     tabBarVisible: false,
+  //   });
+  // }, [navigation]);
 
-  const _keyboardDidHide = useCallback(() => {
-    navigation.setOptions({
-      tabBarVisible: true,
-    });
-  }, [navigation]);
+  // const _keyboardDidHide = useCallback(() => {
+  //   navigation.setOptions({
+  //     tabBarVisible: true,
+  //   });
+  // }, [navigation]);
 
-  useEffect(() => {
-    const showSubscription = Keyboard.addListener(
-      'keyboardDidShow',
-      _keyboardDidShow,
-    );
-    const hideSubscription = Keyboard.addListener(
-      'keyboardDidHide',
-      _keyboardDidHide,
-    );
+  // useEffect(() => {
+  //   const showSubscription = Keyboard.addListener(
+  //     'keyboardDidShow',
+  //     _keyboardDidShow,
+  //   );
+  //   const hideSubscription = Keyboard.addListener(
+  //     'keyboardDidHide',
+  //     _keyboardDidHide,
+  //   );
 
-    // cleanup function
-    return () => {
-      showSubscription.remove();
-      hideSubscription.remove();
-    };
-  }, [_keyboardDidHide, _keyboardDidShow]);
+  //   // cleanup function
+  //   return () => {
+  //     showSubscription.remove();
+  //     hideSubscription.remove();
+  //   };
+  // }, [_keyboardDidHide, _keyboardDidShow]);
 
   useEffect(() => {
     if (data) {
@@ -80,9 +85,9 @@ function ChatScreen({ navigation }: any): JSX.Element {
   }, [data]);
 
   const onSend = useCallback(
-    (messages = []) => {
+    (messages: IChatMessage[] = []) => {
       console.log(`onSend: ${JSON.stringify(messages)}`);
-      const text = messages[0].text || '';
+      const text = messages[0]?.text || '';
 
       actions.setMessages(
         [
@@ -122,7 +127,7 @@ function ChatScreen({ navigation }: any): JSX.Element {
             <View style={styles.send}>
               <Image
                 source={require('@/assets/images/ic_send.png')}
-                style={{ width: 24, height: 24, tintColor: Colors.white }}
+                style={{ width: 24, height: 24, tintColor: Colors.black }}
               />
             </View>
           </Send>
@@ -132,50 +137,59 @@ function ChatScreen({ navigation }: any): JSX.Element {
     );
   };
 
-  return (
-    <SafeAreaView edges={['top']} style={styles.container}>
-      {messages?.length == 0 && (
-        <View style={{ paddingHorizontal: 16 }}>
-          <AnswerComponent answer={strings.t("chatLuna")} />
-        </View>
-      )}
-      {messages != undefined && (
-        <GiftedChat
-          // bottomOffset={insets.bottom}
-          messages={messages}
-          isTyping={loadingChat}
-          onSend={(messages: any) => onSend(messages)}
-          renderInputToolbar={renderInputToolbar}
-          showUserAvatar
-          textInputProps={{
-            placeholder: strings.t("writeAMessage"),
-            color: Colors.white,
-          }}
-          renderBubble={(props: any) => (
-            <Bubble
-              {...props}
-              wrapperStyle={{
-                left: { backgroundColor: Colors.bgColor7 },
-                right: { backgroundColor: Colors.bgColor7 },
-              }}
-            />
-          )}
-          renderMessageText={(props: any) => (
-            <MessageText {...props} textStyle={{ left: { color: Colors.white } }} />
-          )}
-          user={{
-            _id: user?.id || 1,
-          }}
-        />
-      )}
-      <View style={{ height: 10, backgroundColor: Colors.bgColor2 }} />
-    </SafeAreaView>
-  );
+  return <ImageBackground source={require('@/assets/images/bg_home.png')} style={[styles.container, { paddingTop: insets.top }]}>
+    {messages?.length == 0 && (
+      <View style={{ paddingHorizontal: 16 }}>
+        <AnswerComponent answer={strings.t("chatLuna")} />
+      </View>
+    )}
+    {messages != undefined && (
+      <GiftedChat
+        bottomOffset={- (insets.bottom + 70)}
+        messages={messages}
+        isTyping={loadingChat}
+        onSend={(messages: IChatMessage[]) => onSend(messages)}
+        renderInputToolbar={renderInputToolbar}
+        showUserAvatar
+        textInputProps={[
+          { placeholder: strings.t("writeAMessage") },
+          TypeStyles.bodyText1
+        ]}
+        renderBubble={(props: any) => (
+          <Bubble
+            {...props}
+            wrapperStyle={{
+              left: [{ backgroundColor: "#357FE9BF", marginBottom: 8 }, styles.body],
+              right: [{ backgroundColor: Colors.white, marginBottom: 8 }, styles.body],
+            }}
+          />
+        )}
+        renderTime={(props: any) => <Time {...props} timeTextStyle={{ right: { color: Colors.black }, left: { color: Colors.gray } }} />}
+        renderMessageText={(props: any) => (
+          <MessageText {...props} textStyle={{ left: { color: Colors.white }, right: { color: Colors.black } }} />
+        )}
+        user={{
+          _id: user?.id || 1,
+        }}
+      />
+    )}
+    <View style={{ height: insets.bottom + 80, backgroundColor: 'transparent' }} />
+  </ImageBackground>
 }
 
 export default ChatScreen;
 
 const styles = StyleSheet.create({
+  body: {
+    shadowOffset: {
+      width: 6,
+      height: 6
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 12,
+    shadowColor: "#000",
+  },
   send: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -184,7 +198,6 @@ const styles = StyleSheet.create({
   },
   toolbar: {
     marginHorizontal: 16,
-    backgroundColor: Colors.bgColor7,
     alignContent: 'center',
     justifyContent: 'center',
     borderRadius: 12,
@@ -197,6 +210,5 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: Colors.bgColor2,
   },
 });

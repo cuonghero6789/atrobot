@@ -4,17 +4,18 @@ import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 interface Props {
-    placeholder: string;
+    placeholder?: string;
     name?: string;
     style?: any;
     onPress: () => void;
     text?: string | null;
+    styleName?: any;
 }
 
-const InfoButton = ({ placeholder, style, name, text, onPress }: Props) => {
+const InfoButton = ({ placeholder, style, name, text, onPress, styleName }: Props) => {
     return (
-        <View style={{ padding: 16 }}>
-            {name && <Text style={styles.name}>{name}</Text>}
+        <View style={[{ padding: 16 }, style]}>
+            {name && <Text style={[styles.name]}>{name}</Text>}
             <TouchableOpacity onPress={onPress}>
                 <LinearGradient
                     colors={['rgba(234, 255, 254, 0.7)', 'rgba(205, 201, 241, 0.7)']}
@@ -24,7 +25,7 @@ const InfoButton = ({ placeholder, style, name, text, onPress }: Props) => {
                         colors={['#FFFFFF', 'rgba(255, 255, 255, 0)']}
                         style={styles.borderOverlay}
                     />
-                    <Text style={text ? styles.text : styles.placeholder}>{text || placeholder}</Text>
+                    <Text style={[text ? styles.text : styles.placeholder, styleName]}>{text || placeholder}</Text>
                 </LinearGradient>
             </TouchableOpacity>
         </View>

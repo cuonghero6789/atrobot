@@ -7,8 +7,10 @@ import Colors from '@/styles/Colors';
 import TypeStyles from '@/styles/TypeStyle';
 import HomeCalendar from '@/components/home/HomeCalendar';
 import { HomeButton } from '@/components/home/HomeButton';
+import useSync from '@/hooks/useSync';
 const { width, height } = Dimensions.get('window');
 export default function DailyScreen() {
+  useSync();
   useEffect(() => {
     const location = async () => {
       const data = await getCurrentLocation();

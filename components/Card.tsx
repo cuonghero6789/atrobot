@@ -30,7 +30,7 @@ const Card = () => {
 const CardView = ({ contanerStyle }: CardProps) => {
     return <View style={[styles.gradientView, contanerStyle]}>
         <LinearGradient
-            colors={['#3C3B3BBF', '#357FE9BF']}
+            colors={["#395784BF", "#357FE9BF"]}
             style={{ flex: 1, borderRadius: 20, borderWidth: 2, borderColor: Colors.white }}
             start={{ x: 0.5, y: 0 }}
             end={{ x: 0.5, y: 1 }}
