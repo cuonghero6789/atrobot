@@ -16,20 +16,23 @@ const { width, height } = Dimensions.get('window');
 export default function DailyScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
-  const { onRefresh } = useSync();
+  const { onRefresh, updateCurrentLocation } = useSync();
   const [fromDate, setFromDate] = useState<string>(
     moment().format('YYYY-MM-DD').toString(),
   );
-  
+
   useWebSocket(() => {
-    alert("App active");
     onRefresh(fromDate);
   });
 
   useEffect(() => {
     const location = async () => {
       const data = await getCurrentLocation();
-      console.log(`data: ${JSON.stringify(data)}`);
+      console.log(`data current location: ${JSON.stringify(data)}`);
+      const coords = data?.coords;
+      if (coords) {
+        updateCurrentLocation(coords.latitude, coords.longitude);
+      }
     }
     location();
   }, []);
