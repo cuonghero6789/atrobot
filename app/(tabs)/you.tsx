@@ -83,7 +83,14 @@ export default function YouScreen() {
             {/* <InfoButton text={strings.t("profile")} onPress={() => { }} /> */}
             <Item text={strings.t("profile")}
                 style={{ paddingHorizontal: 16 }}
-                onPress={() => { }} />
+                onPress={() => { 
+                    router.push({
+                        pathname: '/UpdateInfo',
+                        params: {
+                            
+                        }
+                    })
+                }} />
             {/* <Item
                 text={strings.t("profile")}
                 onPress={() => {

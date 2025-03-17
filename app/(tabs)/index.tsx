@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import { getCurrentLocation } from '@/core/permission/Location';
 import { Image, ImageBackground } from 'expo-image';
@@ -8,9 +8,24 @@ import TypeStyles from '@/styles/TypeStyle';
 import HomeCalendar from '@/components/home/HomeCalendar';
 import { HomeButton } from '@/components/home/HomeButton';
 import useSync from '@/hooks/useSync';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
+import useWebSocket from '@/socket/Socket';
+import moment from 'moment';
 const { width, height } = Dimensions.get('window');
 export default function DailyScreen() {
-  useSync();
+  const insets = useSafeAreaInsets();
+  const router = useRouter();
+  const { onRefresh } = useSync();
+  const [fromDate, setFromDate] = useState<string>(
+    moment().format('YYYY-MM-DD').toString(),
+  );
+  
+  useWebSocket(() => {
+    alert("App active");
+    onRefresh(fromDate);
+  });
+
   useEffect(() => {
     const location = async () => {
       const data = await getCurrentLocation();
@@ -19,17 +34,29 @@ export default function DailyScreen() {
     location();
   }, []);
 
-  return <ImageBackground source={require('@/assets/images/bg_home.png')} style={{ flex: 1 }}>
+  return <ImageBackground source={require('@/assets/images/bg_home.png')} style={{ flex: 1, paddingTop: insets.top }}>
     <View style={styles.info}>
       <Text style={[TypeStyles.text, styles.text]}>{"Xin chào"}</Text>
       <Text style={[TypeStyles.textBold, styles.title]}>Daily Screen</Text>
     </View>
     <View style={styles.profile}>
-      <HomeButton text="Cá nhân" onPress={() => { }} />
+      <HomeButton text="Cá nhân" onPress={() => {
+        router.navigate({
+          pathname: "/personal",
+        })
+      }} />
       <View style={styles.starmates}>
-        <HomeButton text="StarMates" onPress={() => { }} />
+        <HomeButton text="StarMates" onPress={() => {
+          router.navigate({
+            pathname: "/starmates",
+          })
+        }} />
         <View style={styles.manifest}>
-          <HomeButton text="Manifest" onPress={() => { }} />
+          <HomeButton text="Manifest" onPress={() => {
+            router.navigate({
+              pathname: "/divine",
+            })
+          }} />
           <Image source={require('@/assets/images/bg_star.png')} style={{ width, height: width, position: 'absolute', marginTop: spacing.margin.big }} />
           <ScrollView style={{ flex: 1 }}>
             <View style={{ flexDirection: 'row', paddingBottom: spacing.padding.extraLarge, paddingTop: spacing.margin.bigx2 }}>
@@ -63,7 +90,6 @@ export default function DailyScreen() {
 
 const styles = StyleSheet.create({
   info: {
-    marginTop: spacing.margin.bigx3,
     marginBottom: spacing.margin.big,
     paddingHorizontal: spacing.padding.large
   },

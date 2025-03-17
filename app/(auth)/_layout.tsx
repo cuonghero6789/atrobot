@@ -8,7 +8,6 @@ export default function IndexScreen() {
     return <>
         <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen name="index" />
-            <Stack.Screen name="UpdateInfo" />
             <Stack.Screen name="UpdateLang" />
             <Stack.Screen name="TimeZonesScreen" />
         </Stack>

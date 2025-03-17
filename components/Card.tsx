@@ -7,7 +7,10 @@ import TypeStyles from '@/styles/TypeStyle';
 import { Image } from 'expo-image';
 import spacing from '@/styles/spacing';
 interface CardProps {
-    contanerStyle?: any
+    contanerStyle?: any,
+    style?: any,
+    description?: string,
+    textStyle?: any,
 }
 const Card = () => {
     return <LinearGradient
@@ -27,16 +30,16 @@ const Card = () => {
     </LinearGradient>
 };
 
-const CardView = ({ contanerStyle }: CardProps) => {
+const CardView = ({ contanerStyle, style, description, textStyle }: CardProps) => {
     return <View style={[styles.gradientView, contanerStyle]}>
         <LinearGradient
             colors={["#395784BF", "#357FE9BF"]}
-            style={{ flex: 1, borderRadius: 20, borderWidth: 2, borderColor: Colors.white }}
+            style={[{ flex: 1, borderRadius: 20, borderWidth: 2, borderColor: Colors.white }, style]}
             start={{ x: 0.5, y: 0 }}
             end={{ x: 0.5, y: 1 }}
         >
             <View style={{ flex: 1, padding: spacing.padding.large }}>
-                <Text style={[TypeStyles.subTitle1, { color: Colors.white }]}>{"Chào Quỳnh Anh, Bạn có dự định gì sắp tới không? Hãy để các vì sao tiết lộ điều gì đang chờ đón bạn! 😉"}</Text>
+                <Text style={[TypeStyles.subTitle1, { color: Colors.white }, textStyle]}>{description || "Chào Quỳnh Anh, Bạn có dự định gì sắp tới không? Hãy để các vì sao tiết lộ điều gì đang chờ đón bạn! 😉"}</Text>
             </View>
         </LinearGradient>
     </View>

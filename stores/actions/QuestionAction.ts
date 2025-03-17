@@ -1,5 +1,5 @@
-import {TopicModel} from '../../models/ItemModel';
-import {TopicsEnum} from '../../screens/data';
+import { TopicsEnum } from '@/data';
+import { TopicModel } from '../../models/ItemModel';
 
 export const setQuestions =
   (set: any, get: any) => async (_questions: string[], type: TopicsEnum) => {

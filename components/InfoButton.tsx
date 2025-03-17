@@ -14,17 +14,13 @@ interface Props {
 
 const InfoButton = ({ placeholder, style, name, text, onPress, styleName }: Props) => {
     return (
-        <View style={[{ padding: 16 }, style]}>
+        <View style={[{ paddingHorizontal: 16, paddingTop: 16 }, style]}>
             {name && <Text style={[styles.name]}>{name}</Text>}
             <TouchableOpacity onPress={onPress}>
                 <LinearGradient
-                    colors={['rgba(234, 255, 254, 0.7)', 'rgba(205, 201, 241, 0.7)']}
+                    colors={['#EAFFFEB3', '#CDC9F1B3']}
                     style={styles.gradientBackground}
                 >
-                    <LinearGradient
-                        colors={['#FFFFFF', 'rgba(255, 255, 255, 0)']}
-                        style={styles.borderOverlay}
-                    />
                     <Text style={[text ? styles.text : styles.placeholder, styleName]}>{text || placeholder}</Text>
                 </LinearGradient>
             </TouchableOpacity>
@@ -36,7 +32,7 @@ export default InfoButton;
 const styles = StyleSheet.create({
     gradientBackground: {
         padding: 20,
-        borderRadius: 10,
+        borderRadius: 5,
     },
     borderOverlay: {
         ...StyleSheet.absoluteFillObject,

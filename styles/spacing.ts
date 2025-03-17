@@ -27,6 +27,7 @@ export const padding = {
     large: 16,
     extraLarge: 24,
     big: 32,
+    bigx2: 64,
 };
 
 // Margin

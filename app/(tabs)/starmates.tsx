@@ -23,7 +23,7 @@ export default function StarMatesScreen() {
             <Text style={[TypeStyles.title, { color: Colors.black3 }]}>{"StarMates"}</Text>
             <Text style={[TypeStyles.bodyText1, { color: Colors.gray, textAlign: "center", marginTop: spacing.margin.small }]}>{"Xem diễn giải chiêm tinh của bạn\nvà người bạn quan tâm"}</Text>
         </View>
-        <LinearGradient colors={['#FFFFFFBF', '#032A51BF']} style={styles.profile}>
+        <LinearGradient colors={['#B9C3CEBF', '#032A51BF']} style={styles.profile}>
             {/* <View style={styles.profile}> */}
             <ScrollView contentContainerStyle={{ paddingTop: spacing.margin.bigx2, paddingBottom: spacing.margin.bigx2 * 2 }}>
                 <DropDownButton

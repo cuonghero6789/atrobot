@@ -8,6 +8,7 @@ interface Props {
   containerStyle?: any;
   buttonStyle?: any;
   textStyle?: any
+  icon?: any
 }
 const Button = ({ title, onPress, containerStyle, buttonStyle, textStyle }: Props) => {
   return (
@@ -21,10 +22,19 @@ const Button = ({ title, onPress, containerStyle, buttonStyle, textStyle }: Prop
     </TouchableOpacity>
   );
 };
-function BackButton({ onPress }: Props) {
-  return <TouchableOpacity onPress={onPress}>
+function BackButton({ onPress, containerStyle }: Props) {
+  return <TouchableOpacity onPress={onPress} style={containerStyle}>
     <Image source={require('@/assets/images/ic_back.png')}
       style={{ width: 56, height: 56, marginHorizontal: 16 }} />
+  </TouchableOpacity>
+}
+
+function ButtonIcon({ icon, onPress, containerStyle }: Props) {
+  return <TouchableOpacity onPress={onPress} style={containerStyle}>
+    <Image
+      contentFit='contain'
+      source={icon}
+      style={{ width: 65, height: 65 }} />
   </TouchableOpacity>
 }
 
@@ -54,4 +64,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { Button, BackButton };
+export { Button, BackButton, ButtonIcon };

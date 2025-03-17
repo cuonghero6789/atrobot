@@ -122,7 +122,7 @@ function ChatScreen() {
             containerStyle={{
               alignContent: 'center',
               alignItems: 'center',
-              justifyContent: 'center',
+              justifyContent: 'center'
             }}>
             <View style={styles.send}>
               <Image
@@ -159,12 +159,12 @@ function ChatScreen() {
           <Bubble
             {...props}
             wrapperStyle={{
-              left: [{ backgroundColor: "#357FE9BF", marginBottom: 8 }, styles.body],
-              right: [{ backgroundColor: Colors.white, marginBottom: 8 }, styles.body],
+              left: [{ backgroundColor: "#385F97", marginBottom: 8 }, styles.body],
+              right: [{ backgroundColor: "#DAE2F7", marginBottom: 8 }, styles.body],
             }}
           />
         )}
-        renderTime={(props: any) => <Time {...props} timeTextStyle={{ right: { color: Colors.black }, left: { color: Colors.gray } }} />}
+        renderTime={(props: any) => <Time {...props} timeTextStyle={{ right: { color: Colors.black }, left: { color: Colors.white } }} />}
         renderMessageText={(props: any) => (
           <MessageText {...props} textStyle={{ left: { color: Colors.white }, right: { color: Colors.black } }} />
         )}

@@ -18,6 +18,7 @@ import { AuthAction } from "@/stores/interfaces/IAuthState";
 import strings from "@/localization";
 import { getCalendars } from "expo-localization";
 import { router } from "expo-router";
+import { BackButton } from "@/components/Button";
 const { width } = Dimensions.get('screen');
 const SIZE_SUN = width - 100;
 
@@ -90,6 +91,7 @@ export default function UpdateInfoScreen() {
             style={{ flex: 1 }}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <View style={styles.icon}>
+                <BackButton onPress={() => router.back()} containerStyle={{ position: 'absolute', top: 0, left: 0 }} />
                 <Image source={require('@/assets/images/ic_logo.png')} style={{ width: 88, height: 88 }} />
             </View>
             <LinearGradient

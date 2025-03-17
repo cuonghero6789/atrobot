@@ -19,13 +19,9 @@ const Input = ({ placeholder, style, name, onChangeText, text }: Props) => {
         <View style={{ paddingTop: spacing.padding.large, paddingHorizontal: spacing.padding.large }}>
             {name && <Text style={[TypeStyles.bodyTextBold, styles.text]}>{name}</Text>}
             <LinearGradient
-                colors={['rgba(234, 255, 254, 0.7)', 'rgba(205, 201, 241, 0.7)']}
+                colors={['#EAFFFEB3', '#CDC9F1B3']}
                 style={styles.gradientBackground}
             >
-                <LinearGradient
-                    colors={['#FFFFFF', 'rgba(255, 255, 255, 0)']}
-                    style={styles.borderOverlay}
-                />
                 <TextInput
                     style={[isFocused && styles.inputFocus]}
                     placeholder={placeholder}

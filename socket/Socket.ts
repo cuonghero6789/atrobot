@@ -7,8 +7,8 @@ import useDailyStore from '@/stores/DailyStore';
 import usePlanetStore from '@/stores/PlanetStore';
 import useQuestionStore from '@/stores/QuestionStore';
 import useYouStore from '@/stores/YouStore';
-import { useRef, useEffect, useState, useCallback } from 'react';
-import { AppState, AppStateStatus, Alert } from 'react-native';
+import { useRef, useEffect, useState } from 'react';
+import { AppState, AppStateStatus } from 'react-native';
 import { useRouter } from 'expo-router';
 enum OP {
   ASTRO_ME = 'astro_me',
@@ -19,7 +19,7 @@ enum OP {
   ASTRO_BOT = 'astro_bot',
   ASTRO_ME_DOMINANT = 'astro_me_dominant',
 }
-const useWebSocket = (onAppActive: () => void) => {
+export default function useWebSocket(onAppActive: () => void) {
   const router = useRouter();
   const actionPlanet = usePlanetStore(state => state.actions);
   const actionsQuestion = useQuestionStore(state => state.actions);
@@ -124,8 +124,4 @@ const useWebSocket = (onAppActive: () => void) => {
       subscription.remove();
     };
   }, [appState]);
-
-  return { openWebSocket, closeWebSocket };
 };
-
-export default useWebSocket;

@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import Colors from './Colors';
 const TypeStyles = StyleSheet.create({
     text: {
         fontFamily: 'Montserrat-Regular',
@@ -8,7 +9,8 @@ const TypeStyles = StyleSheet.create({
     textBold: {
         fontFamily: 'Montserrat-Bold',
         lineHeight: 28,
-        fontSize: 16
+        fontSize: 16,
+        color: Colors.black3
     },
     text1: {
         fontFamily: 'Montserrat-Regular',
@@ -26,7 +28,8 @@ const TypeStyles = StyleSheet.create({
         fontFamily: 'Montserrat-Bold',
         lineHeight: 24,
         fontSize: 14,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: Colors.black3
     },
     textBold3: {
         fontFamily: 'Montserrat-Bold',
