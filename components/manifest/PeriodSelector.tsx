@@ -1,0 +1,100 @@
+import { StyleSheet, Text, TouchableOpacity, View, Animated, Dimensions } from 'react-native';
+import TypeStyles from '@/styles/TypeStyle';
+import spacing from '@/styles/spacing';
+import { useEffect, useRef } from 'react';
+
+type PeriodSelectorProps = {
+    selectedPeriod: 'week' | 'month';
+    onPeriodChange: (period: 'week' | 'month') => void;
+};
+
+export const PeriodSelector = ({ selectedPeriod, onPeriodChange }: PeriodSelectorProps) => {
+    const translateX = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+        Animated.spring(translateX, {
+            toValue: selectedPeriod === 'week' ? 0 : 1,
+            useNativeDriver: true,
+            tension: 50,
+            friction: 8,
+        }).start();
+    }, [selectedPeriod]);
+
+    const animatedStyle = {
+        transform: [{
+            translateX: translateX.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, (width / 2) - spacing.padding.large],
+            })
+        }]
+    };
+
+    return (
+        <View style={styles.periodContainer}>
+            <Animated.View style={[styles.animatedBackground, animatedStyle]} />
+            <TouchableOpacity
+                style={[styles.periodTab]}
+                onPress={() => onPeriodChange('week')}
+            >
+                <Text style={[
+                    styles.periodText,
+                    TypeStyles.textBold3,
+                ]}>{"Tuần này"}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={[styles.periodTab]}
+                onPress={() => onPeriodChange('month')}
+            >
+                <Text style={[
+                    styles.periodText,
+                    TypeStyles.textBold3,
+                ]}>{"Tháng này"}</Text>
+            </TouchableOpacity>
+        </View>
+    );
+};
+
+const { width } = Dimensions.get('window');
+const TAB_WIDTH = (width - (spacing.padding.large * 2)) / 2;
+
+const styles = StyleSheet.create({
+    periodContainer: {
+        marginHorizontal: spacing.padding.large,
+        flexDirection: 'row',
+        backgroundColor: '#D9D9D9',
+        borderRadius: 15,
+        marginVertical: spacing.padding.large,
+        shadowColor: '#D9D9D9',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    periodTab: {
+        flex: 1,
+        paddingVertical: 6,
+        paddingHorizontal: 16,
+        borderRadius: 15,
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1,
+    },
+    animatedBackground: {
+        position: 'absolute',
+        width: TAB_WIDTH,
+        height: '100%',
+        backgroundColor: '#74A7EE',
+        borderRadius: 15,
+    },
+    periodText: {
+        ...TypeStyles.text,
+        color: '#fff',
+    },
+    periodTextActive: {
+        color: '#fff',
+        fontWeight: '600',
+    },
+}); 

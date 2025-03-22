@@ -1,13 +1,14 @@
 import { BackButton, ButtonIcon } from "@/components/Button";
 import { CardView } from "@/components/Card";
 import { Distribution, InfoChartProperties } from "@/components/personal/distribution";
+import { PeriodSelector } from "../components/manifest/PeriodSelector";
 import Colors from "@/styles/Colors";
 import spacing from "@/styles/spacing";
 import TypeStyles from "@/styles/TypeStyle";
 import { ImageBackground } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
-import { memo } from "react";
+import { memo, useState } from "react";
 import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 import {
     PieChart,
@@ -22,6 +23,7 @@ const SIZE = width / 3;
 function PersonalScreen() {
     const router = useRouter();
     const insets = useSafeAreaInsets();
+
     const data = [
         { value: 50, color: '#90D3FF8F', text: 'Đất' }, // Earth
         { value: 20, color: '#3589E9EB', text: 'Nước' }, // Water
@@ -188,7 +190,6 @@ Một điểm mạnh lớn của Xử Nữ là khả năng phân tích. Bạn c�
                 </View>
             </ScrollView>
         </LinearGradient>
-
     </ImageBackground>
 }
 

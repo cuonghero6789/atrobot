@@ -1,15 +1,18 @@
 import CustomCarousel from "@/components/Carousel";
 import { HomeButtonBackground } from "@/components/home/HomeButton";
 import ManifestDays from "@/components/manifest/ManifestDays";
+import { PeriodSelector } from "@/components/manifest/PeriodSelector";
 import Colors from "@/styles/Colors";
 import spacing from "@/styles/spacing";
 import TypeStyles from "@/styles/TypeStyle";
 import { ImageBackground } from "expo-image";
 import { useRouter } from "expo-router";
+import { useState } from "react";
 import { StyleSheet, View, Text, ScrollView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function DivineScreen() {
+    const [selectedPeriod, setSelectedPeriod] = useState<'week' | 'month'>('week');
     const router = useRouter();
     const insets = useSafeAreaInsets();
     return <ImageBackground source={require('@/assets/images/bg_manifest.png')} style={{ flex: 1 }}>
@@ -22,7 +25,11 @@ export default function DivineScreen() {
                 <View style={{ paddingHorizontal: spacing.padding.big, paddingTop: spacing.margin.bigx2 }}>
                     <Text style={[TypeStyles.subTitle2, { color: Colors.white, textAlign: 'center' }]}>{"Khi bạn biến vô thức thành ý thức, nó sẽ định hình cuộc đời bạn và bạn sẽ gọi đó là số phận."}</Text>
                 </View>
-                <ManifestDays />
+                {/* <ManifestDays /> */}
+                <PeriodSelector 
+                  selectedPeriod={selectedPeriod}
+                  onPeriodChange={setSelectedPeriod}
+                 />
                 <CustomCarousel />
                 <View style={{ height: spacing.margin.large }} />
                 <HomeButtonBackground text="Tương lai của bạn" subText="thế nào" onPress={() => {
