@@ -5,49 +5,53 @@ import { useMutation, useQuery } from "@apollo/client";
 import { useCallback, useEffect } from "react";
 
 export default function useSync() {
-    const [AstroDaily, { data, loading, error }] = useMutation(ASTROME_DAILY);
-    const [
-        AstroQuote,
-        { data: dataQuote, loading: loadingQuote, error: errorQuote },
-    ] = useMutation(ASTROME_QUOTE);
-    const [
-        AstroMeDominant,
-        { data: astroMeDominant, loading: loadingMeDominant, error: errorMeDominant },
-    ] = useMutation(ASTROME_DOMINANT);
-    const {
-        data: dataMessage,
-        loading: loadingMessage,
-        error: errorMessage,
-        refetch: refetchAccount,
-    } = useQuery(CHATS);
-    const actionChat = useChatStore(state => state.actions);
+  const [AstroDaily, { data, loading: loadingAstroDaily, error }] = useMutation(ASTROME_DAILY);
+  const [
+    AstroQuote,
+    { data: dataQuote, loading: loadingQuote, error: errorQuote },
+  ] = useMutation(ASTROME_QUOTE);
+  const [
+    AstroMeDominant,
+    { data: astroMeDominant, loading: loadingMeDominant, error: errorMeDominant },
+  ] = useMutation(ASTROME_DOMINANT);
+  const {
+    data: dataMessage,
+    loading: loadingMessage,
+    error: errorMessage,
+    refetch: refetchAccount,
+  } = useQuery(CHATS);
+  const actionChat = useChatStore(state => state.actions);
 
-    const [
-        UpdateLocationInfo,
-        { data: dataLocation, loading: loadingLocation, error: errorLocation },
-      ] = useMutation(UPDATE_LOCATION_INFO);
+  const [
+    UpdateLocationInfo,
+    { data: dataLocation, loading: loadingLocation, error: errorLocation },
+  ] = useMutation(UPDATE_LOCATION_INFO);
 
-    useEffect(() => {
-        if (dataMessage?.chats?.length > 0) {
-            actionChat.setChats(dataMessage?.chats);
-        }
-    }, [dataMessage]);
-
-    const updateCurrentLocation = useCallback((latitude: number, longitude: number) => {
-        UpdateLocationInfo({
-          variables: {
-            lat: latitude,
-            lng: longitude,
-          },
-        });
-      }, [UpdateLocationInfo]);
-      
-    const onRefresh = (fromDate: string) => {
-        AstroDaily({ variables: { from_date: fromDate } });
-        AstroQuote({ variables: { from_date: fromDate } });
-        AstroMeDominant({ variables: {} });
-        refetchAccount();
+  useEffect(() => {
+    if (dataMessage?.chats?.length > 0) {
+      actionChat.setChats(dataMessage?.chats);
     }
+  }, [dataMessage]);
 
-    return { onRefresh, updateCurrentLocation };
+  const updateCurrentLocation = useCallback((latitude: number, longitude: number) => {
+    UpdateLocationInfo({
+      variables: {
+        lat: latitude,
+        lng: longitude,
+      },
+    });
+  }, [UpdateLocationInfo]);
+
+  const onRefresh = (fromDate: string) => {
+    AstroDaily({ variables: { from_date: fromDate } });
+    AstroQuote({ variables: { from_date: fromDate } });
+    AstroMeDominant({ variables: {} });
+    refetchAccount();
+  }
+
+  const getAstroDaily = (fromDate: string) => {
+    AstroDaily({ variables: { from_date: fromDate } });
+  }
+
+  return { onRefresh, updateCurrentLocation, getAstroDaily, loadingAstroDaily, loadingQuote, loadingMeDominant, loadingMessage, loadingLocation };
 }

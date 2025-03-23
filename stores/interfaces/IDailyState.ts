@@ -20,5 +20,9 @@ export interface IDailyState {
     setScores: (_scores: ScoreModel[], from_date: string) => void;
     setQuote: (_quote: string, from_date: string) => void;
     setEvents: (_events: string[], from_date: string) => void;
+    getCacheScores: () => void;
+    getCacheQuote: () => void;
+    getCacheEvents: () => void;
+    getCacheDaily: () => void;
   };
 }

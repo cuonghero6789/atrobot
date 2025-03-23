@@ -6,13 +6,29 @@ import { CAROUSEL_HEIGHT, CAROUSEL_WIDTH } from './Carousel';
 import TypeStyles from '@/styles/TypeStyle';
 import { Image } from 'expo-image';
 import spacing from '@/styles/spacing';
+const images = {
+    emotion: require('@/assets/images/daily/ic_heath.svg'),
+    career: require('@/assets/images/daily/ic_career.svg'),
+    love: require('@/assets/images/daily/ic_love.svg'),
+    money: require('@/assets/images/daily/ic_finance.svg'),
+};
+
+import { DailyModel, ScoreModel } from '@/models/ItemModel';
+import strings from '@/localization';
 interface CardProps {
+    daily: DailyModel,
     contanerStyle?: any,
     style?: any,
     description?: string,
     textStyle?: any,
+    score?: ScoreModel,
 }
-const Card = () => {
+
+const Card = ({ daily, score }: CardProps) => {
+    const { key, text } = daily || {};
+    const imageToDisplay = images[key as keyof typeof images] || images.emotion;
+    const label = strings.t(`daily_${key}`) ?? "SỰ NGHIỆP";
+
     return <LinearGradient
         colors={['rgba(45, 121, 229, 0.52)', 'rgba(39, 72, 119, 0.72)']}
         style={styles.gradient}
@@ -21,11 +37,11 @@ const Card = () => {
     >
         <View style={[styles.card]}>
             <View style={{ alignItems: 'center' }}>
-                <Image source={require('@/assets/images/ic_carier.png')} style={{ width: 43, height: 43 }} />
-                <Text style={[TypeStyles.btnSecondary, { color: Colors.white }]}>{"SỰ NGHIỆP"}</Text>
-                <Text style={[TypeStyles.subTitle, { color: Colors.white }]}>{"2/5"}</Text>
+                <Image source={imageToDisplay ?? require('@/assets/images/ic_carier.png')} style={{ width: 43, height: 43 }} />
+                <Text style={[TypeStyles.btnSecondary, { color: Colors.white }]}>{`${label}`}</Text>
+                <Text style={[TypeStyles.subTitle, { color: Colors.white }]}>{`${score?.score}`}</Text>
             </View>
-            <Text style={[TypeStyles.bodyText3, styles.text]}>{"Mặt trăng 120 độ sao Thủy, Xử Nữ không nên đưa ra những lời chỉ trích quá gay gắt đối với những người thân thiết của mình."}</Text>
+            <Text style={[TypeStyles.bodyText3, styles.text]}>{text}</Text>
         </View>
     </LinearGradient>
 };

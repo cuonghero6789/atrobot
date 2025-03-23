@@ -1,5 +1,5 @@
 import { createStore } from '@/core/utils/StoreUtil';
-import { setDaily, setEvents, setQuote, setScores } from './actions/DailyAction';
+import { getCacheDaily, getCacheEvents, getCacheQuote, getCacheScores, setDaily, setEvents, setQuote, setScores } from './actions/DailyAction';
 import { IDailyState } from './interfaces/IDailyState';
 
 const initState: Omit<IDailyState, 'actions'> = {
@@ -18,6 +18,10 @@ const dailyStore = (set: any, get: any) =>
     setQuote: setQuote(set, get),
     setScores: setScores(set, get),
     setEvents: setEvents(set, get),
+    getCacheScores: getCacheScores(set, get),
+    getCacheQuote: getCacheQuote(set, get),
+    getCacheEvents: getCacheEvents(set, get),
+    getCacheDaily: getCacheDaily(set, get),
   },
 } as IDailyState);
 

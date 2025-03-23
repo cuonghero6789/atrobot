@@ -1,4 +1,4 @@
-import {TopicsEnum} from '../screens/data';
+import { TopicsEnum } from "@/data";
 
 export interface ItemPickerModel {
   label: string;

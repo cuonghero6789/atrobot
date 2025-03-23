@@ -5,6 +5,8 @@ import spacing from '@/styles/spacing';
 import Colors from '@/styles/Colors';
 import { useSharedValue } from 'react-native-reanimated';
 import { Card } from './Card';
+import { DailyModel, ScoreModel } from '@/models/ItemModel';
+import { MyLoader, SkeletonLoader } from './loading/LoadingView';
 
 const { width } = Dimensions.get('window');
 
@@ -20,7 +22,13 @@ const data = [
 export const CAROUSEL_HEIGHT = 171;
 export const CAROUSEL_WIDTH = width - 32;
 
-const CustomCarousel = () => {
+interface Props {
+    daily: DailyModel[];
+    scores: ScoreModel[];
+}
+
+const CustomCarousel = ({ daily, scores }: Props) => {
+
     const progress = useSharedValue<number>(0);
     const baseOptions = {
         vertical: false,
@@ -39,20 +47,22 @@ const CustomCarousel = () => {
         });
     };
 
+    if (!daily) return <SkeletonLoader />;
+
     return (
         <View style={styles.container}>
             <Carousel
                 ref={ref}
                 {...baseOptions}
                 onProgressChange={progress}
-                data={data}
+                data={daily}
                 renderItem={({ item }) => (
-                    <Card />
+                    <Card daily={item} score={scores?.find(score => score.key === item.key)} />
                 )}
             />
             <Pagination.Basic
                 progress={progress}
-                data={data}
+                data={daily}
                 dotStyle={{ backgroundColor: "#FFFFFF4D", width: 6, height: 6, borderRadius: 3 }}
                 activeDotStyle={{ backgroundColor: Colors.white }}
                 containerStyle={{ gap: 5, position: 'absolute', bottom: 8 }}
