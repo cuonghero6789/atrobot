@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { DailyModel, ScoreModel } from '../../models/ItemModel';
+import { AtroDailyModel, AtroDailyMonthlyModel, ScoreModel } from '../../models/ItemModel';
 import { IDailyState } from '../interfaces/IDailyState';
 
 export const getCacheScores = (set: any, get: any) => async () => {
@@ -40,12 +40,12 @@ export const setScores =
 
 export const getCacheDaily = (set: any, get: any) => async () => {
   try {
-    const value = await AsyncStorage.getItem('dailys');
+    const value = await AsyncStorage.getItem('weekly');
     if (value) {
-      const dailys = JSON.parse(value);
+      const weekly = JSON.parse(value);
       set(
         (state: IDailyState) => {
-          state.dailys = dailys;
+          state.weekly = weekly;
         },
         false,
         'getCacheDailySuccess',
@@ -56,68 +56,64 @@ export const getCacheDaily = (set: any, get: any) => async () => {
   }
 };
 
-export const setDaily =
-  (set: any, get: any) => async (_daily: DailyModel[], from_date: string) => {
-    const { dailys } = get();
-    const formatdailys = { ...dailys, [from_date]: _daily };
-    AsyncStorage.setItem('dailys', JSON.stringify(formatdailys));
+export const setMonthly =
+  (set: any, get: any) => async (monthly: AtroDailyMonthlyModel) => {
+    AsyncStorage.setItem('monthly', JSON.stringify(monthly));
     try {
       set(
         (state: IDailyState) => {
-          state.dailys = formatdailys;
+          state.monthly = monthly;
+        },
+        false,
+        'setMonthlySuccess',
+      );
+    } catch (error: any) {
+      console.log('setMonthly error:', error.message);
+    }
+  };
+
+export const setDaily =
+  (set: any, get: any) => async (weekly: AtroDailyModel) => {
+    AsyncStorage.setItem('weekly', JSON.stringify(weekly));
+    try {
+      set(
+        (state: IDailyState) => {
+          state.weekly = weekly;
         },
         false,
         'setDailySuccess',
       );
     } catch (error: any) {
-      console.log('Login error:', error.message);
+      console.log('setDaily error:', error.message);
     }
   };
 
-export const getCacheEvents = (set: any, get: any) => async () => {
+export const getCacheMonthly = (set: any, get: any) => async () => {
   try {
-    const value = await AsyncStorage.getItem('events');
+    const value = await AsyncStorage.getItem('monthly');
     if (value) {
-      const events = JSON.parse(value);
+      const monthly = JSON.parse(value);
       set(
         (state: IDailyState) => {
-          state.events = events;
+          state.monthly = monthly;
         },
         false,
-        'getCacheEventsSuccess',
+        'getCacheMonthlySuccess',
       );
     }
   } catch (error: any) {
-    console.log('getCacheEvents error:', error.message);
+    console.log('getCacheMonthly error:', error.message);
   }
 };
 
-export const setEvents =
-  (set: any, get: any) => async (_events: string[], from_date: string) => {
-    const { events } = get();
-    const formatEvent = { ...events, [from_date]: _events };
-    AsyncStorage.setItem('events', JSON.stringify(formatEvent));
-    try {
-      set(
-        (state: IDailyState) => {
-          state.events = formatEvent;
-        },
-        false,
-        'setEventsSuccess',
-      );
-    } catch (error: any) {
-      console.log('Events error:', error.message);
-    }
-  };
-
 export const getCacheQuote = (set: any, get: any) => async () => {
   try {
-    const value = await AsyncStorage.getItem('quotes');
+    const value = await AsyncStorage.getItem('quote');
     if (value) {
-      const quotes = JSON.parse(value);
+      const quote = JSON.parse(value);
       set(
         (state: IDailyState) => {
-          state.quotes = quotes;
+          state.quote = quote;
         },
         false,
         'getCacheQuoteSuccess',
@@ -129,19 +125,17 @@ export const getCacheQuote = (set: any, get: any) => async () => {
 };
 
 export const setQuote =
-  (set: any, get: any) => async (_quote: string, from_date: string) => {
-    const { quotes } = get();
-    const formatQuote = { ...quotes, [from_date]: _quote };
-    AsyncStorage.setItem('quotes', JSON.stringify(formatQuote));
+  (set: any, get: any) => async (quote: string) => {
+    AsyncStorage.setItem('quote', JSON.stringify(quote));
     try {
       set(
         (state: IDailyState) => {
-          state.quotes = formatQuote;
+          state.quote = quote;
         },
         false,
         'setQuoteSuccess',
       );
     } catch (error: any) {
-      console.log('Login error:', error.message);
+      console.log('setQuote error:', error.message);
     }
   };

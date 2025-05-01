@@ -2,7 +2,7 @@ import CustomCarousel from "@/components/Carousel";
 import CustomButton from "@/components/CustomButton";
 import DropDownButton from "@/components/DropDownButton";
 import { HomeButtonBackground } from "@/components/home/HomeButton";
-import Input from "@/components/Input";
+import { CustomInput, Input } from "@/components/Input";
 import ManifestDays from "@/components/manifest/ManifestDays";
 import Colors from "@/styles/Colors";
 import spacing from "@/styles/spacing";
@@ -10,7 +10,7 @@ import TypeStyles from "@/styles/TypeStyle";
 import { ImageBackground } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
-import { StyleSheet, View, Text, ScrollView, Alert } from "react-native";
+import { StyleSheet, View, Text, ScrollView, Alert, KeyboardAvoidingView, Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function StarMatesScreen() {
@@ -23,30 +23,34 @@ export default function StarMatesScreen() {
             <Text style={[TypeStyles.title, { color: Colors.black3 }]}>{"StarMates"}</Text>
             <Text style={[TypeStyles.bodyText1, { color: Colors.gray, textAlign: "center", marginTop: spacing.margin.small }]}>{"Xem diễn giải chiêm tinh của bạn\nvà người bạn quan tâm"}</Text>
         </View>
-        <LinearGradient colors={['#B9C3CEBF', '#032A51BF']} style={styles.profile}>
+        <LinearGradient colors={['#C7D0D8BF', '#254668BF']} style={styles.profile}>
             {/* <View style={styles.profile}> */}
-            <ScrollView contentContainerStyle={{ paddingTop: spacing.margin.bigx2, paddingBottom: spacing.margin.bigx2 * 2 }}>
-                <DropDownButton
-                    title="Chọn người muốn xem"
-                    styleContainer={{ paddingHorizontal: spacing.padding.large }}
-                    styleTitle={[TypeStyles.title, { color: Colors.white }]}
-                    placeholder="Select here" onPress={() => { }} />
-                <View style={{ paddingHorizontal: spacing.padding.large, paddingTop: spacing.margin.big }}>
-                    <Text style={[TypeStyles.title, { color: Colors.white }]}>{"Hoặc xem cho người khác nữa!"}</Text>
-                </View>
-                <Input placeholder="Tên/Biệt danh*" name="Tên/Biệt danh*" text={""} onChangeText={(text) => { }} />
-                <Input placeholder="Ngày sinh*" name="Ngày sinh*" text={""} onChangeText={(text) => { }} />
-                <Input placeholder="Giờ sinh*" name="Giờ sinh*" text={""} onChangeText={(text) => { }} />
-                <Input placeholder="Nơi sinh*" name="Nơi sinh*" text={""} onChangeText={(text) => { }} />
-                <Input placeholder="Loại mối quan hệ*" name="Loại mối quan hệ*" text={""} onChangeText={(text) => { }} />
-                <CustomButton container={styles.btnConfirm} text={styles.btnText} title="Xong rồi" onPress={() => {
-                    if (isEnabled) {
-                    } else {
-                        Alert.alert('Hi!', "Please fill in your information!");
-                    }
-                }} />
-            </ScrollView>
-            {/* </View> */}
+            <KeyboardAvoidingView
+                style={{ flex: 1 }}
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+                <ScrollView contentContainerStyle={{ paddingTop: spacing.margin.bigx2, paddingBottom: spacing.margin.bigx2 * 2 }}>
+                    <DropDownButton
+                        title="Chọn người muốn xem"
+                        styleContainer={{ paddingHorizontal: spacing.padding.large}}
+                        styleTitle={[TypeStyles.title, { color: Colors.white }]}
+                        placeholder="Select here" onPress={() => { }} />
+                    <View style={{ paddingHorizontal: spacing.padding.large, paddingTop: spacing.margin.big }}>
+                        <Text style={[TypeStyles.title, { color: Colors.white }]}>{"Hoặc xem cho người khác nữa!"}</Text>
+                    </View>
+                    <CustomInput placeholder="Tên/Biệt danh*" name="Tên/Biệt danh*" text={""} onChangeText={(text) => { }} />
+                    <CustomInput placeholder="Ngày sinh*" name="Ngày sinh*" text={""} onChangeText={(text) => { }} />
+                    <CustomInput placeholder="Giờ sinh*" name="Giờ sinh*" text={""} onChangeText={(text) => { }} />
+                    <CustomInput placeholder="Nơi sinh*" name="Nơi sinh*" text={""} onChangeText={(text) => { }} />
+                    <CustomInput placeholder="Loại mối quan hệ*" name="Loại mối quan hệ*" text={""} onChangeText={(text) => { }} />
+                    <CustomButton container={styles.btnConfirm} text={styles.btnText} title="Xong rồi" onPress={() => {
+                        if (isEnabled) {
+                        } else {
+                            Alert.alert('Hi!', "Please fill in your information!");
+                        }
+                    }} />
+                </ScrollView>
+                {/* </View> */}
+            </KeyboardAvoidingView>
         </LinearGradient>
     </ImageBackground>
 }

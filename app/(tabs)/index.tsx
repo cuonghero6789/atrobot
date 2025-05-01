@@ -12,14 +12,33 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import useWebSocket from '@/socket/Socket';
 import moment from 'moment';
+import useDailyStore from '@/stores/DailyStore';
+import AtroHtml from '@/components/AtroHtml';
+import { SkeletonLoaderEvent } from '@/components/loading/LoadingView';
 const { width, height } = Dimensions.get('window');
 export default function DailyScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const weekly = useDailyStore(state => state.weekly);
+  const actions = useDailyStore(state => state.actions);
+
   const { onRefresh, updateCurrentLocation } = useSync();
   const [fromDate, setFromDate] = useState<string>(
     moment().format('YYYY-MM-DD').toString(),
   );
+
+  useEffect(()=>{
+    actions.getCacheScores();
+    actions.getCacheQuote();
+    actions.getCacheMonthly();
+    actions.getCacheDaily();
+  },[]);
+  // init app
+  useEffect(()=> {
+    if(fromDate) {
+      onRefresh(fromDate);
+    }
+  },[fromDate]);
 
   useWebSocket(() => {
     onRefresh(fromDate);
@@ -67,21 +86,20 @@ export default function DailyScreen() {
                 <HomeCalendar />
               </View>
               <View style={{ padding: spacing.padding.large, flex: 1 }}>
-                <Text style={[TypeStyles.subTitle, { color: Colors.white }]}>{"Mặt trăng vuông góc sao Thủy"}</Text>
-                <Text style={[TypeStyles.bodyText, { color: Colors.white, marginTop: spacing.margin.large }]}>{"Mặt trăng 120 độ sao Thủy, Xử Nữ không nên đưa ra những lời chỉ trích quá gay gắt đối với những người thân thiết của mình. Mặt trăng 120 độ sao Thủy, Xử Nữ không nên đưa ra những lời chỉ trích quá gay gắt đối với những người thân thiết của mình."}</Text>
+                {weekly?.events?.[0] ? <AtroHtml desc={weekly?.events?.[0] || ""} /> : <SkeletonLoaderEvent />}
               </View>
             </View>
             <View style={{ backgroundColor: '#B2D1FDBF', flex: 1, flexDirection: 'row', padding: spacing.padding.large }}>
               <View style={{ flex: 1 }}>
                 <Text style={[TypeStyles.subTitle1, { color: Colors.green }]}>{"Nên"}</Text>
-                <Text style={[TypeStyles.bodyText, { color: Colors.black4, lineHeight: 18, marginTop: spacing.margin.large, marginRight: spacing.margin.large }]}>{"Mặt trăng 120 độ sao Thủy, Xử Nữ không nên đưa ra những lời chỉ trích quá gay gắt đối với những người thân thiết của mình."}</Text>
+                <Text style={[TypeStyles.bodyText, { color: Colors.black4, lineHeight: 18, marginTop: spacing.margin.large, marginRight: spacing.margin.large }]}>{weekly.horoscope_do?.[0]}</Text>
               </View>
               <View style={{ paddingTop: spacing.padding.extraLarge }}>
                 <Image source={require('@/assets/images/ic_line.png')} style={{ width: 2, height: '100%' }} />
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={[TypeStyles.subTitle1, { color: Colors.green, textAlign: 'right' }]}>{"Không nên"}</Text>
-                <Text style={[TypeStyles.bodyText, { color: Colors.black4, lineHeight: 18, marginLeft: spacing.margin.large, marginTop: spacing.margin.large, textAlign: 'right' }]}>{"Mặt trăng 120 độ sao Thủy, Xử Nữ không nên đưa ra những lời chỉ trích quá gay gắt đối với những người thân thiết của mình."}</Text>
+                <Text style={[TypeStyles.bodyText, { color: Colors.black4, lineHeight: 18, marginLeft: spacing.margin.large, marginTop: spacing.margin.large, textAlign: 'right' }]}>{weekly.horoscope_dont?.[0]}</Text>
               </View>
             </View>
           </ScrollView>

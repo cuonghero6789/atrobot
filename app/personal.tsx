@@ -17,12 +17,15 @@ import {
 } from 'react-native-gifted-charts';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { LineChart } from 'react-native-gifted-charts';
+import { GET_SUBJECT } from "@/apollo/query";
+import { useQuery } from "@apollo/client";
 const { width } = Dimensions.get('window');
 const SIZE = width / 3;
 
 function PersonalScreen() {
     const router = useRouter();
     const insets = useSafeAreaInsets();
+    const { data: dataSubject, loading, error, refetch } = useQuery(GET_SUBJECT);
 
     const data = [
         { value: 50, color: '#90D3FF8F', text: 'Đất' }, // Earth

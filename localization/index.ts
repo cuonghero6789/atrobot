@@ -75,6 +75,7 @@ let strings = new I18n({
     daily_love: 'Love',
     daily_career: 'Career',
     daily_money: 'Money',
+    daily_heath: 'Health',
     text_choose_language: 'Please choose your language',
     txt_choose_a_lang: 'Choose a language',
     continue: 'Continue',
@@ -109,6 +110,7 @@ let strings = new I18n({
     linkFacebook: "Follow Us on Facebook"
   },
   vi: {
+    daily_heath: 'Sức khỏe',
     you: 'Cá Nhân',
     daily: 'Hàng ngày',
     divine: 'Cosmic Plan',

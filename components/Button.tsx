@@ -40,7 +40,7 @@ function ButtonIcon({ icon, onPress, containerStyle }: Props) {
 
 const styles = StyleSheet.create({
   wrapper: {
-    height: 48,
+    minHeight: 48,
     borderRadius: 20,
     overflow: 'hidden', // Ensures border radius is applied correctly
   },

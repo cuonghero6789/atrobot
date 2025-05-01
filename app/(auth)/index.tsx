@@ -92,12 +92,12 @@ export default function IndexScreen() {
     }, [dataAccount, user]);
 
     const onGoogleLogin = useCallback(async () => {
-        global.loadingRef.current?.show();
         const token = await FireBaseAuth.onGoogleLogin();
         if (!token) {
             global.loadingRef.current?.hide();
             return;
         }
+        global.loadingRef.current?.show();
         onLogin({ variables: { token: token, ...getDeviceInfo() } });
     }, []);
 

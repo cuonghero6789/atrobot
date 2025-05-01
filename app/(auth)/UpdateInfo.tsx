@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Dimensions, KeyboardAvoidingView, Platform, Scr
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Image } from 'expo-image';
 import { LinearGradient } from "expo-linear-gradient";
-import Input from "@/components/Input";
+import { CustomInput, Input } from "@/components/Input";
 import InfoButton from "@/components/InfoButton";
 import CustomButton from "@/components/CustomButton";
 import SelectBirthday from "@/components/SelectBirthday";
@@ -101,7 +101,7 @@ export default function UpdateInfoScreen() {
                 <ScrollView contentContainerStyle={{ paddingBottom: SIZE_SUN * 0.6 }} style={{ flex: 1 }}>
                     <View style={{ transform: [{ scaleX: 1 / 1.3 }] }}>
                         <Text style={styles.title}>{"Please fill in\nyour Information!"}</Text>
-                        <Input placeholder="Name/Nickname*" name="Name/Nickname*" text={user?.display_name || ""} onChangeText={(text) => setUserInfo({ display_name: text })} />
+                        <CustomInput placeholder="Name/Nickname*" name="Name/Nickname*" text={user?.display_name || ""} onChangeText={(text) => setUserInfo({ display_name: text })} />
                         <SelectBirthday onSelectedDate={(date) => {
                             birthDayRef.current = date;
                             setUserInfo({ birthday: `${date} ${timeRef.current}` })
@@ -127,7 +127,7 @@ export default function UpdateInfoScreen() {
                         <ChooseValue data={replationships} onSelected={(text) => {
                             setUserInfo({ relationships: text });
                         }} text={user?.relationships || ""} title="i am:*" />
-                        <CustomButton container={styles.btnConfirm} text={styles.btnText} title="LET'S SEE" onPress={() => {
+                        <CustomButton container={styles.btnConfirm} text={styles.btnText} title="TIẾP TỤC" onPress={() => {
                             if (isEnabled) {
                                 onPressContinue();
                             } else {

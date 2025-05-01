@@ -3,12 +3,21 @@ import spacing from "@/styles/spacing";
 import TypeStyles from "@/styles/TypeStyle";
 import { memo } from "react";
 import { View, StyleSheet, Text } from "react-native";
+import moment from "moment";
 
 function HomeCalendar() {
+    const currentDate = moment();
+    
     return <View style={styles.container}>
-        <Text style={[TypeStyles.subTitleMedium, { color: Colors.white }]}>{"FEB"}</Text>
-        <Text style={[TypeStyles.largeText, { color: Colors.white }]}>{"25"}</Text>
-        <Text style={[TypeStyles.subTitleMedium, { color: Colors.white }]}>{"Monday"}</Text>
+        <Text style={[TypeStyles.subTitleMedium, { color: Colors.white }]}>
+            {currentDate.format("MMM").toUpperCase()}
+        </Text>
+        <Text style={[TypeStyles.largeText, { color: Colors.white }]}>
+            {currentDate.format("DD")}
+        </Text>
+        <Text style={[TypeStyles.subTitleMedium, { color: Colors.white }]}>
+            {currentDate.format("dddd")}
+        </Text>
     </View>
 }
 

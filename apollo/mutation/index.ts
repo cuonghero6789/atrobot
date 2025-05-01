@@ -103,6 +103,12 @@ const ASTROME_DAILY = gql`
   }
 `;
 
+const ASTROME_MONTHLY = gql`
+  mutation AstroMonthly($from_date: String!) {
+    astroMonthly(input: {from_date: $from_date})
+  }
+`;
+
 const ASTROME_QUOTE = gql`
   mutation AstroQuote($from_date: String!) {
     astroQuote(input: {from_date: $from_date})
@@ -130,6 +136,12 @@ const ASTROME_DOMINANT = gql`
     astroMeDominant
   }
 `;
+const ASTROME_MANIFEST = gql`
+  mutation AstroMeManifest {
+    astroMeManifest
+  }
+`;
+
 export {
   LOGIN,
   UPDATE_ACCOUNT_INFO,
@@ -147,4 +159,6 @@ export {
   UPDATE_TIME_ZONE,
   ASTROME_DOMINANT,
   UPDATE_LANGUAGE,
+  ASTROME_MONTHLY,
+  ASTROME_MANIFEST
 };

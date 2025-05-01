@@ -49,35 +49,6 @@ function ChatScreen() {
     },
   });
 
-  // const _keyboardDidShow = useCallback(() => {
-  //   navigation.setOptions({
-  //     tabBarVisible: false,
-  //   });
-  // }, [navigation]);
-
-  // const _keyboardDidHide = useCallback(() => {
-  //   navigation.setOptions({
-  //     tabBarVisible: true,
-  //   });
-  // }, [navigation]);
-
-  // useEffect(() => {
-  //   const showSubscription = Keyboard.addListener(
-  //     'keyboardDidShow',
-  //     _keyboardDidShow,
-  //   );
-  //   const hideSubscription = Keyboard.addListener(
-  //     'keyboardDidHide',
-  //     _keyboardDidHide,
-  //   );
-
-  //   // cleanup function
-  //   return () => {
-  //     showSubscription.remove();
-  //     hideSubscription.remove();
-  //   };
-  // }, [_keyboardDidHide, _keyboardDidShow]);
-
   useEffect(() => {
     if (data) {
       actions.setMessages(data.messages, chat_id, user);
@@ -127,12 +98,13 @@ function ChatScreen() {
             <View style={styles.send}>
               <Image
                 source={require('@/assets/images/ic_send.png')}
-                style={{ width: 24, height: 24, tintColor: Colors.black }}
+                style={{ width: 24, height: 24, tintColor: Colors.white }}
               />
             </View>
           </Send>
         )}
         containerStyle={styles.toolbar}
+        textInputStyle={{ color: Colors.white }}
       />
     );
   };
@@ -198,11 +170,16 @@ const styles = StyleSheet.create({
   },
   toolbar: {
     marginHorizontal: 16,
+    marginTop: 4,
     alignContent: 'center',
     justifyContent: 'center',
-    borderRadius: 12,
+    borderRadius: 8,
     paddingTop: Platform.OS === 'ios' ? 0 : 6,
-    borderTopColor: 'transparent',
+    borderWidth: 1,
+    borderTopWidth:1,
+    borderTopColor:Colors.white,
+    borderColor: Colors.white,
+    backgroundColor: 'transparent',
   },
   btnsend: {
     alignItems: 'center',

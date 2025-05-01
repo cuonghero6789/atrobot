@@ -15,6 +15,7 @@ enum OP {
   ASTRO_GEN_QUESTION = 'astro_gen_question',
   ASTRO_ANSWER_QUESTION = 'astro_answer_question',
   ASTRO_DAILY = 'astro_daily',
+  ASTRO_DAILY_MONTHLY = 'astro_daily_monthly',
   ASTRO_QUOTE = 'astro_quote',
   ASTRO_BOT = 'astro_bot',
   ASTRO_ME_DOMINANT = 'astro_me_dominant',
@@ -63,19 +64,19 @@ export default function useWebSocket(onAppActive: () => void) {
           router.push("/AnswerScreen");
           break;
         case OP.ASTRO_DAILY:
-          if (payload?.daily?.length) {
-            actionDaily.setDaily(payload?.daily || [], from_date);
+          if (payload?.weekly?.length) {
+            actionDaily.setDaily(payload || []);
           }
           if (payload?.scores?.length) {
             actionDaily.setScores(payload?.scores || [], from_date);
           }
-          if (payload?.events) {
-            actionDaily.setEvents(payload?.events || [], from_date);
-          }
           break;
         case OP.ASTRO_QUOTE:
-          actionDaily.setQuote(payload?.quote || '', from_date);
+          actionDaily.setQuote(payload?.quote);
           break;
+          case OP.ASTRO_DAILY_MONTHLY:
+            actionDaily.setMonthly(payload);
+            break;
         case OP.ASTRO_BOT:
           actionsChat.setloading(false);
           actionsChat.setMessages([payload], payload?.chat_id, user);

@@ -5,12 +5,15 @@ import Colors from "@/styles/Colors";
 import spacing, { borderRadius } from "@/styles/spacing";
 import TypeStyles from "@/styles/TypeStyle";
 import { Button } from "./Button";
+import { memo } from "react";
 interface Props {
     colorStart: string;
     colorEnd: string;
     iconSource: any;
+    answer?: string;
 }
-export default function DetailInnerShadowBox({ colorStart, colorEnd, iconSource }: Props) {
+
+function DetailInnerShadowBox({ colorStart, colorEnd, iconSource, answer }: Props) {
     return (
         <LinearGradient
             colors={[colorStart, colorEnd]}
@@ -38,12 +41,14 @@ export default function DetailInnerShadowBox({ colorStart, colorEnd, iconSource 
             <Text style={[TypeStyles.textBold2, { color: "#2155A0BF", marginTop: spacing.margin.large, marginBottom: spacing.margin.xSmall }]}>{"Luna"}</Text>
             <View style={{ backgroundColor: "#2155A0BF", borderRadius: spacing.borderRadius.small, padding: spacing.padding.large }}>
                 <Text style={[TypeStyles.bodyText2, { color: Colors.white }]}>
-                    {"Chào Quỳnh Anh xinh đẹp! 🌟 Luna đây, chuyên gia chiêm tinh học siêu cấp vũ trụ nè! 😉 Hôm nay chúng ta sẽ cùng nhau khám phá tương lai sự nghiệp của bạn nhé. Sẵn sàng chưa? Let's go! 🚀 Ôi trời, nhìn bản đồ sao của bạn mà Luna phải thốt lên: Wow, đúng là một bầu trời đầy sao sáng! 🌠 Đầu tiên, với cung Mặt trời ở Thiên Bình, bạn có khả năng đối nhân xử thế và tài ngoại giao tuyệt vời. Điều này sẽ giúp ích rất nhiều trong sự nghiệp đấy! 👍 Giờ hãy xem xét các hành tinh đang quá cảnh (transit) nhé:  Mặt trời, Mặt trăng, Sao Thủy và Sao Kim đều đang quá cảnh qua cung Thiên Bình, nhà 11 của bạn. Đây là một sự tập trung năng lượng cực kỳ tích cực! 🎉"}
+                    {answer}
                 </Text>
             </View>
         </LinearGradient>
     );
 }
+
+export default memo(DetailInnerShadowBox);
 
 const styles = StyleSheet.create({
     btn: {

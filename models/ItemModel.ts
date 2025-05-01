@@ -15,14 +15,27 @@ export interface PlanetModel {
 }
 
 export interface TopicModel {
-  name: string;
-  source: any;
-  sourceSelect: any;
+  name?: string;
+  source?: any;
+  sourceSelect?: any;
   type: TopicsEnum;
 }
 
+export interface AtroDailyMonthlyModel {
+  from_date?: string;
+  monthly?: DailyModel[];
+}
+
+export interface AtroDailyModel {
+  from_date?: string;
+  events?: string[];
+  horoscope_do?: string[];
+  horoscope_dont?: string[];
+  weekly?: DailyModel[];
+}
+
 export interface DailyModel {
-  label: string;
+  label?: string;
   key: string;
   text: string;
 }

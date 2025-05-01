@@ -41,7 +41,9 @@ const styles = StyleSheet.create({
         borderColor: '#B4C9CF80',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 10
+        alignItems: 'center',
+        padding: 10,
+        minHeight: 48
     },
     placeHolder: {
         color: '#84929E',

@@ -6,7 +6,7 @@ import Colors from '@/styles/Colors';
 import { useSharedValue } from 'react-native-reanimated';
 import { Card } from './Card';
 import { DailyModel, ScoreModel } from '@/models/ItemModel';
-import { MyLoader, SkeletonLoader } from './loading/LoadingView';
+import { SkeletonLoader } from './loading/LoadingView';
 
 const { width } = Dimensions.get('window');
 

@@ -1,9 +1,8 @@
-import {DominantModel, TopicModel} from '../../models/ItemModel';
-import {TopicsEnum} from '../../screens/data';
+import { DominantModel, TopicModel } from '../../models/ItemModel';
 
 export interface IYouState {
-    dominant: DominantModel;
-    
+  dominant: DominantModel;
+
   actions: {
     setDominant: (_dominant: DominantModel) => void;
   };

@@ -16,7 +16,7 @@ const images = {
 import { DailyModel, ScoreModel } from '@/models/ItemModel';
 import strings from '@/localization';
 interface CardProps {
-    daily: DailyModel,
+    daily?: DailyModel,
     contanerStyle?: any,
     style?: any,
     description?: string,
@@ -117,8 +117,12 @@ const styles = StyleSheet.create({
     },
 });
 
+const MemoizedCard = React.memo(Card);
+const MemoizedCardView = React.memo(CardView);
+const MemoizedCardItem = React.memo(CardItem);
+
 export {
-    Card,
-    CardView,
-    CardItem,
+    MemoizedCard as Card,
+    MemoizedCardView as CardView,
+    MemoizedCardItem as CardItem,
 };

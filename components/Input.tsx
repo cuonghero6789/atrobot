@@ -35,9 +35,43 @@ const Input = ({ placeholder, style, name, onChangeText, text }: Props) => {
         </View>
     );
 };
-export default Input;
+const CustomInput = ({ placeholder, style, name, onChangeText, text }: Props) => {
+    const [isFocused, setIsFocused] = React.useState(false);
+
+    return (
+        <View style={{ paddingTop: spacing.padding.large, paddingHorizontal: spacing.padding.large }}>
+            {name && <Text style={[TypeStyles.bodyTextBold, styles.text]}>{name}</Text>}
+            <View
+                style={styles.input}
+            >
+                <TextInput
+                    style={[isFocused && styles.inputFocus]}
+                    placeholder={placeholder}
+                    value={text}
+                    placeholderTextColor={Colors.gray4}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
+                    onChangeText={onChangeText}
+                />
+            </View>
+        </View>
+    );
+};
+
+export {
+    Input,
+    CustomInput
+};
 
 const styles = StyleSheet.create({
+    input: {
+        borderRadius: 5,
+        height: 56,
+        paddingHorizontal: spacing.padding.base,
+        justifyContent: 'center',
+        borderColor: Colors.white,
+        borderWidth: 1,
+    },
     gradientBackground: {
         borderRadius: 5,
         height: 56,

@@ -1,4 +1,4 @@
-import { ASTROME_DAILY, ASTROME_DOMINANT, ASTROME_QUOTE, UPDATE_LOCATION_INFO } from "@/apollo/mutation";
+import { ASTROME_DAILY, ASTROME_DOMINANT, ASTROME_MANIFEST, ASTROME_QUOTE, UPDATE_LOCATION_INFO } from "@/apollo/mutation";
 import { CHATS } from "@/apollo/query";
 import useChatStore from "@/stores/ChatStore";
 import { useMutation, useQuery } from "@apollo/client";
@@ -20,6 +20,7 @@ export default function useSync() {
     error: errorMessage,
     refetch: refetchAccount,
   } = useQuery(CHATS);
+  // const { data: dataManifest, loading: loadingManifest, error: errorManifest, refetch } = useQuery(ASTROME_MANIFEST);
   const actionChat = useChatStore(state => state.actions);
 
   const [
