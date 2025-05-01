@@ -1,5 +1,5 @@
-import {TopicModel} from '../../models/ItemModel';
-import {TopicsEnum} from '../../screens/data';
+import { TopicsEnum } from '@/data';
+import { TopicModel } from '../../models/ItemModel';
 
 export interface IQuestionState {
   loadingQuestion: boolean;
