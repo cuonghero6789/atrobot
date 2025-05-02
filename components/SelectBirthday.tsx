@@ -5,11 +5,12 @@ import moment from 'moment';
 import InfoButton from './InfoButton';
 interface Props {
   onSelectedDate?: (date: string) => void;
+  birthday?: string;
 }
 
-const SelectBirthday = ({ onSelectedDate }: Props) => {
+const SelectBirthday = ({ onSelectedDate, birthday }: Props) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedDate, setSelectedDate] = useState(moment(birthday).format('YYYY-MM-DD'));
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);

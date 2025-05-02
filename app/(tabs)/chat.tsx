@@ -29,6 +29,7 @@ import useAccountStore from '@/stores/AccountStore';
 import { MESSAGES } from '@/apollo/query';
 import { ImageBackground } from 'expo-image';
 import TypeStyles from '@/styles/TypeStyle';
+import { LinearGradient } from 'expo-linear-gradient';
 
 function ChatScreen() {
   const insets = useSafeAreaInsets();
@@ -82,7 +83,7 @@ function ChatScreen() {
     },
     [chat_id, user],
   );
-
+  
   const renderInputToolbar = (props: any) => {
     return (
       <InputToolbar
@@ -110,42 +111,45 @@ function ChatScreen() {
   };
 
   return <ImageBackground source={require('@/assets/images/bg_home.png')} style={[styles.container, { paddingTop: insets.top }]}>
-    {messages?.length == 0 && (
-      <View style={{ paddingHorizontal: 16 }}>
-        <AnswerComponent answer={strings.t("chatLuna")} />
-      </View>
-    )}
-    {messages != undefined && (
-      <GiftedChat
-        bottomOffset={- (insets.bottom + 70)}
-        messages={messages}
-        isTyping={loadingChat}
-        onSend={(messages: IChatMessage[]) => onSend(messages)}
-        renderInputToolbar={renderInputToolbar}
-        showUserAvatar
-        textInputProps={[
-          { placeholder: strings.t("writeAMessage") },
-          TypeStyles.bodyText1
-        ]}
-        renderBubble={(props: any) => (
-          <Bubble
-            {...props}
-            wrapperStyle={{
-              left: [{ backgroundColor: "#385F97", marginBottom: 8 }, styles.body],
-              right: [{ backgroundColor: "#DAE2F7", marginBottom: 8 }, styles.body],
-            }}
-          />
-        )}
-        renderTime={(props: any) => <Time {...props} timeTextStyle={{ right: { color: Colors.black }, left: { color: Colors.white } }} />}
-        renderMessageText={(props: any) => (
-          <MessageText {...props} textStyle={{ left: { color: Colors.white }, right: { color: Colors.black } }} />
-        )}
-        user={{
-          _id: user?.id || 1,
-        }}
-      />
-    )}
-    <View style={{ height: insets.bottom + 80, backgroundColor: 'transparent' }} />
+    <LinearGradient colors={['#C7D0D8BF', '#254668BF']} style={styles.container}>
+
+      {messages?.length == 0 && (
+        <View style={{ paddingHorizontal: 16 }}>
+          <AnswerComponent answer={strings.t("chatLuna")} />
+        </View>
+      )}
+      {messages != undefined && (
+        <GiftedChat
+          bottomOffset={- (insets.bottom + 70)}
+          messages={messages}
+          isTyping={loadingChat}
+          onSend={(messages: IChatMessage[]) => onSend(messages)}
+          renderInputToolbar={renderInputToolbar}
+          showUserAvatar
+          textInputProps={[
+            { placeholder: strings.t("writeAMessage") },
+            TypeStyles.bodyText1
+          ]}
+          renderBubble={(props: any) => (
+            <Bubble
+              {...props}
+              wrapperStyle={{
+                left: [{ backgroundColor: "#385F97", marginBottom: 8 }, styles.body],
+                right: [{ backgroundColor: "#DAE2F7", marginBottom: 8 }, styles.body],
+              }}
+            />
+          )}
+          renderTime={(props: any) => <Time {...props} timeTextStyle={{ right: { color: Colors.black }, left: { color: Colors.white } }} />}
+          renderMessageText={(props: any) => (
+            <MessageText {...props} textStyle={{ left: { color: Colors.white }, right: { color: Colors.black } }} />
+          )}
+          user={{
+            _id: user?.id || 1,
+          }}
+        />
+      )}
+      <View style={{ height: insets.bottom + 80, backgroundColor: 'transparent' }} />
+    </LinearGradient>
   </ImageBackground>
 }
 
@@ -176,8 +180,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingTop: Platform.OS === 'ios' ? 0 : 6,
     borderWidth: 1,
-    borderTopWidth:1,
-    borderTopColor:Colors.white,
+    borderTopWidth: 1,
+    borderTopColor: Colors.white,
     borderColor: Colors.white,
     backgroundColor: 'transparent',
   },

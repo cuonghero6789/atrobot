@@ -80,9 +80,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     marginLeft: spacing.padding.large,
-    borderRadius: spacing.borderRadius.extraLarge,
-    paddingHorizontal: spacing.padding.large,
-    paddingVertical: spacing.padding.base
+    borderRadius: spacing.borderRadius.base,
+    paddingHorizontal: spacing.padding.base,
+    paddingVertical: spacing.padding.small
   },
   container: {
     flexDirection: 'row',

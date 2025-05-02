@@ -17,8 +17,11 @@ import useAuthStore from "@/stores/AuthStore";
 import { AuthAction } from "@/stores/interfaces/IAuthState";
 import strings from "@/localization";
 import { getCalendars } from "expo-localization";
-import { router } from "expo-router";
+import { router, useRouter } from "expo-router";
 import { BackButton } from "@/components/Button";
+import moment from "moment";
+import useAccountStore from "@/stores/AccountStore";
+import Toast from "react-native-toast-message";
 const { width } = Dimensions.get('screen');
 const SIZE_SUN = width - 100;
 
@@ -42,16 +45,18 @@ export default function UpdateInfoScreen() {
 
     const popupBottomSheetRef = React.useRef<CanShowBottomSheet>(null);
     const actions = useAuthStore(state => state.actions);
-    const user = useAuthStore(state => state.user);
-    const birthDayRef = React.useRef<string>("");
-    const timeRef = React.useRef<string>("");
+    const actionsAccount = useAccountStore(state => state.actions);
+    const user = useAccountStore(state => state.user);
+    const status = useAuthStore(state => state.status);
+    const router = useRouter();
+    const birthDayRef = React.useRef<string>(moment(user?.birthday).format('YYYY-MM-DD'));
+    const timeRef = React.useRef<string>(moment(user?.birthday).format('HH:mm'));
     const [isEnabled, setIsEnabled] = useState(false);
     const { calendar, timeZone, uses24hourClock, firstWeekday } = getCalendars()[0];
+
+
     const [UpdateAccountInfo, { data, loading, error }] =
         useMutation(UPDATE_ACCOUNT_INFO);
-
-    useEffect(() => {
-    }, []);
 
     useEffect(() => {
         if (user?.display_name && user?.relationships && user.birthday && user.gender && user.timezone) {
@@ -77,10 +82,19 @@ export default function UpdateInfoScreen() {
         UpdateAccountInfo({
             variables: user,
         });
+        /** the case use logined and update info again */
+        if (status === AuthAction.AUTH_HOME) {
+            router.back();
+        }
+        Toast.show({
+            text1: strings.t("updateInfoSuccess"),
+            type: "success",
+            position: "bottom"
+        });
     }, [user]);
 
     const setUserInfo = useCallback((data: any) => {
-        actions.setTmpUser({
+        actionsAccount.setAccount({
             ...user,
             ...data
         });
@@ -100,20 +114,20 @@ export default function UpdateInfoScreen() {
             >
                 <ScrollView contentContainerStyle={{ paddingBottom: SIZE_SUN * 0.6 }} style={{ flex: 1 }}>
                     <View style={{ transform: [{ scaleX: 1 / 1.3 }] }}>
-                        <Text style={styles.title}>{"Please fill in\nyour Information!"}</Text>
-                        <CustomInput placeholder="Name/Nickname*" name="Name/Nickname*" text={user?.display_name || ""} onChangeText={(text) => setUserInfo({ display_name: text })} />
-                        <SelectBirthday onSelectedDate={(date) => {
+                        <Text style={styles.title}>{strings.t("updateInfo")}</Text>
+                        <CustomInput placeholder={strings.t("nameOrNickName")} name={strings.t("nameOrNickName")} text={user?.display_name || ""} onChangeText={(text) => setUserInfo({ display_name: text })} />
+                        <SelectBirthday birthday={user?.birthday} onSelectedDate={(date) => {
                             birthDayRef.current = date;
                             setUserInfo({ birthday: `${date} ${timeRef.current}` })
                         }} />
-                        <SelectTimeOfBirth onSelectedTime={(time) => {
+                        <SelectTimeOfBirth birthday={user?.birthday} onSelectedTime={(time) => {
                             timeRef.current = time;
                             setUserInfo({ birthday: `${birthDayRef.current} ${time}` })
                         }} />
-                        <InfoButton name="Gender*" placeholder="Gender*" text={user?.gender || ""} onPress={() => {
+                        <InfoButton name={strings.t("gender")} placeholder={strings.t("gender")} text={user?.gender || ""} onPress={() => {
                             popupBottomSheetRef.current?.show();
                         }} />
-                        <InfoButton name="Play of birth*" placeholder="City, State, Nation*" text={user?.timezone || timeZone} onPress={() => {
+                        <InfoButton name={strings.t("placeOfBirth")} placeholder={strings.t("placeOfBirth")} text={user?.timezone || timeZone} onPress={() => {
                             router.push({
                                 pathname: '/TimeZonesScreen',
                                 params: {
@@ -126,12 +140,12 @@ export default function UpdateInfoScreen() {
                         <Image tintColor={Colors.white} source={require('@/assets/images/bg_sun.png')} style={{ width: SIZE_SUN, height: SIZE_SUN * 762 / 676, position: 'absolute', right: 0 }} />
                         <ChooseValue data={replationships} onSelected={(text) => {
                             setUserInfo({ relationships: text });
-                        }} text={user?.relationships || ""} title="i am:*" />
-                        <CustomButton container={styles.btnConfirm} text={styles.btnText} title="TIẾP TỤC" onPress={() => {
+                        }} text={user?.relationships || ""} title={strings.t("iAm")} />
+                        <CustomButton container={styles.btnConfirm} text={styles.btnText} title={strings.t("continue")} onPress={() => {
                             if (isEnabled) {
                                 onPressContinue();
                             } else {
-                                Alert.alert('Hi!', "Please fill in your information!");
+                                Alert.alert(strings.t("pleaseFillInYourInformation"));
                             }
                         }} />
                     </View>
@@ -141,7 +155,7 @@ export default function UpdateInfoScreen() {
         <PopupBottomSheet ref={popupBottomSheetRef}>
             <ChooseValue data={genders} onSelected={(text) => {
                 setUserInfo({ gender: text });
-            }} text={user?.gender || ""} title="Gender*" />
+            }} text={user?.gender || ""} title={strings.t("gender")} />
         </PopupBottomSheet>
     </SafeAreaView>;
 }

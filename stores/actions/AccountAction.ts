@@ -32,7 +32,6 @@ export const getAccount = (set: any, get: any) => async () => {
       if (getLocales()[0].languageCode !== user.language_code && user?.language_code) {
         strings.locale = user.language_code;
       }
-
       set(
         (state: IAccountState) => {
           state.user = JSON.parse(value).user;

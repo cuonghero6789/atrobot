@@ -15,6 +15,8 @@ function TimeZonesScreen(): JSX.Element {
   const router = useRouter();
   const actions = useAuthStore(state => state.actions);
   const user = useAuthStore(state => state.user);
+  const [timeZone, setTimeZone] = React.useState(moment.tz.names());
+
   const insets = useSafeAreaInsets();
   const { name } = useLocalSearchParams<{ name: string }>();
   const [text, setText] = React.useState('');
@@ -29,6 +31,7 @@ function TimeZonesScreen(): JSX.Element {
         <TouchableOpacity
           key={item}
           onPress={() => {
+            setUserInfo({ timezone: item });
             router.back();
           }}
           style={user?.timezone == item ? styles.itemSelected : styles.item}>
@@ -64,13 +67,13 @@ function TimeZonesScreen(): JSX.Element {
             const data = moment.tz
               .names()
               .filter(item => item.toUpperCase().includes(value.toUpperCase()));
-            setUserInfo({ timezone: data });
+            setTimeZone(data);
           }}
           placeholder={strings.t("inputTimezone")}
         />
         <FlatList
           renderItem={renderItem}
-          data={user?.timezone}
+          data={timeZone}
           contentContainerStyle={{ paddingHorizontal: 16, paddingVertical: 16 }}
           keyExtractor={item => item}
         />

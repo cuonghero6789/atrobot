@@ -5,12 +5,13 @@ import moment from 'moment';
 import InfoButton from './InfoButton';
 interface Props {
   onSelectedTime?: (time: string) => void;
+  birthday?: string;
 }
 
-const SelectTimeOfBirth = ({ onSelectedTime }: Props) => {
+const SelectTimeOfBirth = ({ onSelectedTime, birthday }: Props) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [hours, setHours] = useState('00');
-  const [minutes, setMinutes] = useState('00');
+  const [hours, setHours] = useState(moment(birthday).format('HH'));
+  const [minutes, setMinutes] = useState(moment(birthday).format('mm'));
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);

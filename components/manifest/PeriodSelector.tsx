@@ -2,6 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View, Animated, Dimensions } from '
 import TypeStyles from '@/styles/TypeStyle';
 import spacing from '@/styles/spacing';
 import { useEffect, useRef } from 'react';
+import strings from '@/localization';
 
 type PeriodSelectorProps = {
     selectedPeriod: 'week' | 'month';
@@ -39,7 +40,7 @@ export const PeriodSelector = ({ selectedPeriod, onPeriodChange }: PeriodSelecto
                 <Text style={[
                     styles.periodText,
                     TypeStyles.textBold3,
-                ]}>{"Tuần này"}</Text>
+                ]}>{strings.t("week")}</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 style={[styles.periodTab]}
@@ -48,7 +49,7 @@ export const PeriodSelector = ({ selectedPeriod, onPeriodChange }: PeriodSelecto
                 <Text style={[
                     styles.periodText,
                     TypeStyles.textBold3,
-                ]}>{"Tháng này"}</Text>
+                ]}>{strings.t("month")}</Text>
             </TouchableOpacity>
         </View>
     );

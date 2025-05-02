@@ -12,7 +12,7 @@ import useAuthStore from '@/stores/AuthStore';
 import useAccountStore from '@/stores/AccountStore';
 import { AuthAction } from '@/stores/interfaces/IAuthState';
 import Loading, { CanShowLoading } from '@/components/Loading';
-
+import Toast from 'react-native-toast-message';
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -62,6 +62,7 @@ export default function RootLayout() {
         </Stack>
         <StatusBar style="auto" />
         <Loading ref={global.loadingRef} />
+        <Toast />
       </ThemeProvider>
     </ApolloProvider>
   </GestureHandlerRootView>

@@ -1,8 +1,6 @@
 import { UPDATE_AI_LANGUAGE, UPDATE_APP_LANGUAGE } from "@/apollo/mutation";
 import ChooseValue from "@/components/auth/ChooseValue";
-import { BackButton, Button } from "@/components/Button";
 import DropDownButton from "@/components/DropDownButton";
-import InfoButton from "@/components/InfoButton";
 import PopupBottomSheet, { CanShowBottomSheet } from "@/components/PopupBottomSheet";
 import Item from "@/components/settings/Item";
 import AppConfig from "@/core/AppConfig";
@@ -10,10 +8,10 @@ import strings from "@/localization";
 import useAccountStore from "@/stores/AccountStore";
 import useAuthStore from "@/stores/AuthStore";
 import Colors from "@/styles/Colors";
-import spacing, { padding } from "@/styles/spacing";
 import TypeStyles from "@/styles/TypeStyle";
 import { useMutation } from "@apollo/client";
 import { ImageBackground } from "expo-image";
+import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React, { useCallback, useEffect } from "react";
 import { Linking, ScrollView, Text, View, StyleSheet, Alert } from 'react-native';
@@ -55,131 +53,108 @@ export default function YouScreen() {
     const renderLanguages = () => {
         return (
             <View style={{ padding: 16 }}>
-                <Item text={strings.t("lang")} onPress={() => { }} />
                 <View style={{ paddingTop: 16 }}>
-                    <DropDownButton title="Ngôn ngữ ứng dụng*" onPress={() => popupBottomSheetLangRef.current?.show()} item={languages.find(item => item.value === user?.language_code)} />
+                    <DropDownButton title={strings.t("appLang")} onPress={() => popupBottomSheetLangRef.current?.show()} item={languages.find(item => item.value === user?.language_code)} />
                     <View style={{ height: 16 }} />
-                    <DropDownButton title="Ngôn ngữ nội dung*" onPress={() => popupBottomSheetAiLangRef.current?.show()} item={languages.find(item => item.value === user?.ai_language)} />
+                    <DropDownButton title={strings.t("contentLang")} onPress={() => popupBottomSheetAiLangRef.current?.show()} item={languages.find(item => item.value === user?.ai_language)} />
                 </View>
             </View>
         );
     };
     const handlePress = useCallback(async () => {
-        // Checking if the link is supported for links with custom URL scheme.
-        // const supported = await Linking.canOpenURL(linkFb);
-
-        // if (supported) {
-        // Opening the link with some app, if the URL scheme is "http" the web link should be opened
-        // by some browser in the mobile
         await Linking.openURL(linkFb);
-        // } else {
-        //   Alert.alert(`Don't know how to open this URL: ${linkFb}`);
-        // }
     }, [linkFb]);
 
     return <ImageBackground source={require('@/assets/images/bg_manifest.png')} style={{ flex: 1, paddingTop: insent.top }}>
-        <ScrollView style={styles.body}>
-            {renderTitle()}
-            {/* <InfoButton text={strings.t("profile")} onPress={() => { }} /> */}
-            <Item text={strings.t("profile")}
-                style={{ paddingHorizontal: 16 }}
-                onPress={() => { 
+        <LinearGradient colors={['#C7D0D8BF', '#254668BF']} style={styles.container}>
+            <ScrollView style={styles.body}>
+                {renderTitle()}
+                <Item text={strings.t("profile")}
+                    style={{ paddingHorizontal: 16 }}
+                    onPress={() => {
+                        router.push({
+                            pathname: '/UpdateInfo',
+                            params: {
+
+                            }
+                        })
+                    }} />
+                {renderLanguages()}
+                <Item style={{ marginHorizontal: 16, marginBottom: 16 }} text={strings.t("linkFacebook")} onPress={() => {
+                    handlePress();
+                }} />
+
+                <Item style={{ marginHorizontal: 16, marginBottom: 16 }} text={strings.t("termOfService")} onPress={() => {
                     router.push({
-                        pathname: '/UpdateInfo',
+                        pathname: '/WebScreen',
                         params: {
-                            
-                        }
+                            title: strings.t("termOfService"),
+                            uri: AppConfig.URL_PRIVACY,
+                        },
                     })
                 }} />
-            {/* <Item
-                text={strings.t("profile")}
-                onPress={() => {
-                    // router.push({
-                    //     pathname: 'ProfileScreen',
-                    // });
-                }}
-            /> */}
-            {renderLanguages()}
-            {/* <Item
-                text={strings.t("linkFacebook")}
-                onPress={() => {
-                    handlePress();
-                }}
-            /> */}
-            <Item style={{ marginHorizontal: 16, marginBottom: 16 }} text={strings.t("linkFacebook")} onPress={() => {
-                handlePress();
-            }} />
 
-            <Item style={{ marginHorizontal: 16, marginBottom: 16 }} text={strings.t("termOfService")} onPress={() => {
-                router.push({
-                    pathname: '/WebScreen',
-                    params: {
-                        title: strings.t("termOfService"),
-                        uri: AppConfig.URL_PRIVACY,
-                    },
-                })
-            }} />
-
-            <Item style={{ marginHorizontal: 16, marginBottom: 16 }} text={strings.t("termOfService")} onPress={() => {
-                router.push({
-                    pathname: '/WebScreen',
-                    params: {
-                        title: strings.t("termOfPrivacy"),
-                        uri: AppConfig.URL_TERM_OF_USE,
-                    },
-                })
-            }} />
-            <Item
-                style={{ marginHorizontal: 16, marginBottom: 16 }}
-                text={strings.t("txtLogout")}
-                onPress={() => {
-                    Alert.alert(
-                        strings.t("hi"),
-                        strings.t("logout"),
-                        [
-                            {
-                                text: strings.t("cancel"),
-                                onPress: () => console.log('Cancel Pressed'),
-                                style: 'cancel',
-                            },
-                            {
-                                text: strings.t("agree"),
-                                onPress: async () => {
-                                    actionAuth.onLogout();
+                <Item style={{ marginHorizontal: 16, marginBottom: 16 }} text={strings.t("termOfService")} onPress={() => {
+                    router.push({
+                        pathname: '/WebScreen',
+                        params: {
+                            title: strings.t("termOfPrivacy"),
+                            uri: AppConfig.URL_TERM_OF_USE,
+                        },
+                    })
+                }} />
+                <Item
+                    style={{ marginHorizontal: 16, marginBottom: 16 }}
+                    text={strings.t("txtLogout")}
+                    onPress={() => {
+                        Alert.alert(
+                            strings.t("hi"),
+                            strings.t("logout"),
+                            [
+                                {
+                                    text: strings.t("cancel"),
+                                    onPress: () => console.log('Cancel Pressed'),
+                                    style: 'cancel',
                                 },
-                            },
-                        ],
-                        { cancelable: true },
-                    );
-                }}
-            />
-
-            <Item
-                style={{ marginHorizontal: 16, marginBottom: 16 }}
-                styleName={{ color: 'red' }}
-                text={strings.t("txtDeleteAccount")}
-                onPress={() => {
-                    Alert.alert(
-                        strings.t("hi"),
-                        strings.t("txtConfirmDeleteAccount"),
-                        [
-                            {
-                                text: strings.t("cancel"),
-                                onPress: () => console.log('Cancel Pressed'),
-                                style: 'cancel',
-                            },
-                            {
-                                text: strings.t("agree"),
-                                onPress: async () => {
-                                    actionAuth.onLogout();
+                                {
+                                    text: strings.t("agree"),
+                                    onPress: async () => {
+                                        actionAuth.onLogout();
+                                    },
                                 },
-                            },
-                        ],
-                        { cancelable: true },
-                    );
-                }}
-            />
-        </ScrollView>
+                            ],
+                            { cancelable: true },
+                        );
+                    }}
+                />
+
+                <Item
+                    style={{ marginHorizontal: 16, marginBottom: 16 }}
+                    styleName={{ color: 'red' }}
+                    text={strings.t("txtDeleteAccount")}
+                    onPress={() => {
+                        Alert.alert(
+                            strings.t("hi"),
+                            strings.t("txtConfirmDeleteAccount"),
+                            [
+                                {
+                                    text: strings.t("cancel"),
+                                    onPress: () => console.log('Cancel Pressed'),
+                                    style: 'cancel',
+                                },
+                                {
+                                    text: strings.t("agree"),
+                                    onPress: async () => {
+                                        actionAuth.onLogout();
+                                    },
+                                },
+                            ],
+                            { cancelable: true },
+                        );
+                    }}
+                />
+            </ScrollView>
+        </LinearGradient>
         <PopupBottomSheet ref={popupBottomSheetLangRef}>
             <ChooseValue data={languages} onSelected={(value) => {
                 actions.setAccount({ ...user, language_code: value });
@@ -207,7 +182,6 @@ const styles = StyleSheet.create({
         marginVertical: 16,
     },
     container: {
-        backgroundColor: Colors.bgColor2,
         flex: 1,
     },
 });

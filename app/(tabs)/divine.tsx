@@ -3,6 +3,7 @@ import CustomCarousel from "@/components/Carousel";
 import { HomeButtonBackground } from "@/components/home/HomeButton";
 import ManifestDays from "@/components/manifest/ManifestDays";
 import { PeriodSelector } from "@/components/manifest/PeriodSelector";
+import strings from "@/localization";
 import useDailyStore from "@/stores/DailyStore";
 import Colors from "@/styles/Colors";
 import spacing from "@/styles/spacing";
@@ -41,8 +42,8 @@ export default function DivineScreen() {
 
     return <ImageBackground source={require('@/assets/images/bg_manifest.png')} style={{ flex: 1 }}>
         <View style={[styles.info, { paddingTop: insets.top }]}>
-            <Text style={[TypeStyles.title, { color: Colors.black3 }]}>{"Manifest"}</Text>
-            <Text style={[TypeStyles.bodyText1, { color: Colors.gray, textAlign: "center", marginTop: spacing.margin.small }]}>{"Bạn đang mong đợi điều gì? Lắng nghe thông điệp vũ trụ và manifest ước mơ của ban!"}</Text>
+            <Text style={[TypeStyles.title, { color: Colors.black3 }]}>{strings.t("manifest")}</Text>
+            <Text style={[TypeStyles.bodyText1, { color: Colors.gray, textAlign: "center", marginTop: spacing.margin.small }]}>{strings.t("manifestMessage")}</Text>
         </View>
         <View style={styles.profile}>
             <ScrollView>
@@ -56,13 +57,13 @@ export default function DivineScreen() {
                 />
                 <CustomCarousel daily={selectedPeriod === 'week' ? weekly?.weekly || [] : monthly?.monthly || []} scores={scores} />
                 <View style={{ height: spacing.margin.large }} />
-                <HomeButtonBackground text="Tương lai của bạn" subText="thế nào" onPress={() => {
+                <HomeButtonBackground text={strings.t("futureOfYou")} subText={strings.t("futureOfYouMessage")} onPress={() => {
                     router.push({
                         pathname: "/questions",
                     });
                 }} />
                 <View style={{ height: spacing.margin.large }} />
-                <HomeButtonBackground text="Tìm ngày may mắn" subText="của bạn" onPress={() => { }} />
+                <HomeButtonBackground text={strings.t("luckyDay")} subText={strings.t("luckyDayMessage")} onPress={() => { }} />
             </ScrollView>
         </View>
     </ImageBackground>

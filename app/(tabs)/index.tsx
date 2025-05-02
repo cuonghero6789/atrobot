@@ -15,6 +15,7 @@ import moment from 'moment';
 import useDailyStore from '@/stores/DailyStore';
 import AtroHtml from '@/components/AtroHtml';
 import { SkeletonLoaderEvent } from '@/components/loading/LoadingView';
+import strings from '@/localization';
 const { width, height } = Dimensions.get('window');
 export default function DailyScreen() {
   const insets = useSafeAreaInsets();
@@ -58,11 +59,11 @@ export default function DailyScreen() {
 
   return <ImageBackground source={require('@/assets/images/bg_home.png')} style={{ flex: 1, paddingTop: insets.top }}>
     <View style={styles.info}>
-      <Text style={[TypeStyles.text, styles.text]}>{"Xin chào"}</Text>
-      <Text style={[TypeStyles.textBold, styles.title]}>Daily Screen</Text>
+      <Text style={[TypeStyles.text, styles.text]}>{strings.t("hello")}</Text>
+      <Text style={[TypeStyles.textBold, styles.title]}>{strings.t("dailyScreen")}</Text>
     </View>
     <View style={styles.profile}>
-      <HomeButton text="Cá nhân" onPress={() => {
+      <HomeButton text={strings.t("personal")} onPress={() => {
         router.navigate({
           pathname: "/personal",
         })
@@ -91,14 +92,14 @@ export default function DailyScreen() {
             </View>
             <View style={{ backgroundColor: '#B2D1FDBF', flex: 1, flexDirection: 'row', padding: spacing.padding.large }}>
               <View style={{ flex: 1 }}>
-                <Text style={[TypeStyles.subTitle1, { color: Colors.green }]}>{"Nên"}</Text>
+                <Text style={[TypeStyles.subTitle1, { color: Colors.green }]}>{strings.t("should")}</Text>
                 <Text style={[TypeStyles.bodyText, { color: Colors.black4, lineHeight: 18, marginTop: spacing.margin.large, marginRight: spacing.margin.large }]}>{weekly.horoscope_do?.[0]}</Text>
               </View>
               <View style={{ paddingTop: spacing.padding.extraLarge }}>
                 <Image source={require('@/assets/images/ic_line.png')} style={{ width: 2, height: '100%' }} />
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={[TypeStyles.subTitle1, { color: Colors.green, textAlign: 'right' }]}>{"Không nên"}</Text>
+                <Text style={[TypeStyles.subTitle1, { color: Colors.green, textAlign: 'right' }]}>{strings.t("dont")}</Text>
                 <Text style={[TypeStyles.bodyText, { color: Colors.black4, lineHeight: 18, marginLeft: spacing.margin.large, marginTop: spacing.margin.large, textAlign: 'right' }]}>{weekly.horoscope_dont?.[0]}</Text>
               </View>
             </View>
