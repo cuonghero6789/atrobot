@@ -8,7 +8,7 @@ import TypeStyles from "@/styles/TypeStyle";
 import { ImageBackground } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 import {
     PieChart,
@@ -19,6 +19,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { LineChart } from 'react-native-gifted-charts';
 import { GET_SUBJECT } from "@/apollo/query";
 import { useQuery } from "@apollo/client";
+import usePlanetStore from "@/stores/PlanetStore";
 const { width } = Dimensions.get('window');
 const SIZE = width / 3;
 
@@ -26,6 +27,7 @@ function PersonalScreen() {
     const router = useRouter();
     const insets = useSafeAreaInsets();
     const { data: dataSubject, loading, error, refetch } = useQuery(GET_SUBJECT);
+    const actions = usePlanetStore(state => state.actions);
 
     const data = [
         { value: 50, color: '#90D3FF8F', text: 'Đất' }, // Earth
@@ -37,12 +39,20 @@ function PersonalScreen() {
     const radarData = [50, 20, 10, 22, 35, 45];
 
     const lineData = [
+
         { value: 80 },
         { value: 40 },
         { value: -70 },
         { value: 40 },
         { value: 80 },
     ];
+
+    useEffect(() => {
+        if (dataSubject) {
+            alert(JSON.stringify(dataSubject.planets));
+            actions.setPlanets(dataSubject.planets);
+        }
+    }, [dataSubject]);
 
     return <ImageBackground source={require('@/assets/images/bg_home.png')} style={{ flex: 1, paddingTop: insets.top }}>
         <BackButton onPress={() => router.back()} />
@@ -59,7 +69,10 @@ function PersonalScreen() {
                     <ButtonIcon icon={require('@/assets/images/icons/ic_love.png')} onPress={() => { }} />
                     <ButtonIcon icon={require('@/assets/images/icons/ic_suckhoe.png')} onPress={() => { }} />
                     <ButtonIcon icon={require('@/assets/images/icons/ic_finance.png')} onPress={() => { }} />
-                    <ButtonIcon icon={require('@/assets/images/icons/ic_personal.png')} onPress={() => { }} />
+                    <ButtonIcon icon={require('@/assets/images/icons/ic_personal.png')} onPress={() => {
+                        router.push("/PlanetsScreen", {
+                        });
+                    }} />
                 </View>
                 <Text style={[TypeStyles.textBold, { textAlign: 'center' }]}>{"Tính cách của bạn"}</Text>
                 <CardView

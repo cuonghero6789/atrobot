@@ -1,0 +1,28 @@
+export const Planet = {
+  ac: require('./ac.png'),
+  jupiter: require('./jupiter.png'),
+  mars: require('./mars.png'),
+  moon: require('./moon.png'),
+  mercury: require('./mercury.png'),
+  neptune: require('./neptune.png'),
+  saturn: require('./saturn.png'),
+  sun: require('./sun.png'),
+  venus: require('./venus.png'),
+  uranus: require('./uranus.png'),
+  pluto: require('./pluto.png'),
+  mc: require('./mc.png'),
+};
+export const House = {
+  Aquarius: require('./Aquarius.png'),
+  Aries: require('./Aries.png'),
+  Cancer: require('./Cancer.png'),
+  Capricorn: require('./Capricorn.png'),
+  Gemini: require('./Gemini.png'),
+  Leo: require('./Leo.png'),
+  Libra: require('./Libra.png'),
+  Pisces: require('./Pisces.png'),
+  Sagittarius: require('./Sagittarius.png'),
+  Scorpio: require('./Scorpio.png'),
+  Taurus: require('./Taurus.png'),
+  Virgo: require('./Virgo.png'),
+};

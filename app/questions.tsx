@@ -16,7 +16,8 @@ import { TopicsEnum } from "@/data";
 function QuestionsScreen() {
     const router = useRouter();
     const insets = useSafeAreaInsets();
-    const [AstroGenQuestion, { data, loading, error }] =
+    const [
+        , { data, loading, error }] =
         useMutation(ASTROME_GEN_QUESTION);
     const [
         AstroAnswerQuestion,
