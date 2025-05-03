@@ -130,8 +130,12 @@ let strings = new I18n({
     month: 'Month',
     pleaseFillInYourInformation: 'Please fill in your information!',
     updateInfoSuccess: 'Update information successfully!',
+    requestLang: "Please choose both language and content",
+    chooseBirthday: "Choose birthday"
   },
   vi: {
+    chooseBirthday: "Chọn ngày sinh",
+    reqestLang: "Vui lòng chọn cả ngôn ngữ và nội dung.",
     manifestMessage: 'Bạn đang mong đợi điều gì? Lắng nghe thông điệp vũ trụ và manifest ước mơ của bạn!',
     personal: 'Cá nhân',
     should: 'Nên',

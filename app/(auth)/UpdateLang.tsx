@@ -11,10 +11,12 @@ import { AuthAction } from "@/stores/interfaces/IAuthState";
 import { useMutation } from "@apollo/client";
 import { Image, ImageBackground } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { memo } from "react";
 import { StyleSheet, View, Dimensions } from "react-native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
+import strings from "@/localization";
+import { useRouter } from "expo-router";
 const { width, height } = Dimensions.get('window');
 const aspectRatio = 318 / 48;
 const WIDTH_LOGO = width - 72;
@@ -23,10 +25,15 @@ function UpdateLang() {
     const insets = useSafeAreaInsets();
     const user = useAccountStore(state => state.user);
     const actionAuth = useAuthStore(state => state.actions);
+    const actionsAccount = useAccountStore(state => state.actions);
     const [selectedLang, setSelectedLang] = React.useState("");
+    const selectedLangRef = useRef<string>("");
+    const selectedContentLangRef = useRef<string>("");
     const [selectedContentLang, setSelectedContentLang] = React.useState("");
     const popupBottomSheetRef = React.useRef<CanShowBottomSheet>(null);
     const popupBottomSheetContentRef = React.useRef<CanShowBottomSheet>(null);
+    const router = useRouter();
+
     const [UpdateLanguage, { data, loading, error }] =
         useMutation(UPDATE_LANGUAGE);
 
@@ -34,17 +41,21 @@ function UpdateLang() {
         if (loading) {
             global.loadingRef.current?.show();
         } else if (data) {
+            actionsAccount.setAccount({ ...user, ai_language: selectedContentLangRef.current, language_code: selectedLangRef.current });
             actionAuth.setStatus(AuthAction.AUTH_INFO);
+            global.loadingRef.current?.hide();
+            router.push("/UpdateInfo", {});
         }
     }, [data, loading]);
 
     const onPressConfirm = useCallback(() => {
         if (selectedLang && selectedContentLang) {
+            selectedContentLangRef.current = selectedContentLang;
+            selectedLangRef.current = selectedLang;
             UpdateLanguage({ variables: { language_code: selectedLang, ai_language: selectedContentLang } });
         } else {
-            alert("Please select language and content"), [{
+            alert(strings.t("reqestLang")), [{
                 text: "OK", onPress: () => {
-
                 }
             }];
         }

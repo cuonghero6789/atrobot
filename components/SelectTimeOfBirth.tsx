@@ -36,7 +36,7 @@ const SelectTimeOfBirth = ({ onSelectedTime, birthday }: Props) => {
         placeholder="Hours:  00, Minutes: 00"
         onPress={showDatePicker}
         name={'Time of birth*'}
-        text={hours && minutes && `Hours:  ${hours}, Minutes: ${minutes}`}
+        text={birthday ? (hours && minutes && `Hours:  ${hours}, Minutes: ${minutes}`) : ""}
       />
       <DateTimePickerModal
         isVisible={isDatePickerVisible}

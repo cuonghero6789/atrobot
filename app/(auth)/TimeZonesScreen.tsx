@@ -10,17 +10,20 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
 import spacing from '@/styles/spacing';
 import useAuthStore from '@/stores/AuthStore';
+import useAccountStore from '@/stores/AccountStore';
 
 function TimeZonesScreen(): JSX.Element {
   const router = useRouter();
-  const actions = useAuthStore(state => state.actions);
-  const user = useAuthStore(state => state.user);
+  const user = useAccountStore(state => state.user);
+  const actions = useAccountStore(state => state.actions);
   const [timeZone, setTimeZone] = React.useState(moment.tz.names());
 
   const insets = useSafeAreaInsets();
   const { name } = useLocalSearchParams<{ name: string }>();
   const [text, setText] = React.useState('');
 
+  console.log("time zone: " + JSON.stringify(user));
+  
   useEffect(() => {
     setUserInfo({ timezone: name });
   }, [name]);
@@ -32,7 +35,7 @@ function TimeZonesScreen(): JSX.Element {
           key={item}
           onPress={() => {
             setUserInfo({ timezone: item });
-            router.back();
+            // router.back();
           }}
           style={user?.timezone == item ? styles.itemSelected : styles.item}>
           <Text style={{ fontSize: 16, color: Colors.line2 }}>{item}</Text>
@@ -43,7 +46,7 @@ function TimeZonesScreen(): JSX.Element {
   );
 
   const setUserInfo = useCallback((data: any) => {
-    actions.setTmpUser({
+    actions.setAccount({
       ...user,
       ...data
     });

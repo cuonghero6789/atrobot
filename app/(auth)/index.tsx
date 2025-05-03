@@ -36,14 +36,9 @@ export default function IndexScreen() {
         refetch,
     } = useQuery(ACCOUNT);
 
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         router.replace('/UpdateLang');
-    //     }, 1000);
-    // }, []);
-    /**
-     * udpate info data when user missing info
-     */
+    // /**
+    //  * udpate info data when user missing info
+    //  */
     useEffect(() => {
         if (data) {
             if (status === AuthAction.AUTH_INFO) {
@@ -85,8 +80,10 @@ export default function IndexScreen() {
                 user?.ai_language
             ) {
                 actions.setStatus(AuthAction.AUTH_HOME);
-            } else {
+            } else if (user?.ai_language) {
                 actions.setStatus(AuthAction.AUTH_INFO);
+            } else {
+                actions.setStatus(AuthAction.AUTH_LANGUAGE);
             }
         }
     }, [dataAccount, user]);

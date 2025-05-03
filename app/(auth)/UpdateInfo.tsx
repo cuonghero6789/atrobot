@@ -16,7 +16,7 @@ import { UPDATE_ACCOUNT_INFO } from "@/apollo/mutation";
 import useAuthStore from "@/stores/AuthStore";
 import { AuthAction } from "@/stores/interfaces/IAuthState";
 import strings from "@/localization";
-import { getCalendars } from "expo-localization";
+import { getCalendars, timezone } from "expo-localization";
 import { router, useRouter } from "expo-router";
 import { BackButton } from "@/components/Button";
 import moment from "moment";
@@ -59,6 +59,12 @@ export default function UpdateInfoScreen() {
         useMutation(UPDATE_ACCOUNT_INFO);
 
     useEffect(() => {
+        // case timezone empty then set default timezone current
+        if (!user?.timezone) {
+            setUserInfo({
+                timezone: timeZone
+            });
+        }
         if (user?.display_name && user?.relationships && user.birthday && user.gender && user.timezone) {
             setIsEnabled(true);
         } else {
@@ -86,6 +92,10 @@ export default function UpdateInfoScreen() {
         if (status === AuthAction.AUTH_HOME) {
             router.back();
         }
+        else {
+            actions.setStatus(AuthAction.AUTH_HOME);
+        }
+        global.loadingRef.current?.hide();
         Toast.show({
             text1: strings.t("updateInfoSuccess"),
             type: "success",

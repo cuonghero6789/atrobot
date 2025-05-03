@@ -1,5 +1,20 @@
 import {PlanetModel, PlanetSignModel} from '../../models/ItemModel';
 
+export const setPlanets =
+  (set: any, get: any) => async (data: PlanetModel[]) => {
+    try {
+      set(
+        (state: any) => {
+          state.planets = data;
+        },
+        false,
+        'setPlanetsSuccess',
+      );
+    } catch (error: any) {
+      console.log('setPlanets error:', error.message);
+    }
+  };
+
 export const setPlanet =
   (set: any, get: any) => async (planet: PlanetModel) => {
     try {
@@ -12,7 +27,7 @@ export const setPlanet =
         'setPlanetSuccess',
       );
     } catch (error: any) {
-      console.log('Login error:', error.message);
+      console.log('setPlanet error:', error.message);
     }
   };
 
