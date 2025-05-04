@@ -2,7 +2,7 @@
   "expo": {
     "name": "AstroBot",
     "slug": "astrobot",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "astrobot",
@@ -10,7 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "usesAppleSignIn": true,
-      "runtimeVersion": "1.0.0",
+      "runtimeVersion": "1.0.1",
       "supportsTablet": true,
       "bundleIdentifier": "com.unikon.astrobot",
       "googleServicesFile": "./GoogleService-Info.plist",

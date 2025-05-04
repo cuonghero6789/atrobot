@@ -7,6 +7,7 @@ import TypeStyles from "@/styles/TypeStyle";
 import { Button } from "./Button";
 import { useState } from "react";
 import ActionInput from "./ActionInput";
+import { SkeletonLoader, SkeletonLoaderEvent, SkeletonLoaderQuestion } from "./loading/LoadingView";
 interface Props {
     colorStart: string;
     colorEnd: string;
@@ -38,12 +39,18 @@ export default function InnerShadowBox({ colorStart, colorEnd, iconSource, onPre
                 <View style={{ height: 21, width: 2, backgroundColor: Colors.white }} />
                 <Text style={[TypeStyles.bodyTextBold, { color: Colors.white, marginHorizontal: spacing.margin.small }]}>{"Câu hỏi gợi ý"}</Text>
             </View>
+            {
+                data && data?.length <= 0 &&
+                <View style={{ width: '100%', paddingTop: spacing.padding.large }}>
+                    <SkeletonLoaderQuestion />
+                </View>
+            }
             {data?.map((item, index) => (
                 <Button key={`key_${index}`} title={item}
                     onPress={() => onPress(item)}
                     containerStyle={{ marginTop: spacing.margin.small, borderRadius: 5, minHeight: 64 }}
                     textStyle={TypeStyles.subTitleMedium1}
-                    buttonStyle={{ borderRadius: 5, paddingHorizontal: spacing.padding.large }} />
+                    buttonStyle={{ borderRadius: 5, paddingHorizontal: spacing.padding.large, paddingVertical: spacing.padding.base }} />
             ))}
             <TouchableOpacity style={styles.btn}>
                 <Text style={[TypeStyles.textBold3, { color: Colors.white }]}>{"Gợi ý thêm"}</Text>

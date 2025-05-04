@@ -21,7 +21,7 @@ function ChooseTypeTopics() {
             setType(TopicsEnum.Self);
             AstroGenQuestion({
                 variables: {
-                    topic: type,
+                    topic: TopicsEnum.Self,
                 },
             });
         }
