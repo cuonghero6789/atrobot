@@ -13,6 +13,7 @@ import useAccountStore from '@/stores/AccountStore';
 import { AuthAction } from '@/stores/interfaces/IAuthState';
 import Loading, { CanShowLoading } from '@/components/Loading';
 import Toast from 'react-native-toast-message';
+import { View } from 'react-native';
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -33,6 +34,8 @@ export default function RootLayout() {
   useEffect(() => {
     if (status === AuthAction.AUTH_HOME && !loading) {
       router.replace('/(tabs)');
+    } else if (!loading && status === AuthAction.AUTH_LOGIN) {
+      router.replace("/(auth)");
     }
   }, [status, loading]);
 
@@ -43,7 +46,7 @@ export default function RootLayout() {
   }, [loading]);
 
   if (loading) {
-    return null;
+    return <View style={{ flex: 1, backgroundColor: 'white' }} />;
   }
 
   return (<GestureHandlerRootView style={{ flex: 1 }}>

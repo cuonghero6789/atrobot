@@ -16,6 +16,7 @@ import { useRouter } from "expo-router";
 import React, { useCallback, useEffect } from "react";
 import { Linking, ScrollView, Text, View, StyleSheet, Alert } from 'react-native';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 
 export default function YouScreen() {
     const insent = useSafeAreaInsets();
@@ -43,10 +44,10 @@ export default function YouScreen() {
 
     useEffect(() => {
         if (data?.updateAccount) {
-            //   Toast.show({
-            //     type: 'success',
-            //     text2: strings.updateSuccess,
-            //   });
+              Toast.show({
+                type: 'success',
+                text2: strings.t("updateSuccess"),
+              });
         }
     }, [data]);
 

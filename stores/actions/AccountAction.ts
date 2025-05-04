@@ -19,7 +19,22 @@ export const setAccount = (set: any, get: any) => async (user: UserModel) => {
     );
     /** save cache for login fast */
   } catch (error: any) {
-    console.log('Login error:', error.message);
+    console.log('setAccount error:', error.message);
+  }
+};
+
+export const setAccountTmp = (set: any, get: any) => async (user: UserModel) => {
+  try {
+    set(
+      (state: IAccountState) => {
+        state.userTmp = user;
+      },
+      false,
+      'setAccountTmpSuccess',
+    );
+    /** save cache for login fast */
+  } catch (error: any) {
+    console.log('setAccountTmp error:', error.message);
   }
 };
 
@@ -51,6 +66,6 @@ export const getAccount = (set: any, get: any) => async () => {
       );
     }
   } catch (error: any) {
-    console.log('Login error:', error.message);
+    console.log('getAccount error:', error.message);
   }
 };
