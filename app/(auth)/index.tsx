@@ -40,6 +40,8 @@ export default function IndexScreen() {
     //  * udpate info data when user missing info
     //  */
     useEffect(() => {
+        console.log(`data account === ${JSON.stringify(dataAccount)}`);
+        
         if (data) {
             if (status === AuthAction.AUTH_INFO) {
                 router.replace('/UpdateInfo');

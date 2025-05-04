@@ -11,7 +11,7 @@ export interface UserModel {
   relationships?: string;
   avatar?: string;
   email?: string;
-  hometown?: LocationModel;
+  hometown?: LocationModel | string;
   gender?: string;
   language_code?: string;
   ai_language?: string;

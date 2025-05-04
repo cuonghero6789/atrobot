@@ -7,6 +7,7 @@ import { TouchableOpacity, StyleSheet, Text, View, Dimensions } from "react-nati
 const { width, height } = Dimensions.get('window');
 const WIDTH = width;
 const HEIGHT = WIDTH * 72 / 390;
+
 interface Props {
     onPress?: () => void;
     text?: string;

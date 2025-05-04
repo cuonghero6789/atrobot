@@ -16,12 +16,14 @@ import useDailyStore from '@/stores/DailyStore';
 import AtroHtml from '@/components/AtroHtml';
 import { SkeletonLoaderEvent } from '@/components/loading/LoadingView';
 import strings from '@/localization';
+import useAccountStore from '@/stores/AccountStore';
 const { width, height } = Dimensions.get('window');
 export default function DailyScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const weekly = useDailyStore(state => state.weekly);
   const actions = useDailyStore(state => state.actions);
+  const userAccount = useAccountStore(state => state.user);
 
   const { onRefresh, updateCurrentLocation } = useSync();
   const [fromDate, setFromDate] = useState<string>(

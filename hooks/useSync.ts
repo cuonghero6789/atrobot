@@ -1,5 +1,6 @@
 import { ASTROME_DAILY, ASTROME_DOMINANT, ASTROME_MANIFEST, ASTROME_QUOTE, UPDATE_LOCATION_INFO } from "@/apollo/mutation";
-import { CHATS } from "@/apollo/query";
+import { ACCOUNT, CHATS } from "@/apollo/query";
+import useAccountStore from "@/stores/AccountStore";
 import useChatStore from "@/stores/ChatStore";
 import { useMutation, useQuery } from "@apollo/client";
 import { useCallback, useEffect } from "react";
@@ -18,15 +19,27 @@ export default function useSync() {
     data: dataMessage,
     loading: loadingMessage,
     error: errorMessage,
-    refetch: refetchAccount,
+    refetch: refetchChat,
   } = useQuery(CHATS);
+  const {
+    data: dataAccount,
+    loading: loadingAccount,
+    error: errorAccount,
+    refetch: refretchAccount,
+  } = useQuery(ACCOUNT);
   // const { data: dataManifest, loading: loadingManifest, error: errorManifest, refetch } = useQuery(ASTROME_MANIFEST);
   const actionChat = useChatStore(state => state.actions);
-
+  const actionAccount = useAccountStore(state => state.actions);
   const [
     UpdateLocationInfo,
     { data: dataLocation, loading: loadingLocation, error: errorLocation },
   ] = useMutation(UPDATE_LOCATION_INFO);
+
+  useEffect(() => {
+    if (dataAccount?.account) {
+      actionAccount.setAccount(dataAccount.account);
+    }
+  }, [dataAccount?.account]);
 
   useEffect(() => {
     if (dataMessage?.chats?.length > 0) {
@@ -44,10 +57,11 @@ export default function useSync() {
   }, [UpdateLocationInfo]);
 
   const onRefresh = (fromDate: string) => {
+    refretchAccount();
     AstroDaily({ variables: { from_date: fromDate } });
     AstroQuote({ variables: { from_date: fromDate } });
     AstroMeDominant({ variables: {} });
-    refetchAccount();
+    refetchChat();
   }
 
   const getAstroDaily = (fromDate: string) => {

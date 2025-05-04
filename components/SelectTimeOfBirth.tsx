@@ -12,7 +12,6 @@ const SelectTimeOfBirth = ({ onSelectedTime, birthday }: Props) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [hours, setHours] = useState(moment(birthday).format('HH'));
   const [minutes, setMinutes] = useState(moment(birthday).format('mm'));
-
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -36,7 +35,7 @@ const SelectTimeOfBirth = ({ onSelectedTime, birthday }: Props) => {
         placeholder="Hours:  00, Minutes: 00"
         onPress={showDatePicker}
         name={'Time of birth*'}
-        text={birthday ? (hours && minutes && `Hours:  ${hours}, Minutes: ${minutes}`) : ""}
+        text={hours == "Invalid date" ? "" : (hours && minutes && `Hours:  ${hours}, Minutes: ${minutes}`)}
       />
       <DateTimePickerModal
         isVisible={isDatePickerVisible}

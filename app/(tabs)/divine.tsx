@@ -4,6 +4,7 @@ import { HomeButtonBackground } from "@/components/home/HomeButton";
 import ManifestDays from "@/components/manifest/ManifestDays";
 import { PeriodSelector } from "@/components/manifest/PeriodSelector";
 import strings from "@/localization";
+import useAccountStore from "@/stores/AccountStore";
 import useDailyStore from "@/stores/DailyStore";
 import Colors from "@/styles/Colors";
 import spacing from "@/styles/spacing";
@@ -24,6 +25,7 @@ export default function DivineScreen() {
     const monthly = useDailyStore(state => state.monthly);
     const quote = useDailyStore(state => state.quote);
     const actions = useDailyStore(state => state.actions);
+    const userAccount = useAccountStore(state => state.user);
     const [fromDate, setFromDate] = useState<string>(
         moment().format('YYYY-MM-DD').toString(),
     );

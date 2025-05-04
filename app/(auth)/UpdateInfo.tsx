@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Dimensions, KeyboardAvoidingView, Platform, Scr
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Image } from 'expo-image';
 import { LinearGradient } from "expo-linear-gradient";
-import { CustomInput, Input } from "@/components/Input";
+import { CustomInput } from "@/components/Input";
 import InfoButton from "@/components/InfoButton";
 import CustomButton from "@/components/CustomButton";
 import SelectBirthday from "@/components/SelectBirthday";
@@ -16,22 +16,23 @@ import { UPDATE_ACCOUNT_INFO } from "@/apollo/mutation";
 import useAuthStore from "@/stores/AuthStore";
 import { AuthAction } from "@/stores/interfaces/IAuthState";
 import strings from "@/localization";
-import { getCalendars, timezone } from "expo-localization";
-import { router, useRouter } from "expo-router";
+import { getCalendars } from "expo-localization";
+import { useRouter } from "expo-router";
 import { BackButton } from "@/components/Button";
 import moment from "moment";
 import useAccountStore from "@/stores/AccountStore";
 import Toast from "react-native-toast-message";
+import { UserModel } from "@/models/UserModel";
 const { width } = Dimensions.get('screen');
 const SIZE_SUN = width - 100;
 
 export default function UpdateInfoScreen() {
-    const genders = [
+    const GENDERS = [
         { label: strings.t("male"), value: 'Male' },
         { label: strings.t("female"), value: 'Female' },
         { label: strings.t("other"), value: 'Other' },
     ];
-    const replationships = [
+    const RELATIONSHIPS = [
         {
             label: strings.t("singleAndLookingForLove"),
             value: 'Single and looking for love',
@@ -47,35 +48,40 @@ export default function UpdateInfoScreen() {
     const actions = useAuthStore(state => state.actions);
     const actionsAccount = useAccountStore(state => state.actions);
     const user = useAccountStore(state => state.user);
+    const userTmp = useAccountStore(state => state.userTmp);
     const status = useAuthStore(state => state.status);
     const router = useRouter();
-    const birthDayRef = React.useRef<string>(moment(user?.birthday).format('YYYY-MM-DD'));
-    const timeRef = React.useRef<string>(moment(user?.birthday).format('HH:mm'));
-    const [isEnabled, setIsEnabled] = useState(false);
     const { calendar, timeZone, uses24hourClock, firstWeekday } = getCalendars()[0];
 
+    const [birthday, setBirthday] = useState<string>(user?.birthday ? moment(user?.birthday).format('YYYY-MM-DD') : "");
+    const [timeOfBirth, setTimeOfBirth] = useState<string>(user?.birthday ? moment(user?.birthday).format('HH:mm') : "");
+    const [displayName, setDisplayName] = useState<string>(user?.display_name || "");
+    const [timezone, setTimezone] = useState<string>(userTmp?.timezone || user?.timezone || timeZone || "");
+    const [gender, setGender] = useState<string>(user?.gender || "");
+    const [relationships, setRelationships] = useState<string>(user?.relationships || "");
+
+    useEffect(() => {
+        if (userTmp?.timezone) {
+            setTimezone(userTmp?.timezone);
+        }
+    }, [userTmp?.timezone]);
 
     const [UpdateAccountInfo, { data, loading, error }] =
         useMutation(UPDATE_ACCOUNT_INFO);
 
     useEffect(() => {
-        // case timezone empty then set default timezone current
-        if (!user?.timezone) {
-            setUserInfo({
-                timezone: timeZone
-            });
-        }
-        if (user?.display_name && user?.relationships && user.birthday && user.gender && user.timezone) {
-            setIsEnabled(true);
-        } else {
-            setIsEnabled(false);
-        }
-    }, [user]);
-
-    useEffect(() => {
         if (data?.updateAccount) {
             global.loadingRef.current?.hide();
-            actions.setStatus(AuthAction.AUTH_HOME);
+            Toast.show({
+                text1: strings.t("updateInfoSuccess"),
+                type: "success",
+                position: "bottom"
+            });
+            if (status === AuthAction.AUTH_HOME) {
+                router.back();
+            } else {
+                actions.setStatus(AuthAction.AUTH_HOME);
+            }
         } else if (loading) {
             global.loadingRef.current?.show();
         } else if (error) {
@@ -85,30 +91,23 @@ export default function UpdateInfoScreen() {
     }, [data, loading, error]);
 
     const onPressContinue = useCallback(async () => {
-        UpdateAccountInfo({
-            variables: user,
-        });
-        /** the case use logined and update info again */
-        if (status === AuthAction.AUTH_HOME) {
-            router.back();
+        if (displayName && relationships && birthday && gender && timezone && timeOfBirth) {
+            const variables: UserModel = {
+                display_name: displayName,
+                relationships,
+                birthday: `${birthday} ${timeOfBirth}`,
+                hometown: "",
+                gender,
+                timezone
+            }
+            actionsAccount.setAccount(variables);
+            UpdateAccountInfo({
+                variables
+            });
+        } else {
+            Alert.alert(strings.t("pleaseFillInYourInformation"));
         }
-        else {
-            actions.setStatus(AuthAction.AUTH_HOME);
-        }
-        global.loadingRef.current?.hide();
-        Toast.show({
-            text1: strings.t("updateInfoSuccess"),
-            type: "success",
-            position: "bottom"
-        });
-    }, [user]);
-
-    const setUserInfo = useCallback((data: any) => {
-        actionsAccount.setAccount({
-            ...user,
-            ...data
-        });
-    }, [user]);
+    }, [birthday, timeOfBirth, timezone, displayName, gender, relationships]);
 
     return <SafeAreaView edges={['top']} style={styles.container}>
         <KeyboardAvoidingView
@@ -125,47 +124,50 @@ export default function UpdateInfoScreen() {
                 <ScrollView contentContainerStyle={{ paddingBottom: SIZE_SUN * 0.6 }} style={{ flex: 1 }}>
                     <View style={{ transform: [{ scaleX: 1 / 1.3 }] }}>
                         <Text style={styles.title}>{strings.t("updateInfo")}</Text>
-                        <CustomInput placeholder={strings.t("nameOrNickName")} name={strings.t("nameOrNickName")} text={user?.display_name || ""} onChangeText={(text) => setUserInfo({ display_name: text })} />
-                        <SelectBirthday birthday={user?.birthday} onSelectedDate={(date) => {
-                            birthDayRef.current = date;
-                            setUserInfo({ birthday: `${date} ${timeRef.current}` })
+                        <CustomInput placeholder={strings.t("nameOrNickName")}
+                            name={strings.t("nameOrNickName")}
+                            text={displayName}
+                            onChangeText={(text) => setDisplayName(text)} />
+                        <SelectBirthday birthday={birthday} onSelectedDate={(date) => {
+                            setBirthday(date);
                         }} />
                         <SelectTimeOfBirth birthday={user?.birthday} onSelectedTime={(time) => {
-                            timeRef.current = time;
-                            setUserInfo({ birthday: `${birthDayRef.current} ${time}` })
+                            setTimeOfBirth(time);
                         }} />
-                        <InfoButton name={strings.t("gender")} placeholder={strings.t("gender")} text={user?.gender || ""} onPress={() => {
+                        <InfoButton name={strings.t("gender")} placeholder={strings.t("gender")} text={gender || ""} onPress={() => {
                             popupBottomSheetRef.current?.show();
                         }} />
-                        <InfoButton name={strings.t("placeOfBirth")} placeholder={strings.t("placeOfBirth")} text={user?.timezone || timeZone} onPress={() => {
-                            router.push({
-                                pathname: '/TimeZonesScreen',
-                                params: {
-                                    name: user?.timezone || timeZone
-                                }
-                            });
-                        }} />
+                        <InfoButton name={strings.t("placeOfBirth")}
+                            placeholder={strings.t("placeOfBirth")}
+                            text={timezone} onPress={() => {
+                                router.push({
+                                    pathname: '/TimeZonesScreen',
+                                    params: {
+                                        name: timezone
+                                    }
+                                });
+                            }} />
                     </View>
                     <View style={{ transform: [{ scaleX: 1 / 1.3 }], height: SIZE_SUN * 0.6 }}>
-                        <Image tintColor={Colors.white} source={require('@/assets/images/bg_sun.png')} style={{ width: SIZE_SUN, height: SIZE_SUN * 762 / 676, position: 'absolute', right: 0 }} />
-                        <ChooseValue data={replationships} onSelected={(text) => {
-                            setUserInfo({ relationships: text });
-                        }} text={user?.relationships || ""} title={strings.t("iAm")} />
-                        <CustomButton container={styles.btnConfirm} text={styles.btnText} title={strings.t("continue")} onPress={() => {
-                            if (isEnabled) {
+                        <Image tintColor={Colors.white} source={require('@/assets/images/bg_sun.png')}
+                            style={{ width: SIZE_SUN, height: SIZE_SUN * 762 / 676, position: 'absolute', right: 0 }} />
+                        <ChooseValue data={RELATIONSHIPS}
+                            onSelected={(text) => {
+                                setRelationships(text);
+                            }} text={relationships || ""} title={strings.t("iAm")} />
+                        <CustomButton container={styles.btnConfirm}
+                            text={styles.btnText} title={strings.t("continue")}
+                            onPress={() => {
                                 onPressContinue();
-                            } else {
-                                Alert.alert(strings.t("pleaseFillInYourInformation"));
-                            }
-                        }} />
+                            }} />
                     </View>
                 </ScrollView>
             </LinearGradient>
         </KeyboardAvoidingView>
         <PopupBottomSheet ref={popupBottomSheetRef}>
-            <ChooseValue data={genders} onSelected={(text) => {
-                setUserInfo({ gender: text });
-            }} text={user?.gender || ""} title={strings.t("gender")} />
+            <ChooseValue data={GENDERS} onSelected={(text) => {
+                setGender(text);
+            }} text={gender || ""} title={strings.t("gender")} />
         </PopupBottomSheet>
     </SafeAreaView>;
 }
