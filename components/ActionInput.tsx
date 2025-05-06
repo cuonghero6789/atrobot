@@ -1,8 +1,7 @@
 import Colors from '@/styles/Colors';
 import spacing from '@/styles/spacing';
 import TypeStyles from '@/styles/TypeStyle';
-import { LinearGradient } from 'expo-linear-gradient';
-import React from 'react';
+import React, { memo } from 'react';
 import Feather from '@expo/vector-icons/Feather';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 interface Props {
@@ -20,16 +19,17 @@ const ActionInput = ({ placeholder, name, onPress }: Props) => {
             <View
                 style={[styles.btn, isFocused ? { justifyContent: 'space-between' } : null]}
             >
-                <TextInput
-                    style={[isFocused && styles.inputFocus, { alignItems: 'center', color: Colors.white, paddingVertical:4 }]}
-                    placeholder={placeholder}
-                    value={text}
-                    placeholderTextColor={Colors.white}
-                    focusable
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={() => setIsFocused(false)}
-                    onChangeText={(text) => setText(text)}
-                />
+                <View style={{ flex: 1, ...(!isFocused && { alignItems: 'center' }) }}>
+                    <TextInput
+                        style={[isFocused && styles.inputFocus, { alignItems: 'center', color: Colors.white, paddingVertical: 4 }]}
+                        placeholder={placeholder}
+                        placeholderTextColor={Colors.white}
+                        focusable
+                        onFocus={() => setIsFocused(true)}
+                        onBlur={() => setIsFocused(false)}
+                        onChangeText={(text) => setText(text)}
+                    />
+                </View>
                 {
                     text.length > 0 &&
                     <TouchableOpacity onPress={() => onPress(text)}>
@@ -40,7 +40,7 @@ const ActionInput = ({ placeholder, name, onPress }: Props) => {
         </View>
     );
 };
-export default ActionInput;
+export default memo(ActionInput);
 
 const styles = StyleSheet.create({
     btn: {

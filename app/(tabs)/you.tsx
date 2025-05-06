@@ -47,9 +47,11 @@ export default function YouScreen() {
               Toast.show({
                 type: 'success',
                 text2: strings.t("updateSuccess"),
+                position: 'bottom',
+                visibilityTime: 3000,
               });
         }
-    }, [data]);
+    }, [data, dataApp]);
 
     const renderLanguages = () => {
         return (
@@ -160,12 +162,14 @@ export default function YouScreen() {
             <ChooseValue data={languages} onSelected={(value) => {
                 actions.setAccount({ ...user, language_code: value });
                 UpdateAPPLanguage({ variables: { language_code: value } });
+                popupBottomSheetLangRef.current?.hide();
             }} text={user?.language_code || languages[0].value} title={strings.t("appLang")} />
         </PopupBottomSheet>
         <PopupBottomSheet ref={popupBottomSheetAiLangRef}>
             <ChooseValue data={languages} onSelected={(value) => {
                 actions.setAccount({ ...user, ai_language: value });
                 UpdateAILanguage({ variables: { ai_language: value } });
+                popupBottomSheetAiLangRef.current?.hide();
             }} text={user?.ai_language || languages[0].value} title={strings.t("contentLang")} />
         </PopupBottomSheet>
     </ImageBackground>

@@ -29,7 +29,9 @@
           {
             "SKAdNetworkIdentifier": "n38lu8286q.skadnetwork"
           }
-        ]
+        ],
+        "ITSAppUsesNonExemptEncryption": false,
+        "UIStatusBarStyle": "UIStatusBarStyleLightContent"
       }
     },
     "android": {
@@ -91,7 +93,20 @@
       [
         "expo-location",
         {
-          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to access your location to support app features. Your location is never shared."
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "$(PRODUCT_NAME) needs access to your camera to take photos. Your content stays private and is not shared."
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Allow $(PRODUCT_NAME) to access your photos to upload and display them in the app. Your content remains private.",
+          "isAccessMediaLocationEnabled": true
         }
       ],
       "expo-apple-authentication",
@@ -124,6 +139,9 @@
     },
     "updates": {
       "url": "https://u.expo.dev/5788c1d0-2c97-487a-96eb-82a4a2c32cf5"
+    },
+    "androidStatusBar": {
+      "backgroundColor": "#000000"
     }
   }
 }

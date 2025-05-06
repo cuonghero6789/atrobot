@@ -3,6 +3,7 @@ import { View, Button, Text } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from 'moment';
 import InfoButton from './InfoButton';
+import strings from '@/localization';
 interface Props {
   onSelectedTime?: (time: string) => void;
   birthday?: string;
@@ -32,10 +33,10 @@ const SelectTimeOfBirth = ({ onSelectedTime, birthday }: Props) => {
   return (
     <View style={{ flex: 1 }}>
       <InfoButton
-        placeholder="Hours:  00, Minutes: 00"
+        placeholder={strings.t("hoursMinutes")}
         onPress={showDatePicker}
-        name={'Time of birth*'}
-        text={hours == "Invalid date" ? "" : (hours && minutes && `Hours:  ${hours}, Minutes: ${minutes}`)}
+        name={strings.t("timeOfBirth")}
+        text={hours == "Invalid date" ? "" : (hours && minutes && `${strings.t("hours")}:  ${hours}, ${strings.t("minutes")}: ${minutes}`)}
       />
       <DateTimePickerModal
         isVisible={isDatePickerVisible}

@@ -12,7 +12,7 @@ import SelectTimeOfBirth from "@/components/SelectTimeOfBirth";
 import PopupBottomSheet, { CanShowBottomSheet } from "@/components/PopupBottomSheet";
 import ChooseValue from "@/components/auth/ChooseValue";
 import { useMutation } from "@apollo/client";
-import { UPDATE_ACCOUNT_INFO } from "@/apollo/mutation";
+import { UPDATE_ACCOUNT_INFO, UPLOAD_AVATAR } from "@/apollo/mutation";
 import useAuthStore from "@/stores/AuthStore";
 import { AuthAction } from "@/stores/interfaces/IAuthState";
 import strings from "@/localization";
@@ -23,6 +23,8 @@ import moment from "moment";
 import useAccountStore from "@/stores/AccountStore";
 import Toast from "react-native-toast-message";
 import { UserModel } from "@/models/UserModel";
+import { ChooseAvatar } from "@/components/auth/ChooseAvatar";
+import EditAvatar from "@/components/settings/EditAvatar";
 const { width } = Dimensions.get('screen');
 const SIZE_SUN = width - 100;
 
@@ -45,6 +47,7 @@ export default function UpdateInfoScreen() {
     ];
 
     const popupBottomSheetRef = React.useRef<CanShowBottomSheet>(null);
+    const popupBottomSheetRefAvatar = React.useRef<CanShowBottomSheet>(null);
     const actions = useAuthStore(state => state.actions);
     const actionsAccount = useAccountStore(state => state.actions);
     const user = useAccountStore(state => state.user);
@@ -59,6 +62,38 @@ export default function UpdateInfoScreen() {
     const [timezone, setTimezone] = useState<string>(userTmp?.timezone || user?.timezone || timeZone || "");
     const [gender, setGender] = useState<string>(user?.gender || "");
     const [relationships, setRelationships] = useState<string>(user?.relationships || "");
+    const [avatar, setAvatar] = useState<string>(user?.avatar || "");
+
+    const [
+        UpdateAvatar,
+        {
+            data: dataUploadAvatar,
+            loading: loadingUploadAvatar,
+            error: errorUploadAvatar,
+        },
+    ] = useMutation(UPLOAD_AVATAR);
+
+    useEffect(() => {
+        if (dataUploadAvatar) {
+            Toast.show({
+                text1: strings.t("updateInfoSuccessAvatar"),
+                type: "success",
+                position: "bottom"
+            });
+        }
+    }, [dataUploadAvatar]);
+
+    useEffect(() => {
+        if (errorUploadAvatar) {
+            Toast.show({
+                text1: errorUploadAvatar.message,
+                type: "success",
+                position: "bottom"
+            });
+            console.log(`errorUploadAvatar ===`, JSON.stringify(errorUploadAvatar));
+
+        }
+    }, [errorUploadAvatar]);
 
     useEffect(() => {
         if (userTmp?.timezone) {
@@ -124,6 +159,12 @@ export default function UpdateInfoScreen() {
                 <ScrollView contentContainerStyle={{ paddingBottom: SIZE_SUN * 0.6 }} style={{ flex: 1 }}>
                     <View style={{ transform: [{ scaleX: 1 / 1.3 }] }}>
                         <Text style={styles.title}>{strings.t("updateInfo")}</Text>
+                        {
+                            status === AuthAction.AUTH_HOME &&
+                            <EditAvatar avatar={avatar} onPress={() => {
+                                popupBottomSheetRefAvatar.current?.show();
+                            }} />
+                        }
                         <CustomInput placeholder={strings.t("nameOrNickName")}
                             name={strings.t("nameOrNickName")}
                             text={displayName}
@@ -169,6 +210,17 @@ export default function UpdateInfoScreen() {
                 setGender(text);
             }} text={gender || ""} title={strings.t("gender")} />
         </PopupBottomSheet>
+        <PopupBottomSheet ref={popupBottomSheetRefAvatar}>
+            <ChooseAvatar onImageSelected={(uri, base64, fileName, type) => {
+                if (uri) {
+                    setAvatar(uri);
+                    const _file = new File([uri], fileName, { type, lastModified: Date.now() });
+                    actionsAccount.setAccount({ ...user, avatar: uri });
+                    UpdateAvatar({ variables: { file: _file, base64 } });
+                }
+                popupBottomSheetRefAvatar.current?.hide();
+            }} />
+        </PopupBottomSheet>
     </SafeAreaView>;
 }
 
@@ -210,6 +262,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
+        backgroundColor: Colors.white
     },
     footer: {
         paddingHorizontal: 16,

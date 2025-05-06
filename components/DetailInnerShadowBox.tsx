@@ -6,14 +6,17 @@ import spacing, { borderRadius } from "@/styles/spacing";
 import TypeStyles from "@/styles/TypeStyle";
 import { Button } from "./Button";
 import { memo } from "react";
+import { SkeletonLoaderQuestion } from "./loading/LoadingView";
+import LoadingLuna from "./loading/LoadingLuna";
 interface Props {
     colorStart: string;
     colorEnd: string;
     iconSource: any;
     answer?: string;
+    loadingAnswer?: boolean;
 }
 
-function DetailInnerShadowBox({ colorStart, colorEnd, iconSource, answer }: Props) {
+function DetailInnerShadowBox({ colorStart, colorEnd, iconSource, answer, loadingAnswer }: Props) {
     return (
         <LinearGradient
             colors={[colorStart, colorEnd]}
@@ -40,9 +43,12 @@ function DetailInnerShadowBox({ colorStart, colorEnd, iconSource, answer }: Prop
                 buttonStyle={{ borderRadius: 5 }} />
             <Text style={[TypeStyles.textBold2, { color: "#2155A0BF", marginTop: spacing.margin.large, marginBottom: spacing.margin.xSmall }]}>{"Luna"}</Text>
             <View style={{ backgroundColor: "#2155A0BF", borderRadius: spacing.borderRadius.small, padding: spacing.padding.large }}>
-                <Text style={[TypeStyles.bodyText2, { color: Colors.white }]}>
-                    {answer}
-                </Text>
+                {!loadingAnswer ?
+                    <Text style={[TypeStyles.bodyText2, { color: Colors.white }]}>
+                        {answer}
+                    </Text> :
+                    <LoadingLuna />
+                }
             </View>
         </LinearGradient>
     );

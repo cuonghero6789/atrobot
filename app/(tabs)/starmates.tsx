@@ -16,9 +16,11 @@ import strings from "@/localization";
 import React from "react";
 import { StyleSheet, View, Text, ScrollView, Alert, KeyboardAvoidingView, Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import useAccountStore from "@/stores/AccountStore";
 
 export default function StarMatesScreen() {
     const insets = useSafeAreaInsets();
+    const userAccount = useAccountStore(state => state.user);
     const [isEnabled, setIsEnabled] = React.useState(false);
     const popupBottomSheetRef = React.useRef<CanShowBottomSheet>(null);
     const [selectedPerson, setSelectedPerson] = React.useState<string>("");

@@ -22,6 +22,7 @@ interface CardProps {
     description?: string,
     textStyle?: any,
     score?: ScoreModel,
+    name?: string,
 }
 
 const Card = ({ daily, score }: CardProps) => {
@@ -46,7 +47,7 @@ const Card = ({ daily, score }: CardProps) => {
     </LinearGradient>
 };
 
-const CardView = ({ contanerStyle, style, description, textStyle }: CardProps) => {
+const CardView = ({ contanerStyle, style, description, textStyle, name }: CardProps) => {
     return <View style={[styles.gradientView, contanerStyle]}>
         <LinearGradient
             colors={["#395784BF", "#357FE9BF"]}
@@ -55,7 +56,7 @@ const CardView = ({ contanerStyle, style, description, textStyle }: CardProps) =
             end={{ x: 0.5, y: 1 }}
         >
             <View style={{ flex: 1, padding: spacing.padding.large }}>
-                <Text style={[TypeStyles.subTitle1, { color: Colors.white }, textStyle]}>{description || "Chào Quỳnh Anh, Bạn có dự định gì sắp tới không? Hãy để các vì sao tiết lộ điều gì đang chờ đón bạn! 😉"}</Text>
+                <Text style={[TypeStyles.subTitle1, { color: Colors.white }, textStyle]}>{description || strings.t("recommendation").replace("{name}", name || "")}</Text>
             </View>
         </LinearGradient>
     </View>

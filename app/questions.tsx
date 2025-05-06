@@ -12,6 +12,7 @@ import { ASTROME_ANSWER_QUESTION, ASTROME_GEN_QUESTION } from "@/apollo/mutation
 import { useMutation } from "@apollo/client";
 import useQuestionStore from "@/stores/QuestionStore";
 import { TopicsEnum } from "@/data";
+import useAccountStore from "@/stores/AccountStore";
 
 function QuestionsScreen() {
     const router = useRouter();
@@ -29,6 +30,8 @@ function QuestionsScreen() {
     const questionsCare = useQuestionStore(state => state.questionsCare);
     const actions = useQuestionStore(state => state.actions);
     const topic = useQuestionStore(state => state.topic);
+    const userAccount = useAccountStore(state => state.user);
+
     const list =
         topic?.type === TopicsEnum.Love
             ? questionsLove
@@ -46,11 +49,12 @@ function QuestionsScreen() {
             style={{ flex: 1 }}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <ScrollView contentContainerStyle={{ paddingHorizontal: spacing.padding.large, paddingBottom: spacing.padding.big }}>
-                <CardView contanerStyle={{ paddingBottom: spacing.padding.extraLarge, marginHorizontal: spacing.margin.large }} />
+                <CardView name={userAccount?.display_name} contanerStyle={{ paddingBottom: spacing.padding.extraLarge, marginHorizontal: spacing.margin.large }} />
                 <ChooseTypeTopics />
                 <InnerShadowBox
                     data={list}
                     onPress={(text: string) => {
+                        actions.setloadingAnswer(true);
                         AstroAnswerQuestion({
                             variables: {
                                 topic: topic?.type,

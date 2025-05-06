@@ -131,7 +131,15 @@ let strings = new I18n({
     pleaseFillInYourInformation: 'Please fill in your information!',
     updateInfoSuccess: 'Update information successfully!',
     requestLang: "Please choose both language and content",
-    chooseBirthday: "Choose birthday"
+    chooseBirthday: "Choose birthday",
+    updateInfoSuccessAvatar: "Update avatar successfully!",
+    dayMonthYear: "Day/Month/Year*",
+    or: "Or",
+    hoursMinutes: "Hours:  00, Minutes: 00",
+    hours: "Hours",
+    minutes: "Minutes",
+    loadingAnswer: "Loading answer...",
+    recommendation:"Hello {name}, Do you have any plans coming up? Let the stars reveal what awaits you! 😉"
   },
   vi: {
     chooseBirthday: "Chọn ngày sinh",
@@ -262,6 +270,14 @@ let strings = new I18n({
     month: 'Tháng này',
     pleaseFillInYourInformation: 'Vui lòng điền thông tin của bạn!',
     updateInfoSuccess: 'Cập nhật thông tin thành công!',
+    updateInfoSuccessAvatar: "Cập nhật ảnh đại diện thành công!",
+    dayMonthYear: "Ngày/Tháng/Năm*",
+    or: "Hoặc",
+    hoursMinutes: "Giờ:  00, Phút: 00",
+    hours: "Giờ",
+    minutes: "Phút",
+    loadingAnswer: "Đang tải câu trả lời...",
+    recommendation: "Chào {name}, Bạn có dự định gì sắp tới không? Hãy để các vì sao tiết lộ điều gì đang chờ đón bạn! 😉"
   },
 });
 strings.enableFallback = true;
