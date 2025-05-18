@@ -41,7 +41,7 @@ export default function StarMatesScreen() {
             <KeyboardAvoidingView
                 style={{ flex: 1 }}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-                <ScrollView contentContainerStyle={{ paddingTop: spacing.margin.bigx2, paddingBottom: spacing.margin.bigx2 * 2 }}>
+                <ScrollView contentContainerStyle={[{ paddingTop: spacing.margin.bigx2, paddingBottom: spacing.margin.bigx2 * 2 }]}>
                     <DropDownButton
                         title={strings.t("choosePersonToView")}
                         styleContainer={{ paddingHorizontal: spacing.padding.large }}
@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
         flex: 1,
         borderTopLeftRadius: 100,
         borderTopRightRadius: 100,
+        overflow: 'hidden',
     },
     btnText: {
         fontSize: 16,

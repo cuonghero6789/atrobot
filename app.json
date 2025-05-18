@@ -8,12 +8,14 @@
     "scheme": "astrobot",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "jsEngine": "hermes",
     "ios": {
       "usesAppleSignIn": true,
       "runtimeVersion": "1.0.1",
       "supportsTablet": true,
       "bundleIdentifier": "com.unikon.astrobot",
       "googleServicesFile": "./GoogleService-Info.plist",
+      "teamId": "AHPJK3BV3J",
       "infoPlist": {
         "NSUserTrackingUsageDescription": "This identifier will be used to deliver personalized ads to you.",
         "NSCameraUsageDescription": "We need access to your camera to take photos for your profile and share moments with others.",
@@ -33,7 +35,9 @@
         ],
         "ITSAppUsesNonExemptEncryption": false,
         "UIStatusBarStyle": "UIStatusBarStyleLightContent"
-      }
+      },
+      "buildConfiguration": "Release",
+      "hermes": true
     },
     "android": {
       "googleServicesFile": "./google-services.json",
@@ -44,8 +48,15 @@
       "package": "com.atrobot",
       "permissions": [
         "android.permission.INTERNET",
-        "android.permission.INTERNET"
-      ]
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.ACCESS_MEDIA_LOCATION"
+      ],
+      "hermes": true
     },
     "web": {
       "bundler": "metro",
@@ -67,7 +78,12 @@
         "expo-build-properties",
         {
           "ios": {
-            "useFrameworks": "static"
+            "useFrameworks": "static",
+            "deploymentTarget": "15.1",
+            "enableBitcode": false,
+            "buildConfiguration": "Release",
+            "enableHermes": true,
+            "generateDsym": true
           }
         }
       ],
@@ -135,9 +151,7 @@
       }
     },
     "owner": "phancuong6789",
-    "runtimeVersion": {
-      "policy": "appVersion"
-    },
+    "runtimeVersion": "1.0.1",
     "updates": {
       "url": "https://u.expo.dev/5788c1d0-2c97-487a-96eb-82a4a2c32cf5"
     },

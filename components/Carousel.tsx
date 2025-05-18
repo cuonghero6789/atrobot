@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.32, // Similar to #00000052
         shadowRadius: 4,
         overflow: 'hidden',
-        elevation: 6, // Required for Android
+        // elevation: 6, // Required for Android
     },
     slide: {
         flex: 1,

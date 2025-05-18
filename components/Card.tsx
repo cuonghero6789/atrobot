@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 5, height: 5 },
         shadowOpacity: 0.4, // Similar to #00000052
         shadowRadius: 4,
-        elevation: 6, // Required for Android
+        // elevation: 6, // Required for Android
     },
     gradient: {
         flex: 1,

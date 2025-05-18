@@ -9,7 +9,11 @@ import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import Colors from '@/styles/Colors';
 const { width, height } = Dimensions.get('window');
-const TAB_HEIGHT = width * 180 / 780;
+const TAB_HEIGHT = Platform.select({
+  ios: width * 180 / 780,
+  android: width * 145 / 779, // Standard Material Design bottom navigation height
+  default: width * 180 / 780,
+});
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -31,24 +35,26 @@ export default function TabLayout() {
           marginRight: 6
         },
         tabBarBackground: () => (
-          <ImageBackground source={require('@/assets/images/tabs/ic_tab_bg.png')} style={styles.tabBarBackground} />
+          <ImageBackground source={Platform.OS === 'ios' ? require('@/assets/images/tabs/ic_tab_bg.png') : require('@/assets/images/tabs/ic_tab_bg_android.png')} style={styles.tabBarBackground} />
         ),
         // tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
-            // Use a transparent background on iOS to show the blur effect
             position: 'absolute',
             height: TAB_HEIGHT,
             borderColor: 'transparent',
-            // borderTopLeftRadius: 42, // Rounded top-left corner
-            // borderTopRightRadius: 42, // Rounded top-right corner
-            // borderColor: '#FFFFFF33', // Semi-transparent border
-            // shadowColor: 'white', // Shadow color
-            // shadowOffset: { width: 16, height: -16 },
-            // shadowOpacity: 0.8,
-            // shadowRadius: 42,
-            // elevation: 4, // Shadow for Android
-            overflow: 'hidden', // Ensure rounded corners are visible
+            overflow: 'hidden',
+          },
+          android: {
+            position: 'absolute',
+            backgroundColor: 'transparent',
+            height: TAB_HEIGHT,
+            borderColor: 'transparent',
+            overflow: 'hidden',
+            bottom: 0,
+            elevation: 0,
+            borderTopWidth: 0,
+            borderBottomWidth: 0,
           },
           default: {},
         }),

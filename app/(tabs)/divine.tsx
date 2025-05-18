@@ -82,5 +82,6 @@ const styles = StyleSheet.create({
         flex: 1,
         borderTopLeftRadius: 100,
         borderTopRightRadius: 100,
+        overflow: 'hidden',
     },
 });
