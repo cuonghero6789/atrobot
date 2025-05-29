@@ -5,14 +5,14 @@ import { memo, useEffect } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ScrollView, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
 import { CardItem, CardView } from "@/components/Card";
-import spacing from "@/styles/spacing";
+import { spacing } from "@/core/styles";
 import InnerShadowBox from "@/components/InnerShadowBox";
 import ChooseTypeTopics from "@/components/manifest/ChooseTypeTopics";
 import { ASTROME_ANSWER_QUESTION, ASTROME_GEN_QUESTION } from "@/apollo/mutation";
 import { useMutation } from "@apollo/client";
-import useQuestionStore from "@/stores/QuestionStore";
-import { TopicsEnum } from "@/data";
-import useAccountStore from "@/stores/AccountStore";
+import { useQuestionStore } from "@/core/stores";
+import { TopicsEnum } from "@/core/data";
+import { useAccountStore } from "@/core/stores";
 
 function QuestionsScreen() {
     const router = useRouter();
@@ -48,8 +48,8 @@ function QuestionsScreen() {
         <KeyboardAvoidingView
             style={{ flex: 1 }}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-            <ScrollView contentContainerStyle={{ paddingHorizontal: spacing.padding.large, paddingBottom: spacing.padding.big }}>
-                <CardView name={userAccount?.display_name} contanerStyle={{ paddingBottom: spacing.padding.extraLarge, marginHorizontal: spacing.margin.large }} />
+            <ScrollView contentContainerStyle={{ paddingHorizontal: spacing.large, paddingBottom: spacing.big }}>
+                <CardView name={userAccount?.display_name} contanerStyle={{ paddingBottom: spacing.extraLarge, marginHorizontal: spacing.large }} />
                 <ChooseTypeTopics />
                 <InnerShadowBox
                     data={list}

@@ -1,9 +1,8 @@
 import { memo } from "react";
 import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 import EvilIcons from '@expo/vector-icons/EvilIcons';
-import Colors from "@/styles/Colors";
-import { ItemPickerModel } from "@/models/ItemModel";
-import spacing from "@/styles/spacing";
+import { colors, spacing } from "@/core/styles";
+import { ItemPickerModel } from "@/core/types/atro";
 interface Props {
     onPress?: () => void;
     item?: ItemPickerModel;
@@ -29,10 +28,10 @@ export default memo(DropDownButton);
 
 const styles = StyleSheet.create({
     title: {
-        color: Colors.black3,
+        color: colors.surfaceElevated,
         fontSize: 14,
         fontWeight: '600',
-        marginBottom: spacing.padding.small
+        marginBottom: spacing.sm
     },
     container: {
         backgroundColor: '#FFFFFFB2',
@@ -51,7 +50,7 @@ const styles = StyleSheet.create({
         fontWeight: '400'
     },
     text: {
-        color: Colors.black,
+        color: colors.black,
         fontSize: 14,
         fontWeight: '400'
     }

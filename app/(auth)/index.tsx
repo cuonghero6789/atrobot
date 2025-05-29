@@ -5,18 +5,18 @@ import { Image, ImageBackground } from 'expo-image';
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "@/components/CustomButton";
 import { useRouter } from 'expo-router';
-import useAuthStore from "@/stores/AuthStore";
-import { AuthAction } from "@/stores/interfaces/IAuthState";
+import { useAuthStore } from "@/core/stores";
+import { AuthAction } from "@/core/stores/interfaces/common/IAuthState";
 import FireBaseAuth from "@/core/firebase/FireBaseAuth";
 import { useMutation, useQuery } from "@apollo/client";
 import { LOGIN } from "@/apollo/mutation";
-import { getDeviceInfo } from "@/core/utils/DeviceInfoUtil";
+import { getDeviceInfo } from "@/core/utils/device/DeviceInfoUtil";
 import { ACCOUNT } from "@/apollo/query";
-import { UserModel } from "@/models/UserModel";
-import useAccountStore from "@/stores/AccountStore";
-import Colors from "@/styles/Colors";
-import strings from "@/localization";
-import ConfigUtil from "@/core/utils/ConfigUtil";
+import { UserModel } from "@/core";
+import { useAccountStore } from "@/core/stores";
+import { colors } from "@/core/styles";
+import strings from "@/core/localization";
+import { getConfig } from "@/core";
 import ChooseLanguage from "@/components/auth/ChooseLanguage";
 import { Button } from "@/components/Button";
 
@@ -121,7 +121,7 @@ export default function IndexScreen() {
             pathname: '/WebScreen',
             params: {
                 title: strings.t("termOfService"),
-                uri: ConfigUtil.URL_PRIVACY,
+                uri: getConfig().LINKS.PRIVACY,
             }
         });
     }, []);
@@ -131,7 +131,7 @@ export default function IndexScreen() {
             pathname: '/WebScreen',
             params: {
                 title: strings.t("termOfPrivacy"),
-                uri: ConfigUtil.URL_TERM_OF_USE,
+                uri: getConfig().LINKS.TERMS,
             }
         });
     }, []);
@@ -196,14 +196,14 @@ const styles = StyleSheet.create({
         paddingBottom: 32
     },
     text: {
-        color: Colors.black,
+        color: colors.black,
         fontSize: 14,
         textAlign: 'center',
         lineHeight: 21,
     },
     title: {
         fontSize: 20,
-        color: Colors.white,
+        color: colors.white,
         textAlign: 'center',
         marginTop: 60,
     },

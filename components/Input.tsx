@@ -1,9 +1,8 @@
-import Colors from '@/styles/Colors';
-import spacing from '@/styles/spacing';
-import TypeStyles from '@/styles/TypeStyle';
+import { colors, spacing, textStyle } from '@/core/styles';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
+
 interface Props {
     placeholder: string;
     name?: string;
@@ -16,8 +15,8 @@ const Input = ({ placeholder, style, name, onChangeText, text }: Props) => {
     const [isFocused, setIsFocused] = React.useState(false);
 
     return (
-        <View style={{ paddingTop: spacing.padding.large, paddingHorizontal: spacing.padding.large }}>
-            {name && <Text style={[TypeStyles.bodyTextBold, styles.text]}>{name}</Text>}
+        <View style={{ paddingTop: spacing.md, paddingHorizontal: spacing.md }}>
+            {name && <Text style={[textStyle.bodyTextBold, styles.text]}>{name}</Text>}
             <LinearGradient
                 colors={['#EAFFFEB3', '#CDC9F1B3']}
                 style={styles.gradientBackground}
@@ -26,7 +25,7 @@ const Input = ({ placeholder, style, name, onChangeText, text }: Props) => {
                     style={[isFocused && styles.inputFocus]}
                     placeholder={placeholder}
                     value={text}
-                    placeholderTextColor={Colors.gray4}
+                    placeholderTextColor={colors.surfaceDark}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
                     onChangeText={onChangeText}
@@ -35,20 +34,19 @@ const Input = ({ placeholder, style, name, onChangeText, text }: Props) => {
         </View>
     );
 };
+
 const CustomInput = ({ placeholder, style, name, onChangeText, text }: Props) => {
     const [isFocused, setIsFocused] = React.useState(false);
 
     return (
-        <View style={{ paddingTop: spacing.padding.large, paddingHorizontal: spacing.padding.large }}>
-            {name && <Text style={[TypeStyles.bodyTextBold, styles.text]}>{name}</Text>}
-            <View
-                style={styles.input}
-            >
+        <View style={{ paddingTop: spacing.md, paddingHorizontal: spacing.md }}>
+            {name && <Text style={[textStyle.bodyTextBold, styles.text]}>{name}</Text>}
+            <View style={styles.input}>
                 <TextInput
                     style={[isFocused && styles.inputFocus]}
                     placeholder={placeholder}
                     value={text}
-                    placeholderTextColor={Colors.gray4}
+                    placeholderTextColor={colors.surfaceDark}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
                     onChangeText={onChangeText}
@@ -65,42 +63,24 @@ export {
 
 const styles = StyleSheet.create({
     input: {
-        borderRadius: 5,
+        borderRadius: spacing.xxs,
         height: 56,
-        paddingHorizontal: spacing.padding.base,
+        paddingHorizontal: spacing.ssm,
         justifyContent: 'center',
-        borderColor: Colors.white,
+        borderColor: colors.white,
         borderWidth: 1,
     },
     gradientBackground: {
-        borderRadius: 5,
+        borderRadius: spacing.xxs,
         height: 56,
-        paddingHorizontal: spacing.padding.base,
+        paddingHorizontal: spacing.ssm,
         justifyContent: 'center',
     },
-    borderOverlay: {
-        ...StyleSheet.absoluteFillObject,
-        borderRadius: 5,
-        borderWidth: 1,
-        borderColor: 'transparent',
-    },
     text: {
-        color: Colors.black3,
-        marginBottom: 8,
+        color: colors.surfaceElevated,
+        marginBottom: spacing.sm,
     },
     inputFocus: {
-        borderColor: Colors.white,
-    },
-    textInput: {
-        borderRadius: spacing.borderRadius.base,
-        paddingVertical: spacing.padding.small,
-        paddingHorizontal: spacing.padding.base,
-        backgroundColor: Colors.bgColor5,
-        marginRight: spacing.margin.small,
-        borderColor: Colors.bgColor3,
-        borderWidth: 1,
-        fontSize: 16,
-        height: 56,
-        color: Colors.gray2,
+        borderColor: colors.white,
     },
 });

@@ -1,6 +1,4 @@
-import Colors from "@/styles/Colors";
-import spacing from "@/styles/spacing";
-import TypeStyles from "@/styles/TypeStyle";
+import { colors, spacing, textStyle } from "@/core/styles";
 import { memo, useCallback, useState } from "react";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 
@@ -13,13 +11,13 @@ function ManifestDays() {
 
     return <View style={styles.container}>
         <TouchableOpacity onPress={() => onPress(0)} style={selected == 0 ? styles.btnSelected : styles.btn}>
-            <Text style={[TypeStyles.bodyTextBold, selected == 0 ? styles.textSelected : styles.text]}>{"Hôm này"}</Text>
+            <Text style={[textStyle.bodyTextBold, selected == 0 ? styles.textSelected : styles.text]}>{"Hôm này"}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => onPress(1)} style={selected == 1 ? styles.btnSelected : styles.btn}>
-            <Text style={[TypeStyles.bodyTextBold, selected == 1 ? styles.textSelected : styles.text]}>{"Tuần này"}</Text>
+            <Text style={[textStyle.bodyTextBold, selected == 1 ? styles.textSelected : styles.text]}>{"Tuần này"}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => onPress(2)} style={selected == 2 ? styles.btnSelected : styles.btn}>
-            <Text style={[TypeStyles.bodyTextBold, selected == 2 ? styles.textSelected : styles.text]}>{"Tháng này"}</Text>
+            <Text style={[textStyle.bodyTextBold, selected == 2 ? styles.textSelected : styles.text]}>{"Tháng này"}</Text>
         </TouchableOpacity>
     </View>
 }
@@ -28,33 +26,33 @@ export default memo(ManifestDays);
 
 const styles = StyleSheet.create({
     btn: {
-        backgroundColor: Colors.white,
+        backgroundColor: colors.white,
         borderRadius: 20,
-        paddingHorizontal: spacing.padding.base,
-        paddingVertical: spacing.padding.xSmall,
-        borderColor: Colors.white,
+        paddingHorizontal: spacing.md,
+        paddingVertical: spacing.xxs,
+        borderColor: colors.white,
         borderWidth: 2
     },
     btnSelected: {
         backgroundColor: "#357FE99C",
         borderRadius: 20,
-        paddingHorizontal: spacing.padding.base,
-        paddingVertical: spacing.padding.xSmall,
-        borderColor: Colors.white,
+        paddingHorizontal: spacing.ssm,
+        paddingVertical: spacing.xxs,
+        borderColor: colors.white,
         borderWidth: 2
     },
     text: {
-        color: Colors.green
+        color: colors.success
     },
     textSelected: {
-        color: Colors.white
+        color: colors.white
     },
     container: {
         alignItems: 'center',
         flexDirection: 'row',
         flex: 1,
         justifyContent: 'space-around',
-        paddingTop: spacing.padding.big,
-        paddingBottom: spacing.padding.large
+        paddingTop: spacing.xl,
+        paddingBottom: spacing.large
     }
 });

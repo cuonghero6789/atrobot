@@ -1,4 +1,4 @@
-import Colors from '@/styles/Colors';
+import { colors } from '@/core/styles';
 import {
   Image,
   View,
@@ -41,7 +41,7 @@ function Header({onPressBack, onPressSetting, title}: Props) {
           <Image
             source={require(`@/assets/images/ic_setting.png`)}
             style={{height: 32, width: 32}}
-            tintColor={Colors.yellow3}
+            tintColor={colors.warningLighter}
           />
         </TouchableOpacity>
       ) : (
@@ -54,7 +54,7 @@ function Header({onPressBack, onPressSetting, title}: Props) {
 export default Header;
 const styles = StyleSheet.create({
   title: {
-    color: Colors.white,
+    color: colors.white,
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: Colors.green,
+    backgroundColor: colors.success,
     paddingHorizontal: 16,
     paddingVertical: 8,
   },

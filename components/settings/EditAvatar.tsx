@@ -1,8 +1,8 @@
 import { memo } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import Colors from '@/styles/Colors';
 import { Image } from 'expo-image';
+import { colors } from '@/core/styles';
 const SIZE = 108;
 
 interface EditAvatarProps {
@@ -17,7 +17,7 @@ const EditAvatar = ({ onPress, avatar }: EditAvatarProps) => {
             <TouchableOpacity onPress={onPress} style={[styles.avatar]}>
                 {
                     !avatar ?
-                        <AntDesign name='user' size={24} color={Colors.green} /> :
+                        <AntDesign name='user' size={24} color={colors.success} /> :
                         <Image source={{ uri: avatar }} style={styles.avatar} />
                 }
             </TouchableOpacity>
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         width: SIZE,
         height: SIZE,
         borderRadius: SIZE / 2,
-        backgroundColor: Colors.white,
+        backgroundColor: colors.white,
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden'

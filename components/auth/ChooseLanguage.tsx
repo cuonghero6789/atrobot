@@ -1,8 +1,8 @@
-import Colors from "@/styles/Colors";
-import useAccountStore from "@/stores/AccountStore";
-import useAuthStore from "@/stores/AuthStore";
+import { colors } from "@/core/styles";
+import useAccountStore from "@/core/stores/common/AccountStore";
 import { memo } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { UserModel } from "@/core";
 
 function ChooseLanguage() {
     const user = useAccountStore(state => state.user);
@@ -12,7 +12,7 @@ function ChooseLanguage() {
             style={styles.container}>
             <TouchableOpacity
                 onPress={() => {
-                    actions.setAccount({ ...user, language_code: 'en' });
+                    actions.setAccount({ ...user, language_code: 'en' } as UserModel);
                 }}
                 style={{ padding: 6 }}>
                 <Text
@@ -27,7 +27,7 @@ function ChooseLanguage() {
             <View style={styles.line} />
             <TouchableOpacity
                 onPress={() => {
-                    actions.setAccount({ ...user, language_code: 'vi' });
+                    actions.setAccount({ ...user, language_code: 'vi' } as UserModel);
                 }}
                 style={{ padding: 6 }}>
                 <Text
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     line: {
         height: 12,
         width: 1,
-        backgroundColor: Colors.white
+        backgroundColor: colors.white
     },
     container: {
         flexDirection: 'row',
@@ -58,11 +58,11 @@ const styles = StyleSheet.create({
     txtLang: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: Colors.gray3,
+        color: colors.textGray,
     },
     txtLangSelected: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: Colors.black,
+        color: colors.black,
     },
 });

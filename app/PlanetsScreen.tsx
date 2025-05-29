@@ -1,14 +1,13 @@
 import { BackButton } from '@/components/Button';
-import usePlanetStore from '@/stores/PlanetStore';
-import spacing from '@/styles/spacing';
+import { usePlanetStore } from '@/core/stores';
+import { spacing } from '@/core/styles';
 import { ImageBackground } from 'expo-image';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { ScrollView, StyleSheet, View, Text, FlatList, Dimensions, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { PlanetItem } from '@/components/personal/planet';
-import Colors from '@/styles/Colors';
-import TypeStyles from '@/styles/TypeStyle';
+import { colors, textStyle } from '@/core/styles';
 
 const { width } = Dimensions.get('window');
 
@@ -18,7 +17,7 @@ const MenuItem = ({ text, isActive, onPress }: { text: string; isActive: boolean
       onPress={onPress}
       style={[styles.menuItem, isActive && styles.activeMenuItem]}
     >
-      <Text style={[TypeStyles.text, styles.menuText, isActive && styles.activeMenuText]}>
+      <Text style={[textStyle.text, styles.menuText, isActive && styles.activeMenuText]}>
         {text}
       </Text>
     </TouchableOpacity>
@@ -76,8 +75,8 @@ export default function PlanetsScreen() {
                 keyExtractor={(item, index) => item.name + index}
                 numColumns={2}
                 contentContainerStyle={{
-                    paddingHorizontal: spacing.padding.large,
-                    paddingBottom: spacing.padding.big,
+                    paddingHorizontal: spacing.large,
+                    paddingBottom: spacing.big,
                     paddingTop: 16,
                 }}
                 columnWrapperStyle={{
@@ -110,10 +109,10 @@ const styles = StyleSheet.create({
     activeMenuItem: {
         backgroundColor: 'rgba(255, 255, 255, 0.2)',
         borderLeftWidth: 3,
-        borderLeftColor: Colors.white,
+        borderLeftColor: colors.white,
     },
     menuText: {
-        color: Colors.white,
+        color: colors.white,
         fontSize: 14,
     },
     activeMenuText: {

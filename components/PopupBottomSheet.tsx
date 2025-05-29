@@ -1,14 +1,13 @@
 import React, {
   forwardRef,
   useCallback,
-  useMemo,
   useRef,
   useImperativeHandle,
 } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { Modal } from 'react-native';
-import Colors from '@/styles/Colors';
+import { colors } from '@/core/styles';
 
 export interface CanShowBottomSheet {
   show: () => void;
@@ -69,7 +68,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    backgroundColor: Colors.bgColor9,
+    backgroundColor: colors.backgroundTransparent,
   },
   contentContainer: {
     flex: 1

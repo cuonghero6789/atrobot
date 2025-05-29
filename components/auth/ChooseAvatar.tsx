@@ -4,9 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useCameraPermission } from '@/core/permission/useCamera';
 import { useMediaLibraryPermission } from '@/core/permission/useMediaLibrary';
 import * as ImagePicker from 'expo-image-picker';
-import Colors from '@/styles/Colors';
-import spacing from '@/styles/spacing';
-import { LinearGradient } from 'expo-linear-gradient';
+import { colors, spacing } from '@/core/styles';
 
 interface ChooseAvatarProps {
     onImageSelected: (uri: string, base64: string, fileName: string, type: string) => void;
@@ -111,14 +109,14 @@ export function ChooseAvatar({ onImageSelected }: ChooseAvatarProps) {
                             onPress={handleTakePhoto}
                             activeOpacity={0.7}
                         >
-                            <MaterialIcons name="camera-alt" size={24} color={Colors.white} />
+                            <MaterialIcons name="camera-alt" size={24} color={colors.white} />
                         </TouchableOpacity>
                         <TouchableOpacity 
                             style={styles.button} 
                             onPress={handleSelectFromLibrary}
                             activeOpacity={0.7}
                         >
-                            <MaterialIcons name="photo-library" size={24} color={Colors.white} />
+                            <MaterialIcons name="photo-library" size={24} color={colors.white} />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -130,12 +128,12 @@ export function ChooseAvatar({ onImageSelected }: ChooseAvatarProps) {
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        marginBottom: spacing.margin.large,
+        marginBottom: spacing.large,
     },
     buttonContainer: {
         borderRadius: 20,
         overflow: 'hidden',
-        shadowColor: Colors.black,
+        shadowColor: colors.black,
         shadowOffset: {
             width: 0,
             height: 4,
@@ -145,12 +143,12 @@ const styles = StyleSheet.create({
         // elevation: 8,
     },
     gradient: {
-        padding: spacing.padding.base,
+        padding: spacing.md,
     },
     buttons: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        gap: spacing.padding.bigx2,
+        gap: spacing.xxxl,
     },
     button: {
         width: 68,

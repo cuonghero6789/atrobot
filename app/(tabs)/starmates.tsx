@@ -6,17 +6,15 @@ import { CustomInput } from "@/components/Input";
 import PopupBottomSheet, { CanShowBottomSheet } from "@/components/PopupBottomSheet";
 import SelectBirthday from "@/components/SelectBirthday";
 import SelectTimeOfBirth from "@/components/SelectTimeOfBirth";
-import { genders, replationships } from "@/data";
-import Colors from "@/styles/Colors";
-import spacing from "@/styles/spacing";
-import TypeStyles from "@/styles/TypeStyle";
+import { genders, replationships } from "@/core/data";
+import { colors, spacing, textStyle } from "@/core/styles";
 import { ImageBackground } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
-import strings from "@/localization";
+import strings from "@/core/localization";
 import React from "react";
 import { StyleSheet, View, Text, ScrollView, Alert, KeyboardAvoidingView, Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import useAccountStore from "@/stores/AccountStore";
+import { useAccountStore } from "@/core/stores";
 
 export default function StarMatesScreen() {
     const insets = useSafeAreaInsets();
@@ -33,22 +31,22 @@ export default function StarMatesScreen() {
     return <ImageBackground source={require('@/assets/images/bg_home.png')} style={{ flex: 1 }}>
         <ImageBackground source={require('@/assets/images/bg_sun.png')} tintColor={'#FFFFFF75'} style={{ width: 338, height: 338, position: 'absolute', right: 0, top: 0 }} />
         <View style={[styles.info, { paddingTop: insets.top }]}>
-            <Text style={[TypeStyles.title, { color: Colors.black3 }]}>{"StarMates"}</Text>
-            <Text style={[TypeStyles.bodyText1, { color: Colors.gray, textAlign: "center", marginTop: spacing.margin.small }]}>{strings.t("starMates")}</Text>
+            <Text style={[textStyle.title, { color: colors.black3 }]}>{"StarMates"}</Text>
+            <Text style={[textStyle.bodyText1, { color: colors.gray, textAlign: "center", marginTop: spacing.sm }]}>{strings.t("starMates")}</Text>
         </View>
         <LinearGradient colors={['#C7D0D8BF', '#254668BF']} style={styles.profile}>
             {/* <View style={styles.profile}> */}
             <KeyboardAvoidingView
                 style={{ flex: 1 }}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-                <ScrollView contentContainerStyle={[{ paddingTop: spacing.margin.bigx2, paddingBottom: spacing.margin.bigx2 * 2 }]}>
+                <ScrollView contentContainerStyle={[{ paddingTop: spacing.bigx2, paddingBottom: spacing.bigx2 * 2 }]}>
                     <DropDownButton
                         title={strings.t("choosePersonToView")}
-                        styleContainer={{ paddingHorizontal: spacing.padding.large }}
-                        styleTitle={[TypeStyles.title, { color: Colors.white }]}
+                        styleContainer={{ paddingHorizontal: spacing.large }}
+                        styleTitle={[textStyle.title, { color: colors.white }]}
                         placeholder={strings.t("selectHere")} onPress={() => { }} />
-                    <View style={{ paddingHorizontal: spacing.padding.large, paddingTop: spacing.margin.big }}>
-                        <Text style={[TypeStyles.title, { color: Colors.white }]}>{strings.t("orViewForOthers")}</Text>
+                    <View style={{ paddingHorizontal: spacing.large, paddingTop: spacing.big }}>
+                        <Text style={[textStyle.title, { color: colors.white }]}>{strings.t("orViewForOthers")}</Text>
                     </View>
                     <CustomInput placeholder={strings.t("nameOrNickName")} name={strings.t("nameOrNickName")} text={selectName} onChangeText={(text) => { setSelectName(text) }} />
                     <SelectBirthday onSelectedDate={(date) => { setSelectBirthday(date) }} />
@@ -76,7 +74,7 @@ const styles = StyleSheet.create({
     info: {
         alignItems: 'center',
         justifyContent: 'center',
-        padding: spacing.padding.large
+        padding: spacing.large
     },
     profile: {
         // backgroundColor: "#827EAB59",
@@ -89,7 +87,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '700',
         lineHeight: 24,
-        color: Colors.white
+        color: colors.white
     },
     btnConfirm: {
         opacity: 1,
@@ -98,7 +96,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.32,
         shadowRadius: 4,
         elevation: 5,
-        marginTop: spacing.margin.big,
+        marginTop: spacing.big,
         paddingHorizontal: 80
     },
 });

@@ -1,10 +1,7 @@
 import { BackButton, ButtonIcon } from "@/components/Button";
 import { CardView } from "@/components/Card";
 import { Distribution, InfoChartProperties } from "@/components/personal/distribution";
-import { PeriodSelector } from "../components/manifest/PeriodSelector";
-import Colors from "@/styles/Colors";
-import spacing from "@/styles/spacing";
-import TypeStyles from "@/styles/TypeStyle";
+import { colors, spacing, textStyle } from "@/core/styles";
 import { ImageBackground } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
@@ -19,7 +16,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { LineChart } from 'react-native-gifted-charts';
 import { GET_SUBJECT } from "@/apollo/query";
 import { useQuery } from "@apollo/client";
-import usePlanetStore from "@/stores/PlanetStore";
+import { usePlanetStore } from "@/core/stores";
 const { width } = Dimensions.get('window');
 const SIZE = width / 3;
 
@@ -57,7 +54,7 @@ function PersonalScreen() {
     return <ImageBackground source={require('@/assets/images/bg_home.png')} style={{ flex: 1, paddingTop: insets.top }}>
         <BackButton onPress={() => router.back()} />
         <LinearGradient colors={['#B9C3CEBF', '#032A51BF']} style={styles.profile}>
-            <ScrollView contentContainerStyle={{ paddingHorizontal: spacing.padding.large, paddingBottom: spacing.padding.big }}>
+            <ScrollView contentContainerStyle={{ paddingHorizontal: spacing.large, paddingBottom: spacing.big }}>
                 <View style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
@@ -74,13 +71,13 @@ function PersonalScreen() {
                         });
                     }} />
                 </View>
-                <Text style={[TypeStyles.textBold, { textAlign: 'center' }]}>{"Tính cách của bạn"}</Text>
+                <Text style={[textStyle.textBold, { textAlign: 'center' }]}>{"Tính cách của bạn"}</Text>
                 <CardView
                     contanerStyle={{
-                        paddingVertical: spacing.padding.extraLarge,
-                        marginHorizontal: spacing.margin.large
+                        paddingVertical: spacing.extraLarge,
+                        marginHorizontal: spacing.large
                     }}
-                    textStyle={[TypeStyles.bodyText, {
+                    textStyleProp={[textStyle.bodyText, {
                         fontSize: 12,
                         lineHeight: 19
                     }]}
@@ -90,7 +87,7 @@ Một điểm mạnh lớn của Xử Nữ là khả năng phân tích. Bạn c�
                         borderWidth: 0
                     }} />
                 <View style={{ alignItems: 'center' }}>
-                    <Text style={[TypeStyles.textBold, { textAlign: 'center', marginBottom: spacing.padding.big }]}>{"Phân bố Nguyên tố"}</Text>
+                    <Text style={[textStyle.textBold, { textAlign: 'center', marginBottom: spacing.big }]}>{"Phân bố Nguyên tố"}</Text>
                     <PieChartPro
                         donut
                         shadow
@@ -99,14 +96,14 @@ Một điểm mạnh lớn của Xử Nữ là khả năng phân tích. Bạn c�
                         showText
                         innerCircleBorderColor="transparent"
                         innerCircleColor="transparent"
-                        textColor={Colors.black2}
+                        textColor={colors.black2}
                         textSize={12}
                         radius={SIZE}
                         font="Montserrat-Bold"
                         textBackgroundRadius={26}
                         data={data}
                     />
-                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: spacing.padding.big, paddingVertical: spacing.padding.big }}>
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: spacing.big, paddingVertical: spacing.big }}>
                         <Distribution icon={require('@/assets/images/icons/ic_earth.svg')} title="Đất" description="50%" />
                         <Distribution icon={require('@/assets/images/icons/ic_water.svg')} title="Nước" description="20%" />
                         <Distribution icon={require('@/assets/images/icons/ic_fire.svg')} title="Lửa" description="10%" />
@@ -114,11 +111,11 @@ Một điểm mạnh lớn của Xử Nữ là khả năng phân tích. Bạn c�
                     </View>
                 </View>
                 <View style={{ alignItems: 'flex-start' }}>
-                    <Text style={[TypeStyles.textBold2]}>{"Nguyên tố Trội: Khí"}</Text>
-                    <Text style={[TypeStyles.subTitleMedium1, { color: Colors.black1 }]}>{"Airy souls, beware! Your mercurial nature may lead you down treacherous  paths of indecision and fickleness. While your intellect soars, your  emotions remain grounded, potentially leaving you disconnected from the  world around you. Your gift of communication could become a curse, as  words spoken in haste may return to haunt you. Beware of becoming lost  in the clouds of your own thoughts, lest you lose touch with reality and  those who matter most."}</Text>
+                    <Text style={[textStyle.textBold2]}>{"Nguyên tố Trội: Khí"}</Text>
+                    <Text style={[textStyle.subTitleMedium1, { color: colors.black1 }]}>{"Airy souls, beware! Your mercurial nature may lead you down treacherous  paths of indecision and fickleness. While your intellect soars, your  emotions remain grounded, potentially leaving you disconnected from the  world around you. Your gift of communication could become a curse, as  words spoken in haste may return to haunt you. Beware of becoming lost  in the clouds of your own thoughts, lest you lose touch with reality and  those who matter most."}</Text>
                 </View>
                 <View style={{ alignItems: 'center' }}>
-                    <Text style={[TypeStyles.textBold, { textAlign: 'center', marginVertical: spacing.padding.big }]}>{"Phân bố Tính chất"}</Text>
+                    <Text style={[textStyle.textBold, { textAlign: 'center', marginVertical: spacing.big }]}>{"Phân bố Tính chất"}</Text>
                     <PieChartPro
                         donut
                         shadow
@@ -127,7 +124,7 @@ Một điểm mạnh lớn của Xử Nữ là khả năng phân tích. Bạn c�
                         showText
                         innerCircleBorderColor="transparent"
                         innerCircleColor="transparent"
-                        textColor={Colors.black2}
+                        textColor={colors.black2}
                         textSize={12}
                         radius={SIZE}
                         font="Montserrat-Bold"
@@ -135,14 +132,14 @@ Một điểm mạnh lớn của Xử Nữ là khả năng phân tích. Bạn c�
                         data={data}
                     />
                 </View>
-                <View style={{ flex: 1, flexDirection: 'row', paddingHorizontal: spacing.margin.bigx2, paddingVertical: spacing.padding.big, justifyContent: 'space-between' }}>
+                <View style={{ flex: 1, flexDirection: 'row', paddingHorizontal: spacing.bigx2, paddingVertical: spacing.big, justifyContent: 'space-between' }}>
                     <InfoChartProperties icon={require('@/assets/images/icons/ic_leading.png')} title="Đất" description="50%" />
                     <InfoChartProperties icon={require('@/assets/images/icons/ic_persisent.png')} title="Nước" description="20%" />
                     <InfoChartProperties icon={require('@/assets/images/icons/ic_flexible.png')} title="Lửa" description="10%" />
                 </View>
                 <View style={{ alignItems: 'flex-start' }}>
-                    <Text style={[TypeStyles.textBold2]}>{"Tính chất trội: Kiên định"}</Text>
-                    <Text style={[TypeStyles.subTitleMedium1, { color: Colors.black1 }]}>{"Airy souls, beware! Your mercurial nature may lead you down treacherous  paths of indecision and fickleness. While your intellect soars, your  emotions remain grounded, potentially leaving you disconnected from the  world around you. Your gift of communication could become a curse, as  words spoken in haste may return to haunt you. Beware of becoming lost  in the clouds of your own thoughts, lest you lose touch with reality and  those who matter most."}</Text>
+                    <Text style={[textStyle.textBold2]}>{"Tính chất trội: Kiên định"}</Text>
+                    <Text style={[textStyle.subTitleMedium1, { color: colors.black1 }]}>{"Airy souls, beware! Your mercurial nature may lead you down treacherous  paths of indecision and fickleness. While your intellect soars, your  emotions remain grounded, potentially leaving you disconnected from the  world around you. Your gift of communication could become a curse, as  words spoken in haste may return to haunt you. Beware of becoming lost  in the clouds of your own thoughts, lest you lose touch with reality and  those who matter most."}</Text>
                 </View>
                 <View style={styles.chartContainer}>
                     <RadarChart
@@ -164,25 +161,25 @@ Một điểm mạnh lớn của Xử Nữ là khả năng phân tích. Bạn c�
                     />
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View>
-                            <Text style={TypeStyles.text}>{"Khép kín-Hướng nội:"}</Text>
-                            <Text style={TypeStyles.text}>{"Hoạt động nhóm:"}</Text>
-                            <Text style={TypeStyles.text}>{"Độc lập - phi nguyên tắc:"}</Text>
-                            <Text style={TypeStyles.text}>{"Khó thay đổi:"}</Text>
-                            <Text style={TypeStyles.text}>{"Hay thay đổi - chần chừ:"}</Text>
-                            <Text style={TypeStyles.text}>{"Mạo hiểm:"}</Text>
+                            <Text style={textStyle.text}>{"Khép kín-Hướng nội:"}</Text>
+                            <Text style={textStyle.text}>{"Hoạt động nhóm:"}</Text>
+                            <Text style={textStyle.text}>{"Độc lập - phi nguyên tắc:"}</Text>
+                            <Text style={textStyle.text}>{"Khó thay đổi:"}</Text>
+                            <Text style={textStyle.text}>{"Hay thay đổi - chần chừ:"}</Text>
+                            <Text style={textStyle.text}>{"Mạo hiểm:"}</Text>
                         </View>
                         <View style={{ paddingLeft: 16 }}>
-                            <Text style={[TypeStyles.textBold, { color: Colors.black }]}>{"30.5/100"}</Text>
-                            <Text style={[TypeStyles.textBold, { color: Colors.black }]}>{"6.5/100"}</Text>
-                            <Text style={[TypeStyles.textBold, { color: Colors.black }]}>{"16.5/100"}</Text>
-                            <Text style={[TypeStyles.textBold, { color: Colors.black }]}>{"8.5/100"}</Text>
-                            <Text style={[TypeStyles.textBold, { color: Colors.black }]}>{"7.5/100"}</Text>
-                            <Text style={[TypeStyles.textBold, { color: Colors.black }]}>{"15/100"}</Text>
+                            <Text style={[textStyle.textBold, { color: colors.black }]}>{"30.5/100"}</Text>
+                            <Text style={[textStyle.textBold, { color: colors.black }]}>{"6.5/100"}</Text>
+                            <Text style={[textStyle.textBold, { color: colors.black }]}>{"16.5/100"}</Text>
+                            <Text style={[textStyle.textBold, { color: colors.black }]}>{"8.5/100"}</Text>
+                            <Text style={[textStyle.textBold, { color: colors.black }]}>{"7.5/100"}</Text>
+                            <Text style={[textStyle.textBold, { color: colors.black }]}>{"15/100"}</Text>
                         </View>
                     </View>
                 </View>
                 <View style={styles.chartContainer}>
-                    <Text style={[TypeStyles.textBold, { marginBottom: 16 }]}>{"Dự đoán xu hướng tài chính"}</Text>
+                    <Text style={[textStyle.textBold, { marginBottom: 16 }]}>{"Dự đoán xu hướng tài chính"}</Text>
                     <LineChart
                         data={lineData}
                         height={200}
@@ -239,12 +236,12 @@ const styles = StyleSheet.create({
     },
     chartContainer: {
         alignItems: 'center',
-        marginVertical: spacing.padding.large,
+        marginVertical: spacing.large,
         backgroundColor: 'rgba(255,255,255,0.1)',
-        padding: spacing.padding.large,
+        padding: spacing.large,
         borderRadius: 16,
     },
     radarChart: {
-        marginTop: spacing.padding.large,
+        marginTop: spacing.large,
     },
 });

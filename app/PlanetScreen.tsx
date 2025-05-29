@@ -1,8 +1,7 @@
 import { BackButton } from '@/components/Button';
-import strings from '@/localization';
-import usePlanetStore from '@/stores/PlanetStore';
-import Colors from '@/styles/Colors';
-import spacing from '@/styles/spacing';
+import strings from '@/core/localization';
+import { usePlanetStore } from '@/core/stores';
+import { colors, spacing } from '@/core/styles';
 import { ImageBackground } from 'expo-image';
 import { useRouter } from 'expo-router';
 import React from 'react';
@@ -26,7 +25,7 @@ export default function PlanetScreen() {
 
     return <ImageBackground source={require('@/assets/images/bg_planet.png')} style={{ flex: 1, paddingTop: insets.top }}>
         <BackButton onPress={() => router.back()} />
-        <ScrollView contentContainerStyle={{ paddingHorizontal: spacing.padding.large, paddingBottom: spacing.padding.big }}>
+        <ScrollView contentContainerStyle={{ paddingHorizontal: spacing.large, paddingBottom: spacing.big }}>
             <View style={{ flex: 1 }}>
                 {planet && (
                     <Text>{`${planet.name_label} ${planet.sign_label}`}</Text>
@@ -56,35 +55,35 @@ const styles = StyleSheet.create({
     },
     line: {
         height: 1,
-        backgroundColor: Colors.white,
+        backgroundColor: colors.white,
     },
     body: {
         borderRadius: 12,
-        backgroundColor: Colors.bgColor7,
+        backgroundColor: colors.bgColor7,
         padding: 16,
         marginVertical: 16,
     },
     contentBody: {
         fontSize: 14,
-        color: Colors.white,
+        color: colors.white,
     },
     planet: {
         fontSize: 22,
         fontWeight: 'bold',
-        color: Colors.white,
+        color: colors.white,
         marginVertical: 16,
     },
     container: {
-        backgroundColor: Colors.bgColor2,
+        backgroundColor: colors.bgColor2,
         flex: 1,
     },
     title: {
-        color: Colors.gray2,
+        color: colors.gray2,
         fontSize: 14,
     },
     content: {
         fontSize: 14,
-        color: Colors.white,
+        color: colors.white,
     },
 
     link: {

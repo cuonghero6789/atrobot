@@ -1,8 +1,5 @@
 import { Stack } from "expo-router";
-import { useEffect } from "react";
-import { router } from 'expo-router';
-import useAuthStore from "@/stores/AuthStore";
-import useAccountStore from "@/stores/AccountStore";
+import React from "react";
 
 export default function IndexScreen() {
     return <>

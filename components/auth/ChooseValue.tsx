@@ -1,7 +1,5 @@
-import Colors from "@/styles/Colors";
-import spacing from "@/styles/spacing";
-import { replationships } from "@/data";
-import { ItemPickerModel } from "@/models/ItemModel";
+import { colors, spacing } from "@/core/styles";
+import { ItemPickerModel } from "@/core/types/atro";
 import { memo, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 interface Props {
@@ -31,31 +29,31 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '600',
         lineHeight: 24,
-        color: Colors.black1,
-        marginBottom: spacing.margin.small
+        color: colors.surfaceCard,
+        marginBottom: spacing.sm
     },
     container: {
-        padding: spacing.borderRadius.extraLarge,
+        padding: spacing.lg,
         alignItems: 'flex-start',
     },
     text: {
         fontSize: 14,
         fontWeight: '500',
         lineHeight: 21,
-        color: Colors.line2
+        color: colors.borderLighter
     },
     btnSelect: {
-        marginVertical: spacing.margin.small,
-        backgroundColor: Colors.green,
-        borderRadius: spacing.borderRadius.extraLarge,
-        paddingVertical: spacing.padding.xSmall,
-        paddingHorizontal: spacing.padding.extraLarge
+        marginVertical: spacing.sm,
+        backgroundColor: colors.success,
+        borderRadius: spacing.lg,
+        paddingVertical: spacing.sm,
+        paddingHorizontal: spacing.md
     },
     btn: {
-        backgroundColor: Colors.green2,
-        borderRadius: spacing.borderRadius.extraLarge,
-        paddingVertical: spacing.padding.xSmall,
-        paddingHorizontal: spacing.padding.extraLarge,
-        marginVertical: spacing.margin.small,
+        backgroundColor: colors.successLight,
+        borderRadius: spacing.lg,
+        paddingVertical: spacing.sm,
+        paddingHorizontal: spacing.md,
+        marginVertical: spacing.sm,
     }
 });

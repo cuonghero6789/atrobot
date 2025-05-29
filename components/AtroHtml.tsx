@@ -1,8 +1,7 @@
-import spacing from "@/styles/spacing";
-import TypeStyles from "@/styles/TypeStyle";
+import { spacing, textStyle } from "@/core/styles";
 import React from "react"
 import HTMLView from 'react-native-htmlview';
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import { colors } from "@/core/styles";
 
 interface Props {
     desc: string;
@@ -13,9 +12,9 @@ const AtroHtml = ({ desc }: Props) => {
         value={`<p>${desc}</p>`}
         stylesheet={{
             p: {
-                ...TypeStyles.bodyText,
-                color: Colors.white,
-                marginTop: spacing.margin.large,
+                ...textStyle.body,
+                color: colors.white,
+                marginTop: spacing.large,
             }
         }}
     />

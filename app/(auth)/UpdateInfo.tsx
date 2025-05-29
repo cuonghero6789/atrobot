@@ -1,4 +1,4 @@
-import Colors from "@/styles/Colors";
+import { colors } from "@/core/styles";
 import React, { useCallback, useEffect, useState } from "react";
 import { View, Text, StyleSheet, Dimensions, KeyboardAvoidingView, Platform, ScrollView, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -13,16 +13,16 @@ import PopupBottomSheet, { CanShowBottomSheet } from "@/components/PopupBottomSh
 import ChooseValue from "@/components/auth/ChooseValue";
 import { useMutation } from "@apollo/client";
 import { UPDATE_ACCOUNT_INFO, UPLOAD_AVATAR } from "@/apollo/mutation";
-import useAuthStore from "@/stores/AuthStore";
-import { AuthAction } from "@/stores/interfaces/IAuthState";
-import strings from "@/localization";
+import { useAuthStore } from "@/core/stores";
+import { AuthAction } from "@/core/stores/interfaces/common/IAuthState";
+import strings from "@/core/localization";
 import { getCalendars } from "expo-localization";
 import { useRouter } from "expo-router";
 import { BackButton } from "@/components/Button";
 import moment from "moment";
-import useAccountStore from "@/stores/AccountStore";
+import { useAccountStore } from "@/core/stores";
 import Toast from "react-native-toast-message";
-import { UserModel } from "@/models/UserModel";
+import { UserModel } from "@/core";
 import { ChooseAvatar } from "@/components/auth/ChooseAvatar";
 import EditAvatar from "@/components/settings/EditAvatar";
 const { width } = Dimensions.get('screen');
@@ -190,7 +190,7 @@ export default function UpdateInfoScreen() {
                             }} />
                     </View>
                     <View style={{ transform: [{ scaleX: 1 / 1.3 }], height: SIZE_SUN * 0.6 }}>
-                        <Image tintColor={Colors.white} source={require('@/assets/images/bg_sun.png')}
+                        <Image tintColor={colors.white} source={require('@/assets/images/bg_sun.png')}
                             style={{ width: SIZE_SUN, height: SIZE_SUN * 762 / 676, position: 'absolute', right: 0 }} />
                         <ChooseValue data={RELATIONSHIPS}
                             onSelected={(text) => {
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '700',
         lineHeight: 24,
-        color: Colors.white
+        color: colors.white
     },
     btnConfirm: {
         opacity: 1,
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: '700',
         lineHeight: 28,
-        color: Colors.white,
+        color: colors.white,
         textAlign: 'center',
         marginTop: 60,
         marginBottom: 20
@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: Colors.white
+        backgroundColor: colors.white
     },
     footer: {
         paddingHorizontal: 16,
@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
         paddingBottom: 32
     },
     text: {
-        color: Colors.black,
+        color: colors.black,
         fontSize: 14,
         textAlign: 'center',
         lineHeight: 21,

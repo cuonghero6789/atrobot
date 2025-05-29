@@ -1,11 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import Colors from '@/styles/Colors';
+import { colors, spacing, textStyle } from '@/core/styles';
 import { CAROUSEL_HEIGHT, CAROUSEL_WIDTH } from './Carousel';
-import TypeStyles from '@/styles/TypeStyle';
 import { Image } from 'expo-image';
-import spacing from '@/styles/spacing';
 const images = {
     emotion: require('@/assets/images/daily/ic_heath.svg'),
     career: require('@/assets/images/daily/ic_career.svg'),
@@ -13,14 +11,14 @@ const images = {
     money: require('@/assets/images/daily/ic_finance.svg'),
 };
 
-import { DailyModel, ScoreModel } from '@/models/ItemModel';
-import strings from '@/localization';
+import { DailyModel, ScoreModel } from '@/core/types/atro';
+import strings from '@/core/localization';
 interface CardProps {
     daily?: DailyModel,
     contanerStyle?: any,
     style?: any,
     description?: string,
-    textStyle?: any,
+    textStyleProp?: any,
     score?: ScoreModel,
     name?: string,
 }
@@ -39,24 +37,24 @@ const Card = ({ daily, score }: CardProps) => {
         <View style={[styles.card]}>
             <View style={{ alignItems: 'center' }}>
                 <Image source={imageToDisplay ?? require('@/assets/images/ic_carier.png')} style={{ width: 43, height: 43 }} />
-                <Text style={[TypeStyles.btnSecondary, { color: Colors.white }]}>{`${label}`}</Text>
-                <Text style={[TypeStyles.subTitle, { color: Colors.white }]}>{`${score?.score}`}</Text>
+                <Text style={[textStyle.btnSecondary, { color: colors.white }]}>{`${label}`}</Text>
+                <Text style={[textStyle.subTitle, { color: colors.white }]}>{`${score?.score}`}</Text>
             </View>
-            <Text style={[TypeStyles.bodyText3, styles.text]}>{text}</Text>
+            <Text style={[textStyle.bodyText, styles.text]}>{text}</Text>
         </View>
     </LinearGradient>
 };
 
-const CardView = ({ contanerStyle, style, description, textStyle, name }: CardProps) => {
+const CardView = ({ contanerStyle, style, description, textStyleProp, name }: CardProps) => {
     return <View style={[styles.gradientView, contanerStyle]}>
         <LinearGradient
             colors={["#395784BF", "#357FE9BF"]}
-            style={[{ flex: 1, borderRadius: 20, borderWidth: 2, borderColor: Colors.white }, style]}
+            style={[{ flex: 1, borderRadius: 20, borderWidth: 2, borderColor: colors.white }, style]}
             start={{ x: 0.5, y: 0 }}
             end={{ x: 0.5, y: 1 }}
         >
-            <View style={{ flex: 1, padding: spacing.padding.large }}>
-                <Text style={[TypeStyles.subTitle1, { color: Colors.white }, textStyle]}>{description || strings.t("recommendation").replace("{name}", name || "")}</Text>
+            <View style={{ flex: 1, padding: spacing.large }}>
+                <Text style={[textStyle.subTitle1, { color: colors.white }, textStyleProp]}>{description || strings.t("recommendation").replace("{name}", name || "")}</Text>
             </View>
         </LinearGradient>
     </View>
@@ -109,12 +107,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
-        padding: spacing.padding.large
+        padding: spacing.large
     },
     text: {
         color: '#fff',
         flex: 1,
-        marginLeft: spacing.padding.large
+        marginLeft: spacing.large
     },
 });
 

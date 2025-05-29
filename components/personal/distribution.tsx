@@ -1,9 +1,7 @@
 import React, { memo } from "react"
 import { View, Text, StyleSheet } from "react-native"
-import Colors from "@/styles/Colors"
+import { colors, spacing, textStyle } from "@/core/styles"
 import { Image } from "expo-image"
-import spacing from "@/styles/spacing"
-import TypeStyles from "@/styles/TypeStyle"
 
 interface Props {
     icon?: any,
@@ -14,12 +12,12 @@ interface Props {
 
 const Distribution = ({ icon, title, description, style }: Props) => {
     return (
-        <View style={{ width: '50%', alignItems: 'center', paddingBottom: spacing.padding.big }}>
+        <View style={{ width: '50%', alignItems: 'center', paddingBottom: spacing.xl }}>
             <View style={[styles.wrapper, style]}>
-                <Image source={icon} style={styles.icon} tintColor={Colors.white} contentFit="contain" />
-                <View style={{ paddingHorizontal: spacing.padding.base }}>
-                    <Text style={[TypeStyles.subTitleMedium1, styles.title]}>{title}</Text>
-                    <Text style={[TypeStyles.textBold2, styles.description]}>{description}</Text>
+                <Image source={icon} style={styles.icon} tintColor={colors.white} contentFit="contain" />
+                <View style={{ paddingHorizontal: spacing.ssm }}>
+                    <Text style={[textStyle.subTitleMedium1, styles.title]}>{title}</Text>
+                    <Text style={[textStyle.textBold2, styles.description]}>{description}</Text>
                 </View>
             </View>
         </View>
@@ -28,9 +26,9 @@ const Distribution = ({ icon, title, description, style }: Props) => {
 const InfoChartProperties = ({ icon, title, description }: Props) => {
     return (
         <View style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-            <Image source={icon} style={styles.icon} tintColor={Colors.white} contentFit="contain" />
-            <Text style={[TypeStyles.subTitleMedium1, { fontSize: 14, marginVertical: spacing.padding.xTiny, textAlign: 'center' }]}>{title}</Text>
-            <Text style={[TypeStyles.textBold2, styles.description]}>{description}</Text>
+            <Image source={icon} style={styles.icon} tintColor={colors.white} contentFit="contain" />
+            <Text style={[textStyle.subTitleMedium1, { fontSize: 14, marginVertical: spacing.xTiny, textAlign: 'center' }]}>{title}</Text>
+            <Text style={[textStyle.textBold2, styles.description]}>{description}</Text>
         </View>
     )
 }
@@ -54,7 +52,7 @@ const styles = StyleSheet.create({
     },
     description: {
         fontSize: 14,
-        color: Colors.black,
+        color: colors.black,
         textAlign: 'center'
     }
 })

@@ -1,8 +1,8 @@
 import { StyleSheet, Text, TouchableOpacity, View, Animated, Dimensions } from 'react-native';
-import TypeStyles from '@/styles/TypeStyle';
-import spacing from '@/styles/spacing';
+import { textStyle } from '@/core/styles';
+import { spacing } from '@/core/styles';
 import { useEffect, useRef } from 'react';
-import strings from '@/localization';
+import strings from '@/core/localization';
 
 type PeriodSelectorProps = {
     selectedPeriod: 'week' | 'month';
@@ -25,7 +25,7 @@ export const PeriodSelector = ({ selectedPeriod, onPeriodChange }: PeriodSelecto
         transform: [{
             translateX: translateX.interpolate({
                 inputRange: [0, 1],
-                outputRange: [0, (width / 2) - spacing.padding.large],
+                outputRange: [0, (width / 2) - spacing.large],
             })
         }]
     };
@@ -39,7 +39,7 @@ export const PeriodSelector = ({ selectedPeriod, onPeriodChange }: PeriodSelecto
             >
                 <Text style={[
                     styles.periodText,
-                    TypeStyles.textBold3,
+                    textStyle.textBold3,
                 ]}>{strings.t("week")}</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -48,7 +48,7 @@ export const PeriodSelector = ({ selectedPeriod, onPeriodChange }: PeriodSelecto
             >
                 <Text style={[
                     styles.periodText,
-                    TypeStyles.textBold3,
+                    textStyle.textBold3,
                 ]}>{strings.t("month")}</Text>
             </TouchableOpacity>
         </View>
@@ -56,15 +56,15 @@ export const PeriodSelector = ({ selectedPeriod, onPeriodChange }: PeriodSelecto
 };
 
 const { width } = Dimensions.get('window');
-const TAB_WIDTH = (width - (spacing.padding.large * 2)) / 2;
+const TAB_WIDTH = (width - (spacing.large * 2)) / 2;
 
 const styles = StyleSheet.create({
     periodContainer: {
-        marginHorizontal: spacing.padding.large,
+        marginHorizontal: spacing.large,
         flexDirection: 'row',
         backgroundColor: '#D9D9D9',
         borderRadius: 15,
-        marginVertical: spacing.padding.large,
+        marginVertical: spacing.large,
         shadowColor: '#D9D9D9',
         shadowOffset: {
             width: 0,
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
     },
     periodText: {
-        ...TypeStyles.text,
+        ...textStyle.text,
         color: '#fff',
     },
     periodTextActive: {

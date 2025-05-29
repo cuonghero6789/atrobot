@@ -1,6 +1,4 @@
-import Colors from "@/styles/Colors";
-import spacing from "@/styles/spacing";
-import TypeStyles from "@/styles/TypeStyle";
+import { colors, spacing, textStyle } from "@/core/styles";
 import { ImageBackground } from "expo-image";
 import { memo } from "react";
 import { TouchableOpacity, StyleSheet, Text, View, Dimensions } from "react-native";
@@ -17,14 +15,14 @@ interface Props {
 function HomeButton({ onPress, text }: Props) {
     return <View style={{ alignItems: 'center' }}>
         <TouchableOpacity onPress={onPress} style={styles.container}>
-            <Text style={[TypeStyles.subTitle, styles.text]}>{text}</Text>
+            <Text style={[textStyle.subTitle, styles.text]}>{text}</Text>
         </TouchableOpacity>
     </View>
 }
 function HomeButtonBackground({ onPress, text, subText }: Props) {
     return <ImageBackground source={require('@/assets/images/bg_btn.png')} style={{ width: WIDTH, height: HEIGHT }}>
         <TouchableOpacity onPress={onPress} style={styles.btn}>
-            <Text style={[TypeStyles.textBold1, styles.textGreen]}>{text}<Text style={[TypeStyles.text1, styles.textGreen]}>{` ${subText}`}</Text></Text>
+            <Text style={[textStyle.textBold, styles.textGreen]}>{text}<Text style={[textStyle.text, styles.textGreen]}>{` ${subText}`}</Text></Text>
         </TouchableOpacity>
     </ImageBackground>
 }
@@ -44,11 +42,11 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
         alignItems: 'center',
-        paddingHorizontal: spacing.padding.big,
-        paddingVertical: spacing.padding.xSmall,
+        paddingHorizontal: spacing.md,
+        paddingVertical: spacing.sm,
         justifyContent: 'center',
         backgroundColor: '#FFFFFF33',
-        shadowColor: Colors.black,
+        shadowColor: colors.black,
         shadowOffset: { width: 10, height: 10 },
         shadowOpacity: 0.8,
         shadowRadius: 50,
@@ -56,9 +54,9 @@ const styles = StyleSheet.create({
         height: 31
     },
     textGreen: {
-        color: Colors.green
+        color: colors.success
     },
     text: {
-        color: Colors.white,
+        color: colors.white,
     }
 });

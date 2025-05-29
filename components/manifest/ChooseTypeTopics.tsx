@@ -1,9 +1,7 @@
 import { ASTROME_GEN_QUESTION } from "@/apollo/mutation";
-import { Topics, TopicsEnum } from "@/data";
-import useQuestionStore from "@/stores/QuestionStore";
-import Colors from "@/styles/Colors";
-import spacing from "@/styles/spacing";
-import TypeStyles from "@/styles/TypeStyle";
+import { Topics, TopicsEnum } from "@/core/data";
+import { useQuestionStore } from "@/core/stores";
+import { colors, spacing, textStyle } from "@/core/styles";
 import { useMutation } from "@apollo/client";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
@@ -46,7 +44,7 @@ function ChooseTypeTopics() {
                 >
                     <Image source={item.source} style={styles.icon} />
                 </LinearGradient>
-                <Text style={[TypeStyles.btnSecondary, { marginTop: spacing.margin.small, color: Colors.black3 }]}>{item.name}</Text>
+                <Text style={[textStyle.btnSecondary, { marginTop: spacing.sm, color: colors.surfaceElevated }]}>{item.name}</Text>
             </TouchableOpacity>
         })}
     </View>
@@ -56,7 +54,7 @@ export default memo(ChooseTypeTopics);
 
 const styles = StyleSheet.create({
     contaner: {
-        paddingHorizontal: spacing.padding.large,
+        paddingHorizontal: spacing.large,
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: 'center'
@@ -67,7 +65,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 10,
-        borderColor: Colors.white,
+        borderColor: colors.white,
         borderWidth: 1
     },
     gradienIcon: {

@@ -1,6 +1,4 @@
-import Colors from '@/styles/Colors';
-import spacing from '@/styles/spacing';
-import TypeStyles from '@/styles/TypeStyle';
+import { colors, spacing, textStyle } from '@/core/styles';
 import React, { memo } from 'react';
 import Feather from '@expo/vector-icons/Feather';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
@@ -14,16 +12,16 @@ const ActionInput = ({ placeholder, name, onPress }: Props) => {
     const [isFocused, setIsFocused] = React.useState(false);
     const [text, setText] = React.useState('');
     return (
-        <View style={{ paddingTop: spacing.padding.small }}>
-            {name && <Text style={[TypeStyles.bodyTextBold, styles.text]}>{name}</Text>}
+        <View style={{ paddingTop: spacing.sm }}>
+            {name && <Text style={[textStyle.description, styles.text]}>{name}</Text>}
             <View
                 style={[styles.btn, isFocused ? { justifyContent: 'space-between' } : null]}
             >
                 <View style={{ flex: 1, ...(!isFocused && { alignItems: 'center' }) }}>
                     <TextInput
-                        style={[isFocused && styles.inputFocus, { alignItems: 'center', color: Colors.white, paddingVertical: 4 }]}
+                        style={[isFocused && styles.inputFocus, { alignItems: 'center', color: colors.white, paddingVertical: 4 }]}
                         placeholder={placeholder}
-                        placeholderTextColor={Colors.white}
+                        placeholderTextColor={colors.white}
                         focusable
                         onFocus={() => setIsFocused(true)}
                         onBlur={() => setIsFocused(false)}
@@ -33,7 +31,7 @@ const ActionInput = ({ placeholder, name, onPress }: Props) => {
                 {
                     text.length > 0 &&
                     <TouchableOpacity onPress={() => onPress(text)}>
-                        <Feather name="send" size={24} color={Colors.white} />
+                        <Feather name="send" size={24} color={colors.white} />
                     </TouchableOpacity>
                 }
             </View>
@@ -45,9 +43,9 @@ export default memo(ActionInput);
 const styles = StyleSheet.create({
     btn: {
         borderRadius: 8,
-        borderColor: Colors.white,
+        borderColor: colors.white,
         borderWidth: 2,
-        padding: spacing.padding.small,
+        padding: spacing.sm,
         justifyContent: 'center',
         flexDirection: 'row',
         alignItems: 'center'
@@ -59,23 +57,23 @@ const styles = StyleSheet.create({
         borderColor: 'transparent',
     },
     text: {
-        color: Colors.black3,
+        color: colors.surfaceElevated,
         marginBottom: 8,
     },
     inputFocus: {
-        borderColor: Colors.white,
+        borderColor: colors.white,
         justifyContent: 'space-between',
     },
     textInput: {
-        borderRadius: spacing.borderRadius.base,
-        paddingVertical: spacing.padding.small,
-        paddingHorizontal: spacing.padding.base,
-        backgroundColor: Colors.bgColor5,
-        marginRight: spacing.margin.small,
-        borderColor: Colors.bgColor3,
+        borderRadius: spacing.md,
+        paddingVertical: spacing.sm,
+        paddingHorizontal: spacing.md,
+        backgroundColor: colors.backgroundCard,
+        marginRight: spacing.sm,
+        borderColor: colors.surface,
         borderWidth: 1,
         fontSize: 16,
         height: 56,
-        color: Colors.gray2,
+        color: colors.textLight,
     },
 });

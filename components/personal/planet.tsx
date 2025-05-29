@@ -1,6 +1,6 @@
 import { House, Planet } from '@/assets/images/planet';
-import { PlanetModel } from '@/models/ItemModel';
-import Colors from '@/styles/Colors';
+import { PlanetModel } from '@/core/types/atro';
+import { colors } from '@/core/styles';
 import { memo } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
@@ -39,14 +39,14 @@ export {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.bgColor6,
+        backgroundColor: colors.backgroundCard,
         borderRadius: 12,
-        borderColor: Colors.borderColor2,
+        borderColor: colors.borderSecondary,
         padding: 16,
         marginHorizontal: 8,
     },
     title: {
-        color: Colors.white,
+        color: colors.white,
         fontSize: 12,
         fontWeight: 'bold',
         marginVertical: 12,

@@ -1,4 +1,4 @@
-import Colors from '@/styles/Colors';
+import { colors } from '@/core/styles';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 interface Props {

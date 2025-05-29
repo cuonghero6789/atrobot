@@ -84,15 +84,15 @@ android {
     ndkVersion rootProject.ext.ndkVersion
 
     buildToolsVersion rootProject.ext.buildToolsVersion
-    compileSdk rootProject.ext.compileSdkVersion
+    compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace 'com.atrobot'
+    namespace "com.atrobot"
     defaultConfig {
-        applicationId 'com.atrobot'
+        applicationId "com.atrobot"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0.0"
+        versionName "1.0"
     }
     signingConfigs {
         debug {
@@ -173,6 +173,12 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.25"
+    
+    // Google Sign-In dependencies
+    implementation 'com.google.android.gms:play-services-auth:21.2.0'
+    implementation 'com.google.android.gms:play-services-base:18.3.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

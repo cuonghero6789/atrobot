@@ -83,6 +83,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@types/apollo-upload-client": "^18.0.0",
     "@types/jest": "^29.5.12",
     "@types/react": "~18.3.12",
     "@types/react-native-htmlview": "^0.16.5",

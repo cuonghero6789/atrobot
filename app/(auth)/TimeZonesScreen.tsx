@@ -1,15 +1,14 @@
 import React, { useCallback, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import strings from '../../localization';
+import strings from '../../core/localization';
 import { FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import moment from 'moment-timezone';
 import SearchInput from '../../components/SearchInput';
-import Colors from '@/styles/Colors';
+import { colors, spacing } from "@/core/styles"
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import spacing from '@/styles/spacing';
-import useAccountStore from '@/stores/AccountStore';
+import { useAccountStore } from '@/core/stores';
 
 function TimeZonesScreen(): JSX.Element {
   const router = useRouter();
@@ -34,7 +33,7 @@ function TimeZonesScreen(): JSX.Element {
             setUserInfo({ timezone: item });
           }}
           style={userTmp?.timezone == item ? styles.itemSelected : styles.item}>
-          <Text style={{ fontSize: 16, color: Colors.line2 }}>{item}</Text>
+          <Text style={{ fontSize: 16, color: colors.line2 }}>{item}</Text>
         </TouchableOpacity>
       );
     },
@@ -88,13 +87,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   itemSelected: {
-    backgroundColor: Colors.green,
-    paddingHorizontal: spacing.padding.large,
-    paddingVertical: spacing.padding.base,
-    borderRadius: spacing.borderRadius.extraLarge,
+    backgroundColor: colors.success,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    borderRadius: spacing.large,
   },
   item: {
-    padding: spacing.padding.large,
+    padding: spacing.large,
   },
   container: {
     flex: 1,

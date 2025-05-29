@@ -2,14 +2,11 @@ import React from 'react';
 import {
   TouchableOpacity,
   StyleSheet,
-  Text,
   View,
   Image,
   TextInput,
 } from 'react-native';
-import strings from '../localization';
-import Colors from '@/styles/Colors';
-import spacing from '@/styles/spacing';
+import { colors, spacing } from '@/core/styles';
 import { LinearGradient } from 'expo-linear-gradient';
 interface Props {
   style?: any;
@@ -47,7 +44,7 @@ function SearchInput({
           style={{
             height: 24,
             width: 24,
-            tintColor: Colors.gray2,
+            tintColor: colors.textLight,
             marginRight: 8,
           }}
         />
@@ -55,7 +52,7 @@ function SearchInput({
           style={[styles.textInput, isFocused && styles.inputFocus]}
           placeholder={placeholder}
           value={text}
-          placeholderTextColor={Colors.gray}
+          placeholderTextColor={colors.textMuted}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           onChangeText={onChangeText}
@@ -64,7 +61,7 @@ function SearchInput({
           <TouchableOpacity onPress={onPressClose}>
             <Image
               source={require(`@/assets/images/ic_close_gray.png`)}
-              style={{ height: 22, width: 22, tintColor: Colors.gray }}
+              style={{ height: 22, width: 22, tintColor: colors.textMuted }}
             />
           </TouchableOpacity>
         )}
@@ -79,24 +76,24 @@ const styles = StyleSheet.create({
   gradientBackground: {
     flex: 1,
     flexDirection: 'row',
-    marginLeft: spacing.padding.large,
-    borderRadius: spacing.borderRadius.base,
-    paddingHorizontal: spacing.padding.base,
-    paddingVertical: spacing.padding.small
+    marginLeft: spacing.large,
+    borderRadius: spacing.ssm,
+    paddingHorizontal: spacing.ssm,
+    paddingVertical: spacing.sm
   },
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginHorizontal: spacing.padding.large,
+    marginHorizontal: spacing.large,
   },
 
   text: {
     fontSize: 16,
-    color: Colors.white,
+    color: colors.white,
     marginBottom: 8,
   },
   body: {
-    marginLeft: spacing.padding.large,
+    marginLeft: spacing.large,
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
@@ -104,12 +101,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   inputFocus: {
-    borderColor: Colors.white,
-    color: Colors.black
+    borderColor: colors.white,
+    color: colors.black
   },
   textInput: {
     fontSize: 16,
     flex: 1,
-    color: Colors.gray2
+    color: colors.textLight
   },
 });

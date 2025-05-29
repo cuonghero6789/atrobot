@@ -3,11 +3,10 @@ import ChooseValue from "@/components/auth/ChooseValue";
 import CustomButton from "@/components/CustomButton";
 import DropDownButton from "@/components/DropDownButton";
 import PopupBottomSheet, { CanShowBottomSheet } from "@/components/PopupBottomSheet";
-import Colors from "@/styles/Colors";
-import { languages } from "@/data";
-import useAccountStore from "@/stores/AccountStore";
-import useAuthStore from "@/stores/AuthStore";
-import { AuthAction } from "@/stores/interfaces/IAuthState";
+import { colors } from "@/core/styles";
+import { languages } from "@/core/data";
+import { useAccountStore, useAuthStore } from "@/core/stores";
+import { AuthAction } from "@/core/stores/interfaces/common/IAuthState";
 import { useMutation } from "@apollo/client";
 import { Image, ImageBackground } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
@@ -15,7 +14,7 @@ import React, { useCallback, useEffect, useRef } from "react";
 import { memo } from "react";
 import { StyleSheet, View, Dimensions } from "react-native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
-import strings from "@/localization";
+import strings from "@/core/localization";
 import { useRouter } from "expo-router";
 const { width, height } = Dimensions.get('window');
 const aspectRatio = 318 / 48;
@@ -98,7 +97,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '700',
         lineHeight: 24,
-        color: Colors.white
+        color: colors.white
     },
     container: {
         flex: 1,

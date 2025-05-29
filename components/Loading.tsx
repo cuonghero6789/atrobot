@@ -1,5 +1,5 @@
-import React, {forwardRef, useImperativeHandle, useState} from 'react';
-import {Modal, StyleSheet, View} from 'react-native';
+import React, { forwardRef, useImperativeHandle, useState } from 'react';
+import { Modal, StyleSheet, View } from 'react-native';
 import LottieView from 'lottie-react-native';
 
 export interface CanShowLoading {
@@ -25,10 +25,10 @@ const Loading = forwardRef<CanShowLoading, {}>((props, ref) => {
       animationType="fade"
       supportedOrientations={['portrait']}>
       <View
-        style={[styles.container, {backgroundColor: 'rgba(255,255,255,0.75)'}]}>
+        style={[styles.container, { backgroundColor: 'rgba(255,255,255,0.75)' }]}>
         <LottieView
           source={require('@/assets/lottie/loader.json')}
-          style={[styles.animationStyle, {width: 100, height: 100}]}
+          style={[styles.animationStyle, { width: 100, height: 100 }]}
           autoPlay
           loop
         />

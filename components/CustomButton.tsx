@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity, StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Rect, Defs, LinearGradient as SvgGradient, Stop } from 'react-native-svg';
-import Colors from '@/styles/Colors';
+import { colors } from '@/core/styles';
 interface Props {
   title: string;  // Title of the button
   onPress: () => void;  // Callback function when the button is pressed        
@@ -45,10 +45,10 @@ const styles = StyleSheet.create({
     position: 'relative',
     opacity: 0.86, // Transparency applied to the whole button
     borderTopWidth: 1,
-    borderTopColor: Colors.white,
+    borderTopColor: colors.white,
     borderLeftWidth: 1,
-    borderLeftColor: Colors.white,
-    borderRightColor: Colors.white,
+    borderLeftColor: colors.white,
+    borderRightColor: colors.white,
     borderRightWidth: 1,
   },
   border: {

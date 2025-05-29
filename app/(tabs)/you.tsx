@@ -3,12 +3,10 @@ import ChooseValue from "@/components/auth/ChooseValue";
 import DropDownButton from "@/components/DropDownButton";
 import PopupBottomSheet, { CanShowBottomSheet } from "@/components/PopupBottomSheet";
 import Item from "@/components/settings/Item";
-import AppConfig from "@/core/AppConfig";
-import strings from "@/localization";
-import useAccountStore from "@/stores/AccountStore";
-import useAuthStore from "@/stores/AuthStore";
-import Colors from "@/styles/Colors";
-import TypeStyles from "@/styles/TypeStyle";
+import { getConfig } from "@/core";
+import strings from "@/core/localization";
+import { useAccountStore, useAuthStore } from "@/core/stores";
+import { colors, textStyle } from "@/core/styles";
 import { useMutation } from "@apollo/client";
 import { ImageBackground } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
@@ -39,7 +37,7 @@ export default function YouScreen() {
     const actionAuth = useAuthStore(state => state.actions);
 
     const renderTitle = () => {
-        return <Text style={[TypeStyles.title, { marginHorizontal: 16, marginBottom: 8 }]}>{strings.t("settings")}</Text>;
+        return <Text style={[textStyle.title, { marginHorizontal: 16, marginBottom: 8 }]}>{strings.t("settings")}</Text>;
     };
 
     useEffect(() => {
@@ -92,17 +90,16 @@ export default function YouScreen() {
                         pathname: '/WebScreen',
                         params: {
                             title: strings.t("termOfService"),
-                            uri: AppConfig.URL_PRIVACY,
+                            uri: getConfig().LINKS.PRIVACY,
                         },
                     })
                 }} />
-
-                <Item style={{ marginHorizontal: 16, marginBottom: 16 }} text={strings.t("termOfService")} onPress={() => {
+                    <Item style={{ marginHorizontal: 16, marginBottom: 16 }} text={strings.t("privacyPolicy")} onPress={() => {
                     router.push({
                         pathname: '/WebScreen',
                         params: {
                             title: strings.t("termOfPrivacy"),
-                            uri: AppConfig.URL_TERM_OF_USE,
+                            uri: getConfig().LINKS.TERMS,
                         },
                     })
                 }} />
@@ -183,7 +180,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 28,
         fontWeight: 'bold',
-        color: Colors.white,
+        color: colors.white,
         marginVertical: 16,
     },
     container: {

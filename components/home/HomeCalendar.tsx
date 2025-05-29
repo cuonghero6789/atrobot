@@ -1,6 +1,4 @@
-import Colors from "@/styles/Colors";
-import spacing from "@/styles/spacing";
-import TypeStyles from "@/styles/TypeStyle";
+import { colors, spacing, textStyle } from "@/core/styles";
 import { memo } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import moment from "moment";
@@ -9,13 +7,13 @@ function HomeCalendar() {
     const currentDate = moment();
     
     return <View style={styles.container}>
-        <Text style={[TypeStyles.subTitleMedium, { color: Colors.white }]}>
+        <Text style={[textStyle.subTitleMedium, { color: colors.white }]}>
             {currentDate.format("MMM").toUpperCase()}
         </Text>
-        <Text style={[TypeStyles.largeText, { color: Colors.white }]}>
+        <Text style={[textStyle.largeText, { color: colors.white }]}>
             {currentDate.format("DD")}
         </Text>
-        <Text style={[TypeStyles.subTitleMedium, { color: Colors.white }]}>
+            <Text style={[textStyle.subTitleMedium, { color: colors.white }]}>
             {currentDate.format("dddd")}
         </Text>
     </View>
@@ -28,8 +26,8 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 20,
         borderBottomRightRadius: 20,
         alignItems: 'center',
-        paddingHorizontal: spacing.padding.large,
-        paddingVertical: spacing.padding.extraLarge,
+        paddingHorizontal: spacing.large,
+        paddingVertical: spacing.lg,
         justifyContent: 'center',
         backgroundColor: '#3033369C',
         shadowColor: '#303336',

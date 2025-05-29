@@ -1,13 +1,11 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Image } from 'react-native';
-import Colors from "@/styles/Colors";
-import spacing, { borderRadius } from "@/styles/spacing";
-import TypeStyles from "@/styles/TypeStyle";
+import { colors, spacing, textStyle } from '@/core/styles';
 import { Button } from "./Button";
-import { useState } from "react";
 import ActionInput from "./ActionInput";
-import { SkeletonLoader, SkeletonLoaderEvent, SkeletonLoaderQuestion } from "./loading/LoadingView";
+import { SkeletonLoaderQuestion } from "./loading/LoadingView";
+
 interface Props {
     colorStart: string;
     colorEnd: string;
@@ -15,6 +13,7 @@ interface Props {
     onPress: (text: string) => void;
     data?: string[];
 }
+
 export default function InnerShadowBox({ colorStart, colorEnd, iconSource, onPress, data }: Props) {
     return (
         <LinearGradient
@@ -22,61 +21,67 @@ export default function InnerShadowBox({ colorStart, colorEnd, iconSource, onPre
             style={styles.box}
         >
             <LinearGradient
-                colors={["#7EADF1A6", "white"]}
+                colors={["#7EADF1A6", colors.white]}
                 start={{ x: 0.9, y: 0 }}
                 end={{ x: 1, y: 0 }}
                 style={styles.innerShadow}
             />
             <LinearGradient
-                colors={["#7EADF1A6", "white"]}
+                colors={["#7EADF1A6", colors.white]}
                 start={{ x: 0, y: 0.9 }}
                 end={{ x: 0, y: 1 }}
                 style={styles.innerShadow}
             />
-            <Image source={iconSource} resizeMode="contain" style={{ width: 130, height: 156, position: 'absolute', right: spacing.margin.small, top: spacing.margin.large }} />
-            <Text style={[TypeStyles.textBold2, { color: Colors.white }]}>{"Kế hoạch sắp tới của\ntôi có suôn sẻ không?"}</Text>
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: spacing.margin.big }}>
-                <View style={{ height: 21, width: 2, backgroundColor: Colors.white }} />
-                <Text style={[TypeStyles.bodyTextBold, { color: Colors.white, marginHorizontal: spacing.margin.small }]}>{"Câu hỏi gợi ý"}</Text>
+            <Image 
+                source={iconSource} 
+                resizeMode="contain" 
+                style={styles.iconImage}
+            />
+            <Text style={[textStyle.textBold2, styles.questionText]}>
+                {"Kế hoạch sắp tới của\ntôi có suôn sẻ không?"}
+            </Text>
+            <View style={styles.suggestionHeader}>
+                <View style={styles.suggestionLine} />
+                <Text style={[textStyle.bodyTextBold, styles.suggestionText]}>
+                    {"Câu hỏi gợi ý"}
+                </Text>
             </View>
-            {
-                data && data?.length <= 0 &&
-                <View style={{ width: '100%', paddingTop: spacing.padding.large }}>
+            {data && data?.length <= 0 && (
+                <View style={styles.skeletonContainer}>
                     <SkeletonLoaderQuestion />
                 </View>
-            }
+            )}
             {data?.map((item, index) => (
-                <Button key={`key_${index}`} title={item}
+                <Button 
+                    key={`key_${index}`} 
+                    title={item}
                     onPress={() => onPress(item)}
-                    containerStyle={{ marginTop: spacing.margin.small, borderRadius: 5, minHeight: 64 }}
-                    textStyle={TypeStyles.subTitleMedium1}
-                    buttonStyle={{ borderRadius: 5, paddingHorizontal: spacing.padding.large, paddingVertical: spacing.padding.base }} />
+                    containerStyle={styles.suggestionButton}
+                    textStyle={textStyle.subTitleMedium1}
+                    buttonStyle={styles.suggestionButtonStyle} 
+                />
             ))}
-            <TouchableOpacity style={styles.btn}>
-                <Text style={[TypeStyles.textBold3, { color: Colors.white }]}>{"Gợi ý thêm"}</Text>
+            <TouchableOpacity style={styles.moreButton}>
+                <Text style={[textStyle.textBold3, { color: colors.white }]}>
+                    {"Gợi ý thêm"}
+                </Text>
             </TouchableOpacity>
-            <ActionInput placeholder="Hoặc tự viết câu hỏi của bạn" onPress={(text) => onPress(text)} />
+            <ActionInput 
+                placeholder="Hoặc tự viết câu hỏi của bạn" 
+                onPress={(text) => onPress(text)} 
+            />
         </LinearGradient>
     );
 }
 
 const styles = StyleSheet.create({
-    btn: {
-        borderRadius: 8,
-        borderColor: Colors.white,
-        borderWidth: 2,
-        padding: spacing.padding.small,
-        marginTop: spacing.margin.small,
-        alignItems: 'center',
-    },
     box: {
         flex: 1,
-        marginTop: spacing.margin.large,
-        // backgroundColor: "#7EADF1A6",
-        borderRadius: 30,
-        paddingHorizontal: spacing.padding.big,
-        paddingTop: spacing.padding.big,
-        paddingBottom: spacing.margin.bigx2,
+        marginTop: spacing.large,
+        borderRadius: spacing.xl,
+        paddingHorizontal: spacing.xl,
+        paddingTop: spacing.xl,
+        paddingBottom: spacing.bigx2,
         overflow: "hidden",
         position: "relative",
     },
@@ -86,7 +91,53 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        borderRadius: 30,
-        opacity: 0.7, // Adjust shadow visibility
+        borderRadius: spacing.xl,
+        opacity: 0.7,
+    },
+    iconImage: {
+        width: 130,
+        height: 156,
+        position: 'absolute',
+        right: spacing.sm,
+        top: spacing.large,
+    },
+    questionText: {
+        color: colors.white,
+    },
+    suggestionHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: spacing.xl,
+    },
+    suggestionLine: {
+        height: 21,
+        width: 2,
+        backgroundColor: colors.white,
+    },
+    suggestionText: {
+        color: colors.white,
+        marginHorizontal: spacing.sm,
+    },
+    skeletonContainer: {
+        width: '100%',
+        paddingTop: spacing.md,
+    },
+    suggestionButton: {
+        marginTop: spacing.sm,
+        borderRadius: spacing.xxs,
+        minHeight: 64,
+    },
+    suggestionButtonStyle: {
+        borderRadius: spacing.xxs,
+        paddingHorizontal: spacing.md,
+        paddingVertical: spacing.ssm,
+    },
+    moreButton: {
+        borderRadius: spacing.sm,
+        borderColor: colors.white,
+        borderWidth: 2,
+        padding: spacing.sm,
+        marginTop: spacing.sm,
+        alignItems: 'center',
     },
 });

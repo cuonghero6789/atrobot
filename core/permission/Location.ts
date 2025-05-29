@@ -1,4 +1,4 @@
-import strings from '@/localization';
+import strings from '@/core/localization';
 import * as Location from 'expo-location';
 import { Alert, Linking } from 'react-native';
 export async function getCurrentLocation(): Promise<Location.LocationObject | null> {

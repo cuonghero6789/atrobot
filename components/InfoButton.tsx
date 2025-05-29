@@ -1,8 +1,6 @@
-import Colors from '@/styles/Colors';
-import spacing from '@/styles/spacing';
-import { LinearGradient } from 'expo-linear-gradient';
+import { colors, spacing } from '@/core/styles';
 import React from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 interface Props {
     placeholder?: string;
     name?: string;
@@ -33,7 +31,7 @@ const styles = StyleSheet.create({
         padding: 20,
         borderRadius: 5,
         borderWidth: 1,
-        borderColor: Colors.white,
+        borderColor: colors.white,
     },
     borderOverlay: {
         ...StyleSheet.absoluteFillObject,
@@ -46,33 +44,33 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 16,
-        color: Colors.black1,
+        color: colors.surfaceCard,
         fontWeight: "600",
     },
     name: {
         fontSize: 16,
-        color: Colors.black1,
+        color: colors.surfaceCard,
         fontWeight: "600",
-        marginBottom: spacing.margin.small
+        marginBottom: spacing.sm
     },
     placeholder: {
         fontSize: 14,
-        color: Colors.gray4,
+        color: colors.surfaceDark,
         fontWeight: "400",
     },
     inputFocus: {
-        borderColor: Colors.white,
+        borderColor: colors.white,
     },
     textInput: {
-        borderRadius: spacing.borderRadius.base,
-        paddingVertical: spacing.padding.small,
-        paddingHorizontal: spacing.padding.base,
-        backgroundColor: Colors.bgColor5,
-        marginRight: spacing.margin.small,
-        borderColor: Colors.bgColor3,
+        borderRadius: spacing.ssm,
+        paddingVertical: spacing.sm,
+        paddingHorizontal: spacing.ssm,
+        backgroundColor: colors.backgroundCard,
+        marginRight: spacing.sm,
+        borderColor: colors.surface,
         borderWidth: 1,
         fontSize: 16,
         height: 56,
-        color: Colors.gray2,
+        color: colors.textLight,
     },
 });

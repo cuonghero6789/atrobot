@@ -1,11 +1,10 @@
 import React from 'react';
-import { View, Text, Dimensions, StyleSheet } from 'react-native';
+import { View, Dimensions, StyleSheet } from 'react-native';
 import Carousel, { ICarouselInstance, Pagination } from 'react-native-reanimated-carousel';
-import spacing from '@/styles/spacing';
-import Colors from '@/styles/Colors';
+import { colors, spacing } from '@/core/styles';
 import { useSharedValue } from 'react-native-reanimated';
 import { Card } from './Card';
-import { DailyModel, ScoreModel } from '@/models/ItemModel';
+import { DailyModel, ScoreModel } from '@/core/types/atro';
 import { SkeletonLoader } from './loading/LoadingView';
 
 const { width } = Dimensions.get('window');
@@ -64,7 +63,7 @@ const CustomCarousel = ({ daily, scores }: Props) => {
                 progress={progress}
                 data={daily}
                 dotStyle={{ backgroundColor: "#FFFFFF4D", width: 6, height: 6, borderRadius: 3 }}
-                activeDotStyle={{ backgroundColor: Colors.white }}
+                activeDotStyle={{ backgroundColor: colors.white }}
                 containerStyle={{ gap: 5, position: 'absolute', bottom: 8 }}
                 onPress={onPressPagination}
             />
@@ -75,14 +74,14 @@ const CustomCarousel = ({ daily, scores }: Props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginLeft: spacing.padding.large,
+        marginLeft: spacing.large,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 20,
         width: CAROUSEL_WIDTH,
         height: CAROUSEL_HEIGHT,
         borderWidth: 2,
-        borderColor: Colors.white,
+        borderColor: colors.white,
         shadowColor: "#000",
         shadowOffset: { width: 5, height: 5 },
         shadowOpacity: 0.32, // Similar to #00000052

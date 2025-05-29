@@ -21,14 +21,12 @@ import {
 import { useMutation, useQuery } from '@apollo/client';
 import moment from 'moment';
 import AnswerComponent from '@/components/Answer';
-import strings from '@/localization';
-import Colors from '@/styles/Colors';
-import useChatStore from '@/stores/ChatStore';
+import strings from '@/core/localization';
+import { colors, textStyle } from '@/core/styles';
+import { useChatStore, useAccountStore } from '@/core/stores';
 import { ASTRO_BOT } from '@/apollo/mutation';
-import useAccountStore from '@/stores/AccountStore';
 import { MESSAGES } from '@/apollo/query';
 import { ImageBackground } from 'expo-image';
-import TypeStyles from '@/styles/TypeStyle';
 import { LinearGradient } from 'expo-linear-gradient';
 
 function ChatScreen() {
@@ -99,13 +97,13 @@ function ChatScreen() {
             <View style={styles.send}>
               <Image
                 source={require('@/assets/images/ic_send.png')}
-                style={{ width: 24, height: 24, tintColor: Colors.white }}
+                style={{ width: 24, height: 24, tintColor: colors.white }}
               />
             </View>
           </Send>
         )}
         containerStyle={styles.toolbar}
-        textInputStyle={{ color: Colors.white }}
+        textInputStyle={{ color: colors.white }}
       />
     );
   };
@@ -128,7 +126,7 @@ function ChatScreen() {
           showUserAvatar
           textInputProps={[
             { placeholder: strings.t("writeAMessage") },
-            TypeStyles.bodyText1
+            textStyle.bodyText1
           ]}
           renderBubble={(props: any) => (
             <Bubble
@@ -139,9 +137,9 @@ function ChatScreen() {
               }}
             />
           )}
-          renderTime={(props: any) => <Time {...props} timeTextStyle={{ right: { color: Colors.black }, left: { color: Colors.white } }} />}
+          renderTime={(props: any) => <Time {...props} timeTextStyle={{ right: { color: colors.black }, left: { color: colors.white } }} />}
           renderMessageText={(props: any) => (
-            <MessageText {...props} textStyle={{ left: { color: Colors.white }, right: { color: Colors.black } }} />
+            <MessageText {...props} textStyle={{ left: { color: colors.white }, right: { color: colors.black } }} />
           )}
           user={{
             _id: user?.id || 1,
@@ -181,8 +179,8 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'ios' ? 0 : 6,
     borderWidth: 1,
     borderTopWidth: 1,
-    borderTopColor: Colors.white,
-    borderColor: Colors.white,
+    borderTopColor: colors.white,
+    borderColor: colors.white,
     backgroundColor: 'transparent',
   },
   btnsend: {

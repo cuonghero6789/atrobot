@@ -1,6 +1,5 @@
 // filepath: /Users/phancuong/gbv/atrobot/components/SkeletonLoader.tsx
-import Colors from '@/styles/Colors';
-import spacing from '@/styles/spacing';
+import { colors } from '@/core/styles';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import ContentLoader, { Rect, Facebook, List, Instagram } from 'react-content-loader/native';
@@ -19,7 +18,7 @@ const SkeletonLoader = () => (
             height={140}
             speed={1}
             backgroundColor={'rgba(45, 121, 229, 0.52)'}
-            foregroundColor={Colors.white}
+            foregroundColor={colors.white}
             viewBox="0 0 380 70"
         >
             {/* Only SVG shapes */}
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 16,
         borderRadius: 20,
         borderWidth: 2,
-        borderColor: Colors.white,
+        borderColor: colors.white,
         shadowColor: "#000",
         shadowOffset: { width: 5, height: 5 },
         shadowOpacity: 0.32, // Similar to #00000052

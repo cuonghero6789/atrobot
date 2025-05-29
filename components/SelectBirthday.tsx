@@ -3,7 +3,7 @@ import { View, Button, Text } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from 'moment';
 import InfoButton from './InfoButton';
-import strings from '@/localization';
+import strings from '@/core/localization';
 interface Props {
   onSelectedDate?: (date: string) => void;
   birthday?: string;

@@ -1,5 +1,4 @@
-
-import Colors from "@/styles/Colors";
+import { colors, fontWeight } from "@/core/styles";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { Image } from "expo-image";
 const width = Dimensions.get('window').width;
@@ -41,8 +40,8 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     text: {
-        color: Colors.white,
-        fontWeight: '700',
+        color: colors.white,
+        fontWeight: fontWeight.bold,
         textAlign: 'center',
         marginTop: 16,
     },

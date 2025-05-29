@@ -6,14 +6,14 @@ import React, { useEffect } from 'react';
 import 'react-native-reanimated';
 import { ApolloProvider } from '@apollo/client';
 import { useColorScheme } from '@/hooks/useColorScheme';
-import client from '@/core/apollo/GraphQL';
+import client from '@/core/apollo/client';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import useAuthStore from '@/stores/AuthStore';
-import useAccountStore from '@/stores/AccountStore';
-import { AuthAction } from '@/stores/interfaces/IAuthState';
+import { useAuthStore, useAccountStore } from '@/core/stores';
+import { AuthAction } from '@/core/stores/interfaces/common/IAuthState';
 import Loading, { CanShowLoading } from '@/components/Loading';
 import Toast from 'react-native-toast-message';
 import { View } from 'react-native';
+import { setConfig } from '@/core';
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -27,6 +27,24 @@ export default function RootLayout() {
   global.loadingRef = React.useRef<CanShowLoading>(null);
 
   useEffect(() => {
+    setConfig({
+      API: {
+        BASE_URL: 'https://api.astrolive.bot/v1',
+        WS_URL: 'wss://api.astrolive.bot/ws',
+        TIMEOUT: 30000,
+        RETRY_ATTEMPTS: 3,
+      },
+      APP: {
+        NAME: 'AstroBot',
+        VERSION: '1.0.0',
+        BUILD_NUMBER: '1',
+      },
+      LINKS: {
+        TERMS: 'https://astrolive.bot/term.html',
+        PRIVACY: 'https://astrolive.bot/privacy.html',
+        SUPPORT: 'https://astrolive.bot/support.html',
+      },
+    });
     actions.getCacheAuthUser();
     actionsAcocunt.getAccount();
   }, []);
