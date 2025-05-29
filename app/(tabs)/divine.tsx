@@ -1,4 +1,4 @@
-import { ASTROME_DAILY, ASTROME_MONTHLY } from "@/apollo/mutation";
+import { ASTROME_DAILY, ASTROME_MONTHLY } from "@/core/apollo/mutations";
 import CustomCarousel from "@/components/Carousel";
 import { HomeButtonBackground } from "@/components/home/HomeButton";
 import ManifestDays from "@/components/manifest/ManifestDays";

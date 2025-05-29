@@ -12,7 +12,7 @@ import SelectTimeOfBirth from "@/components/SelectTimeOfBirth";
 import PopupBottomSheet, { CanShowBottomSheet } from "@/components/PopupBottomSheet";
 import ChooseValue from "@/components/auth/ChooseValue";
 import { useMutation } from "@apollo/client";
-import { UPDATE_ACCOUNT_INFO, UPLOAD_AVATAR } from "@/apollo/mutation";
+import { UPDATE_ACCOUNT_INFO, UPLOAD_AVATAR } from "@/core/apollo/mutations";
 import { useAuthStore } from "@/core/stores";
 import { AuthAction } from "@/core/stores/interfaces/common/IAuthState";
 import strings from "@/core/localization";

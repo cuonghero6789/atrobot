@@ -14,7 +14,7 @@ import {
 } from 'react-native-gifted-charts';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { LineChart } from 'react-native-gifted-charts';
-import { GET_SUBJECT } from "@/apollo/query";
+import { GET_SUBJECT } from "@/core/apollo/queries";
 import { useQuery } from "@apollo/client";
 import { usePlanetStore } from "@/core/stores";
 const { width } = Dimensions.get('window');

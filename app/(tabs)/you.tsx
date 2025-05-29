@@ -1,4 +1,4 @@
-import { UPDATE_AI_LANGUAGE, UPDATE_APP_LANGUAGE } from "@/apollo/mutation";
+import { UPDATE_AI_LANGUAGE, UPDATE_APP_LANGUAGE } from "@/core/apollo/mutations";
 import ChooseValue from "@/components/auth/ChooseValue";
 import DropDownButton from "@/components/DropDownButton";
 import PopupBottomSheet, { CanShowBottomSheet } from "@/components/PopupBottomSheet";

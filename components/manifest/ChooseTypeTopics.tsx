@@ -1,4 +1,4 @@
-import { ASTROME_GEN_QUESTION } from "@/apollo/mutation";
+import { ASTROME_GEN_QUESTION } from "@/core/apollo/mutations";
 import { Topics, TopicsEnum } from "@/core/data";
 import { useQuestionStore } from "@/core/stores";
 import { colors, spacing, textStyle } from "@/core/styles";

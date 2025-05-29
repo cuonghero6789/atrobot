@@ -1,5 +1,5 @@
-import { ASTROME_DAILY, ASTROME_DOMINANT, ASTROME_MANIFEST, ASTROME_QUOTE, UPDATE_LOCATION_INFO } from "@/apollo/mutation";
-import { ACCOUNT, CHATS } from "@/apollo/query";
+import { ASTROME_DAILY, ASTROME_DOMINANT, ASTROME_MANIFEST, ASTROME_QUOTE, UPDATE_LOCATION_INFO } from "@/core/apollo/mutations";
+import { ACCOUNT, CHATS } from "@/core/apollo/queries";
 import { useAccountStore, useChatStore } from "@/core/stores";
 import { useMutation, useQuery } from "@apollo/client";
 import { useCallback, useEffect } from "react";

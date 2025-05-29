@@ -8,7 +8,7 @@ import { CardItem, CardView } from "@/components/Card";
 import { spacing } from "@/core/styles";
 import InnerShadowBox from "@/components/InnerShadowBox";
 import ChooseTypeTopics from "@/components/manifest/ChooseTypeTopics";
-import { ASTROME_ANSWER_QUESTION, ASTROME_GEN_QUESTION } from "@/apollo/mutation";
+import { ASTROME_ANSWER_QUESTION, ASTROME_GEN_QUESTION } from "@/core/apollo/mutations";
 import { useMutation } from "@apollo/client";
 import { useQuestionStore } from "@/core/stores";
 import { TopicsEnum } from "@/core/data";

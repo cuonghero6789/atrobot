@@ -1,4 +1,4 @@
-import { UPDATE_LANGUAGE } from "@/apollo/mutation";
+import { UPDATE_LANGUAGE } from "@/core/apollo/mutations";
 import ChooseValue from "@/components/auth/ChooseValue";
 import CustomButton from "@/components/CustomButton";
 import DropDownButton from "@/components/DropDownButton";

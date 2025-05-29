@@ -24,8 +24,8 @@ import AnswerComponent from '@/components/Answer';
 import strings from '@/core/localization';
 import { colors, textStyle } from '@/core/styles';
 import { useChatStore, useAccountStore } from '@/core/stores';
-import { ASTRO_BOT } from '@/apollo/mutation';
-import { MESSAGES } from '@/apollo/query';
+import { ASTRO_BOT } from '@/core/apollo/mutations';
+import { MESSAGES } from '@/core/apollo/queries';
 import { ImageBackground } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 
