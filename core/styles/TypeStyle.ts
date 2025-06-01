@@ -73,7 +73,7 @@ export const textStyle = StyleSheet.create({
   // Body text
   body: {
     fontFamily: fontFamily.regular,
-    fontSize: fontSize.md,
+    fontSize: fontSize.sm,
     lineHeight: lineHeight.md,
     fontWeight: fontWeight.regular,
   },
