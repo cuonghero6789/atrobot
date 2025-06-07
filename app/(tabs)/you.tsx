@@ -94,7 +94,7 @@ export default function YouScreen() {
                         },
                     })
                 }} />
-                    <Item style={{ marginHorizontal: 16, marginBottom: 16 }} text={strings.t("privacyPolicy")} onPress={() => {
+                    <Item style={{ marginHorizontal: 16, marginBottom: 16 }} text={strings.t("termOfPrivacy")} onPress={() => {
                     router.push({
                         pathname: '/WebScreen',
                         params: {

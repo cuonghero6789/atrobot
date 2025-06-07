@@ -21,6 +21,7 @@ const ActionInput = ({ placeholder, name, onPress }: Props) => {
                     <TextInput
                         style={[isFocused && styles.inputFocus, { alignItems: 'center', color: colors.white, paddingVertical: 4 }]}
                         placeholder={placeholder}
+                        value={text}
                         placeholderTextColor={colors.white}
                         focusable
                         onFocus={() => setIsFocused(true)}
@@ -30,7 +31,10 @@ const ActionInput = ({ placeholder, name, onPress }: Props) => {
                 </View>
                 {
                     text.length > 0 &&
-                    <TouchableOpacity onPress={() => onPress(text)}>
+                    <TouchableOpacity onPress={() => {
+                        onPress(text);
+                        setText('');
+                    }}>
                         <Feather name="send" size={24} color={colors.white} />
                     </TouchableOpacity>
                 }

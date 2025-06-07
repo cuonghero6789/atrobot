@@ -1,4 +1,4 @@
-import { PlanetModel, PlanetSignModel } from '../../models/AtroBotModel';
+import { PlanetModel, PlanetSignModel } from '@/core/types/atro';
 
 export default interface IPlanetState {
   loading: boolean;

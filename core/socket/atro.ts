@@ -13,6 +13,7 @@ export enum AtroOP {
   ASTRO_QUOTE = 'astro_quote',
   ASTRO_BOT = 'astro_bot',
   ASTRO_ME_DOMINANT = 'astro_me_dominant',
+  ASTRO_ME_MANIFEST = 'astro_me_manifest',
 }
 
 // AtroBot message handler
@@ -65,6 +66,10 @@ export function useAtroMessageHandler() {
         break;
       case AtroOP.ASTRO_ME_DOMINANT:
         actionYou.setDominant(payload);
+        break;
+      case AtroOP.ASTRO_ME_MANIFEST:
+        console.log('payload ASTRO_ME_MANIFEST == ', payload);
+        // actionPlanet.setManifest(payload);
         break;
       default:
         break;

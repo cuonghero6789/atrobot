@@ -4,7 +4,11 @@ import { Image } from 'react-native';
 import { colors, spacing, textStyle } from '@/core/styles';
 import { Button } from "./Button";
 import ActionInput from "./ActionInput";
-import { SkeletonLoaderQuestion } from "./loading/LoadingView";
+import { SkeletonLoaderEvent, SkeletonLoaderQuestion } from "./loading/LoadingView";
+import { useQuestionStore } from "@/core/stores";
+import { ASTROME_GEN_QUESTION } from "@/core/apollo/mutations";
+import { useMutation } from "@apollo/client";
+import { setLoadingQuestion } from "@/core/stores/actions/atro/QuestionAction";
 
 interface Props {
     colorStart: string;
@@ -12,9 +16,15 @@ interface Props {
     iconSource: any;
     onPress: (text: string) => void;
     data?: string[];
+    type?: string;
 }
 
-export default function InnerShadowBox({ colorStart, colorEnd, iconSource, onPress, data }: Props) {
+export default function InnerShadowBox({ colorStart, colorEnd, iconSource, onPress, data, type }: Props) {
+    const loadingQuestion = useQuestionStore(state => state.loadingQuestion);
+    const actions = useQuestionStore(state => state.actions);
+    const [AstroGenQuestion, { data: dataGenQuestion, loading: loadingGenQuestion, error: errorGenQuestion }] =
+        useMutation(ASTROME_GEN_QUESTION);
+
     return (
         <LinearGradient
             colors={[colorStart, colorEnd]}
@@ -32,9 +42,9 @@ export default function InnerShadowBox({ colorStart, colorEnd, iconSource, onPre
                 end={{ x: 0, y: 1 }}
                 style={styles.innerShadow}
             />
-            <Image 
-                source={iconSource} 
-                resizeMode="contain" 
+            <Image
+                source={iconSource}
+                resizeMode="contain"
                 style={styles.iconImage}
             />
             <Text style={[textStyle.textBold2, styles.questionText]}>
@@ -46,29 +56,37 @@ export default function InnerShadowBox({ colorStart, colorEnd, iconSource, onPre
                     {"Câu hỏi gợi ý"}
                 </Text>
             </View>
-            {data && data?.length <= 0 && (
+            {data && data?.length <= 0 || loadingQuestion ? (
                 <View style={styles.skeletonContainer}>
                     <SkeletonLoaderQuestion />
                 </View>
-            )}
-            {data?.map((item, index) => (
-                <Button 
-                    key={`key_${index}`} 
-                    title={item}
-                    onPress={() => onPress(item)}
-                    containerStyle={styles.suggestionButton}
-                    textStyle={textStyle.subTitleMedium1}
-                    buttonStyle={styles.suggestionButtonStyle} 
-                />
-            ))}
-            <TouchableOpacity style={styles.moreButton}>
+            )
+                : data?.map((item, index) => (
+                    <Button
+                        key={`key_${index}`}
+                        title={item}
+                        onPress={() => onPress(item)}
+                        containerStyle={styles.suggestionButton}
+                        textStyle={textStyle.subTitleMedium1}
+                        buttonStyle={styles.suggestionButtonStyle}
+                    />
+                ))
+            }
+            <TouchableOpacity onPress={() => {
+                actions.setLoadingQuestion(true);
+                AstroGenQuestion({
+                    variables: {
+                        topic: type,
+                    },
+                });
+            }} style={styles.moreButton}>
                 <Text style={[textStyle.textBold3, { color: colors.white }]}>
                     {"Gợi ý thêm"}
                 </Text>
             </TouchableOpacity>
-            <ActionInput 
-                placeholder="Hoặc tự viết câu hỏi của bạn" 
-                onPress={(text) => onPress(text)} 
+            <ActionInput
+                placeholder="Hoặc tự viết câu hỏi của bạn"
+                onPress={(text) => onPress(text)}
             />
         </LinearGradient>
     );

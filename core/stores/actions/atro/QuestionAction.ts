@@ -18,6 +18,7 @@ export const setQuestions =
           if (type === TopicsEnum.Self) {
             state.questions = _questions;
           }
+          state.questions = _questions;
           state.loadingQuestion = false;
         },
         false,
@@ -40,6 +41,20 @@ export const setTopic = (set: any, get: any) => async (_topic: TopicModel) => {
     );
   } catch (error: any) {
     console.log('Login error:', error.message);
+  }
+};
+
+export const setLoadingQuestion = (set: any, get: any) => async (_loadingQuestion: boolean) => {
+  try {
+    set(
+      (state: any) => {
+        state.loadingQuestion = _loadingQuestion;
+      },
+      false,
+      'setLoadingQuestionSuccess',
+    );
+  } catch (error: any) {
+    console.log('setLoadingQuestion error:', error.message);
   }
 };
 

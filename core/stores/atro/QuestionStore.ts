@@ -2,6 +2,7 @@ import { createStore } from '@/core';
 import {
   setAnswer,
   setLoadingAnswer,
+  setLoadingQuestion,
   setQuestions,
   setTopic,
 } from '@/core/stores/actions/atro/QuestionAction';
@@ -25,6 +26,7 @@ const authStore = (set: any, get: any) =>
   actions: {
     setQuestions: setQuestions(set, get),
     setTopic: setTopic(set, get),
+    setLoadingQuestion: setLoadingQuestion(set, get),
     setAnswer: setAnswer(set, get),
     setloadingAnswer: setLoadingAnswer(set, get),
   },

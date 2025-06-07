@@ -53,6 +53,7 @@ function QuestionsScreen() {
                 <ChooseTypeTopics />
                 <InnerShadowBox
                     data={list}
+                    type={topic?.type}
                     onPress={(text: string) => {
                         actions.setloadingAnswer(true);
                         AstroAnswerQuestion({
@@ -71,7 +72,7 @@ function QuestionsScreen() {
                     colorStart="#FFFFFFBF"
                     colorEnd="#357FE999"
                     iconSource={require('@/assets/images/ic_mode.png')} />
-                <InnerShadowBox
+                {/* <InnerShadowBox
                     data={list}
                     onPress={() => { }}
                     colorStart="#FFFFFFBF"
@@ -82,7 +83,7 @@ function QuestionsScreen() {
                     onPress={() => { }}
                     colorStart="#FFFFFFBF"
                     colorEnd="#0E0F3C99"
-                    iconSource={require('@/assets/images/ic_mode3.png')} />
+                    iconSource={require('@/assets/images/ic_mode3.png')} /> */}
             </ScrollView>
         </KeyboardAvoidingView>
     </ImageBackground>

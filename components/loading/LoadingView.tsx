@@ -42,26 +42,26 @@ const SkeletonLoaderEvent = () => (
         backgroundColor={'rgba(45, 121, 229, 0.52)'}
         foregroundColor="#ecebeb"
     >
-        <Rect x="0" y="0" rx="4" ry="4" width={WIDTH * 0.7} height="10" />
-        <Rect x="0" y="20" rx="4" ry="4" width={WIDTH * 0.6} height="10" />
-        <Rect x="0" y="40" rx="4" ry="4" width={WIDTH * 0.5} height="10" />
-        <Rect x="0" y="60" rx="4" ry="4" width={WIDTH * 0.4} height="10" />
+        <Rect x="0" y="0" rx="4" ry="4" width={WIDTH * 0.9} height="10" />
+        <Rect x="0" y="20" rx="4" ry="4" width={WIDTH * 0.8} height="10" />
+        <Rect x="0" y="40" rx="4" ry="4" width={WIDTH * 0.7} height="10" />
+        <Rect x="0" y="60" rx="4" ry="4" width={WIDTH * 0.6} height="10" />
     </ContentLoader>
 );
 
 const SkeletonLoaderQuestion = () => (
     <ContentLoader
         speed={1}
-        width={width}
-        height={40}
-        viewBox={`0 0 ${width} 40`}
+        width={WIDTH + 120}
+        height={80}
+        viewBox={`0 0 ${WIDTH + 120} 80`}
         backgroundColor={'rgba(45, 121, 229, 0.52)'}
         foregroundColor="#ecebeb"
     >
-        <Rect x="0" y="0" rx="4" ry="4" width={width * 0.77} height="10" />
-        <Rect x="0" y="20" rx="4" ry="4" width={width * 0.7} height="10" />
-        {/* <Rect x="0" y="40" rx="4" ry="4" width={width * 0.65} height="10" /> */}
-        {/* <Rect x="0" y="60" rx="4" ry="4" width={width * 0.6} height="10" /> */}
+        <Rect x="0" y="0" rx="4" ry="4" width={WIDTH} height="10" />
+        <Rect x="0" y="20" rx="4" ry="4" width={WIDTH * 0.9} height="10" />
+        <Rect x="0" y="40" rx="4" ry="4" width={WIDTH * 0.8} height="10" />
+        <Rect x="0" y="60" rx="4" ry="4" width={WIDTH * 0.7} height="10" />
     </ContentLoader>
 );
 

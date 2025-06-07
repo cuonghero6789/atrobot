@@ -9,7 +9,7 @@ import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '@/core/styles';
 const { width, height } = Dimensions.get('window');
-const TAB_HEIGHT = Platform.select({
+export const TAB_HEIGHT = Platform.select({
   ios: width * 180 / 780,
   android: width * 145 / 779, // Standard Material Design bottom navigation height
   default: width * 180 / 780,

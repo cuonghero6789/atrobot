@@ -29,7 +29,6 @@ function ChooseTypeTopics() {
         {Topics.map((item, index) => {
             return <TouchableOpacity style={{ alignItems: 'center' }} key={`topic-${index}`} onPress={() => {
                 if (type === item.type) return;
-
                 setType(item.type);
                 actions.setTopic({ ...item, sourceSelect: item.source });
                 AstroGenQuestion({

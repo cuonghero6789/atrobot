@@ -14,6 +14,7 @@ import AtroHtml from '@/components/AtroHtml';
 import { SkeletonLoaderEvent } from '@/components/loading/LoadingView';
 import strings from '@/core/localization';
 import { useAtroWebSocket } from '@/core/socket';
+import { TAB_HEIGHT } from './_layout';
 const { width, height } = Dimensions.get('window');
 export default function DailyScreen() {
   const insets = useSafeAreaInsets();
@@ -80,26 +81,26 @@ export default function DailyScreen() {
             })
           }} />
           <Image source={require('@/assets/images/bg_star.png')} style={{ width, height: width, position: 'absolute', marginTop: spacing.big }} />
-          <ScrollView style={{ flex: 1 }}>
+          <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: TAB_HEIGHT }}>
             <View style={{ flexDirection: 'row', paddingBottom: spacing.extraLarge, paddingTop: spacing.bigx2 }}>
               <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <HomeCalendar />
               </View>
               <View style={{ padding: spacing.large, flex: 1 }}>
-                {weekly?.events?.[0] ? <AtroHtml desc={weekly?.events?.[0] || ""} /> : <SkeletonLoaderEvent />}
+                {weekly?.events?.[0] ? <AtroHtml desc={weekly?.events?.[0] + "" || ""} /> : <SkeletonLoaderEvent />}
               </View>
             </View>
             <View style={{ backgroundColor: '#B2D1FDBF', flex: 1, flexDirection: 'row', padding: spacing.large }}>
               <View style={{ flex: 1 }}>
                 <Text style={[textStyle.subTitle1, { color: colors.success }]}>{strings.t("should")}</Text>
-                <Text style={[textStyle.bodyText, { color: colors.black4, lineHeight: 18, marginTop: spacing.large, marginRight: spacing.large }]}>{weekly.horoscope_do?.[0]}</Text>
+                <Text style={[textStyle.bodyText2, { color: colors.black4, lineHeight: 18, marginTop: spacing.large, marginRight: spacing.large }]}>{weekly.horoscope_do?.[0]}</Text>
               </View>
               <View style={{ paddingTop: spacing.extraLarge }}>
                 <Image source={require('@/assets/images/ic_line.png')} style={{ width: 2, height: '100%' }} />
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={[textStyle.subTitle1, { color: colors.success, textAlign: 'right' }]}>{strings.t("dont")}</Text>
-                <Text style={[textStyle.bodyText, { color: colors.black4, lineHeight: 18, marginLeft: spacing.large, marginTop: spacing.large, textAlign: 'right' }]}>{weekly.horoscope_dont?.[0]}</Text>
+                <Text style={[textStyle.bodyText2, { color: colors.black4, lineHeight: 18, marginLeft: spacing.large, marginTop: spacing.large, textAlign: 'right' }]}>{weekly.horoscope_dont?.[0]}</Text>
               </View>
             </View>
           </ScrollView>

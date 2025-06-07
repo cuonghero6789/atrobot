@@ -15,17 +15,21 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { LineChart } from 'react-native-gifted-charts';
 import { GET_SUBJECT } from "@/core/apollo/queries";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { usePlanetStore } from "@/core/stores";
+import { ASTROME_MANIFEST } from "@/core";
 const { width } = Dimensions.get('window');
 const SIZE = width / 3;
 
 function PersonalScreen() {
     const router = useRouter();
     const insets = useSafeAreaInsets();
-    const { data: dataSubject, loading, error, refetch } = useQuery(GET_SUBJECT);
-    const actions = usePlanetStore(state => state.actions);
-
+    // const { data: dataSubject, loading, error, refetch } = useQuery(GET_SUBJECT);
+    // const actions = usePlanetStore(state => state.actions);
+    const [
+        AstroManifest,
+        { data: dataManifest, loading: loadingManifest, error: errorManifest },
+    ] = useMutation(ASTROME_MANIFEST);
     const data = [
         { value: 50, color: '#90D3FF8F', text: 'Đất' }, // Earth
         { value: 20, color: '#3589E9EB', text: 'Nước' }, // Water
@@ -45,11 +49,13 @@ function PersonalScreen() {
     ];
 
     useEffect(() => {
-        if (dataSubject) {
-            alert(JSON.stringify(dataSubject.planets));
-            actions.setPlanets(dataSubject.planets);
+        if (dataManifest) {
+            console.log('dataManifest', JSON.stringify(dataManifest));
+            // actions.setPlanets(dataManifest);
+        }else {
+            AstroManifest();
         }
-    }, [dataSubject]);
+    }, [dataManifest]);
 
     return <ImageBackground source={require('@/assets/images/bg_home.png')} style={{ flex: 1, paddingTop: insets.top }}>
         <BackButton onPress={() => router.back()} />

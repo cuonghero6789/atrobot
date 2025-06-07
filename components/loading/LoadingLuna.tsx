@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { Image } from "expo-image";
 const width = Dimensions.get('window').width;
 const SIZE_ITEM_LARGE = (3 * width) / 4 - 32;
-const SIZE_ITEM = 100;
+const SIZE_ITEM = 80;
 interface Props {
     style?: any;
 }
