@@ -58,10 +58,10 @@ const SkeletonLoaderQuestion = () => (
         backgroundColor={'rgba(45, 121, 229, 0.52)'}
         foregroundColor="#ecebeb"
     >
-        <Rect x="0" y="0" rx="4" ry="4" width={WIDTH} height="10" />
-        <Rect x="0" y="20" rx="4" ry="4" width={WIDTH * 0.9} height="10" />
-        <Rect x="0" y="40" rx="4" ry="4" width={WIDTH * 0.8} height="10" />
-        <Rect x="0" y="60" rx="4" ry="4" width={WIDTH * 0.7} height="10" />
+        <Rect x="0" y="0" rx="4" ry="4" width={WIDTH + 10} height="10" />
+        <Rect x="0" y="20" rx="4" ry="4" width={WIDTH} height="10" />
+        <Rect x="0" y="40" rx="4" ry="4" width={WIDTH * 0.95} height="10" />
+        <Rect x="0" y="60" rx="4" ry="4" width={WIDTH * 0.85} height="10" />
     </ContentLoader>
 );
 

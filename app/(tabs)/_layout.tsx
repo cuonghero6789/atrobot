@@ -43,6 +43,9 @@ export default function TabLayout() {
             position: 'absolute',
             height: TAB_HEIGHT,
             borderColor: 'transparent',
+            backgroundColor: '#ADB4BC',
+            borderTopLeftRadius: 44,
+            borderTopRightRadius: 44,
             overflow: 'hidden',
           },
           android: {

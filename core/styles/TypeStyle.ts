@@ -140,7 +140,7 @@ export const textStyle = StyleSheet.create({
   btnSecondary: {
     fontFamily: fontFamily.semibold,
     lineHeight: lineHeight.xs,
-    fontSize: fontSize.xxs
+    fontSize: fontSize.xssm
   },
   bodyTextBold: {
     fontFamily: fontFamily.semibold,

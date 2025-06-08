@@ -18,6 +18,7 @@ import { GET_SUBJECT } from "@/core/apollo/queries";
 import { useMutation, useQuery } from "@apollo/client";
 import { usePlanetStore } from "@/core/stores";
 import { ASTROME_MANIFEST } from "@/core";
+import strings from '@/core/localization';
 const { width } = Dimensions.get('window');
 const SIZE = width / 3;
 
@@ -58,7 +59,7 @@ function PersonalScreen() {
     }, [dataManifest]);
 
     return <ImageBackground source={require('@/assets/images/bg_home.png')} style={{ flex: 1, paddingTop: insets.top }}>
-        <BackButton onPress={() => router.back()} />
+        <BackButton onPress={() => router.back()} title={strings.t('personal')} subTitle={strings.t('introHome')} />
         <LinearGradient colors={['#B9C3CEBF', '#032A51BF']} style={styles.profile}>
             <ScrollView contentContainerStyle={{ paddingHorizontal: spacing.large, paddingBottom: spacing.big }}>
                 <View style={{

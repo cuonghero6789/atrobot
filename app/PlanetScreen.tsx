@@ -1,46 +1,68 @@
 import { BackButton } from '@/components/Button';
+import { CardView } from '@/components/Card';
 import strings from '@/core/localization';
 import { usePlanetStore } from '@/core/stores';
-import { colors, spacing } from '@/core/styles';
+import { colors, spacing, textStyle } from '@/core/styles';
 import { ImageBackground } from 'expo-image';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, Dimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { LinearGradient } from 'expo-linear-gradient';
+import LoadingLuna from '@/components/loading/LoadingLuna';
 
+const width = Dimensions.get('window').width;
 export default function PlanetScreen() {
     const planet = usePlanetStore(state => state.planet);
+    const loading = usePlanetStore(state => state.loading);
     const planetSign = usePlanetStore(state => state.planetSign);
     const router = useRouter();
     const insets = useSafeAreaInsets();
     const renderItem = (title: string, content: string) => {
         return (
-            <View style={{ paddingVertical: 16 }}>
-                <Text style={styles.title}>{title}</Text>
-                <Text style={styles.content}>{content}</Text>
+            <View style={{}}>
+                <Text style={[textStyle.textBold, { color: colors.white }]}>{title}</Text>
+                <Text style={[textStyle.bodyText2, { color: colors.white }]}>{content}</Text>
             </View>
         );
     };
 
 
     return <ImageBackground source={require('@/assets/images/bg_planet.png')} style={{ flex: 1, paddingTop: insets.top }}>
-        <BackButton onPress={() => router.back()} />
+        <BackButton onPress={() => router.back()} title={`${planet?.name_label} ${planet?.sign_label}`} />
         <ScrollView contentContainerStyle={{ paddingHorizontal: spacing.large, paddingBottom: spacing.big }}>
             <View style={{ flex: 1 }}>
-                {planet && (
-                    <Text>{`${planet.name_label} ${planet.sign_label}`}</Text>
-                )}
-                <View style={styles.line} />
-                {planetSign?.pros && renderItem(strings.t("pros"), planetSign.pros)}
-                <View style={styles.line} />
-                {planetSign?.cons && renderItem(strings.t("cons"), planetSign.cons)}
-                <View style={styles.line} />
-                {planetSign?.favorite &&
-                    renderItem(strings.t("favorite"), planetSign.favorite)}
-                {planetSign?.paraphrase && (
-                    <View style={styles.body}>
-                        <Text style={styles.contentBody}>{planetSign.paraphrase}</Text>
+                {loading && <View style={{
+                    backgroundColor: "#2155A0BF",
+                    borderRadius: spacing.sm,
+                    padding: spacing.large,
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+                    <LoadingLuna />
+                </View>}
+                {
+                    !loading &&
+                    <View style={styles.wrapper}>
+                        <LinearGradient colors={['#395A8A73', '#357FE9']} style={styles.container}>
+                            {planetSign?.pros && renderItem(strings.t("pros"), planetSign.pros)}
+                            {planetSign?.cons && renderItem(strings.t("cons"), planetSign.cons)}
+                            {planetSign?.favorite &&
+                                renderItem(strings.t("favorite"), planetSign.favorite)}
+                        </LinearGradient>
                     </View>
+                }
+
+                {!loading && planetSign?.paraphrase && (
+                    <CardView
+                        textStyleProp={[textStyle.bodyText2, {
+                            lineHeight: 23
+                        }]}
+                        description={planetSign.paraphrase}
+                        style={{
+                            borderWidth: 0
+                        }} />
                 )}
             </View>
         </ScrollView>
@@ -48,6 +70,20 @@ export default function PlanetScreen() {
 }
 
 const styles = StyleSheet.create({
+    wrapper: {
+        flex: 1,
+        shadowColor: "#000",
+        shadowOffset: { width: 5, height: 5 },
+        shadowOpacity: 0.4, // Similar to #00000052
+        shadowRadius: 4,
+        marginBottom: 16
+    },
+    container: {
+        flex: 1,
+        borderRadius: 12,
+        padding: 16,
+        marginHorizontal: 6,
+    },
     containerBody: {
         padding: 16,
         justifyContent: 'center',
@@ -55,7 +91,7 @@ const styles = StyleSheet.create({
     },
     line: {
         height: 1,
-        backgroundColor: colors.white,
+        backgroundColor: "#2D79E5",
     },
     body: {
         borderRadius: 12,
@@ -72,10 +108,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: colors.white,
         marginVertical: 16,
-    },
-    container: {
-        backgroundColor: colors.bgColor2,
-        flex: 1,
     },
     title: {
         color: colors.gray2,

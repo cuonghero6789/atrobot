@@ -34,7 +34,7 @@ export function useAtroMessageHandler() {
     switch (op) {
       case AtroOP.ASTRO_ME:
         actionPlanet.setPlanetSign(payload || '');
-        router.push("/PlanetScreen");
+        // router.push("/PlanetScreen");
         break;
       case AtroOP.ASTRO_GEN_QUESTION:
         actionsQuestion.setQuestions(
@@ -44,7 +44,7 @@ export function useAtroMessageHandler() {
         break;
       case AtroOP.ASTRO_ANSWER_QUESTION:
         actionsQuestion.setAnswer(payload?.answer || '');
-        router.push("/AnswerScreen");
+        // router.push("/AnswerScreen");
         break;
       case AtroOP.ASTRO_DAILY:
         if (payload?.weekly?.length) {

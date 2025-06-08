@@ -40,7 +40,7 @@ const Card = ({ daily, score }: CardProps) => {
                 <Text style={[textStyle.btnSecondary, { color: colors.white }]}>{`${label}`}</Text>
                 <Text style={[textStyle.subTitle, { color: colors.white }]}>{`${score?.score}`}</Text>
             </View>
-            <Text style={[textStyle.bodyText, styles.text]}>{text}</Text>
+            <Text style={[textStyle.bodyText1, styles.text]}>{text}</Text>
         </View>
     </LinearGradient>
 };

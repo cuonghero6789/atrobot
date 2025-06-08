@@ -33,13 +33,13 @@ function DetailInnerShadowBox({ colorStart, colorEnd, iconSource, answer, loadin
                 style={styles.innerShadow}
             />
             <Image source={iconSource} resizeMode="contain" style={{ width: 130, height: 156, position: 'absolute', right: spacing.sm, top: spacing.large }} />
-            <Text style={[  textStyle.textBold2, { color: colors.white, marginBottom: spacing.xl }]}>{"Kế hoạch sắp tới của\ntôi có suôn sẻ không?"}</Text>
+            <Text style={[  textStyle.textBold2, { color: colors.white, marginBottom: spacing.md }]}>{"Kế hoạch sắp tới của\ntôi có suôn sẻ không?"}</Text>
             {/* <Button title={"Tối nay tôi đi hẹn hò, cuộc hẹn sẽ diễn ra như thế nào?"}
                 onPress={() => { }}
                 containerStyle={{ marginTop: spacing.sm, borderRadius: 5, height: 64 }}
                 textStyle={textStyle.subTitleMedium1}
                 buttonStyle={{ borderRadius: 5 }} /> */}
-            <Text style={[textStyle.textBold2, { color: "#2155A0BF", marginTop: spacing.large, marginBottom: spacing.xxs }]}>{"Luna"}</Text>
+            <Text style={[textStyle.textBold2, { color: "#2155A0BF", marginBottom: spacing.xxs }]}>{"Luna"}</Text>
             <View style={{ backgroundColor: "#2155A0BF", borderRadius: spacing.sm, padding: spacing.large }}>
                 {!loadingAnswer ?
                     <Text style={[textStyle.bodyText2, { color: colors.white }]}>

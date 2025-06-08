@@ -8,8 +8,7 @@ let strings = new I18n({
     divine: 'Cosmic Plan',
     chat: 'Chat',
     shop: 'Shop',
-    introHome:
-      "Hi. I’m Luna <3 I'm your friendly neighborhood astro-guru 🌟🔮 Time to unravel the celestial gossip about YOU, darling! ",
+    introHome: "What do the stars say about you?",
     elementDist: 'Elemental Distribution',
     quantityDist: 'Quality Distribution',
     planetSignDist: 'Planets and Signs',
@@ -139,7 +138,8 @@ let strings = new I18n({
     hours: "Hours",
     minutes: "Minutes",
     loadingAnswer: "Loading answer...",
-    recommendation:"Hello {name}, Do you have any plans coming up? Let the stars reveal what awaits you! 😉"
+    recommendation: "Hello {name}, Do you have any plans coming up? Let the stars reveal what awaits you! 😉",
+    txtPlanetsAndSign: "The planets and zodiac signs"
   },
   vi: {
     chooseBirthday: "Chọn ngày sinh",
@@ -166,8 +166,7 @@ let strings = new I18n({
     divine: 'Cosmic Plan',
     chat: 'Trò chuyện',
     shop: 'Cửa hàng',
-    introHome:
-      'Xin chào, Luna đây 🌟🔮 Bạn có biết, các chòm sao có thể tiết lộ rất nhiều về bản thân bạn không? Thử khám phá cùng Luna nhé <3',
+    introHome: 'Các chòm sao hé lộ điều gì về bạn?',
     elementDist: 'Phân bố Nguyên tố',
     quantityDist: 'Phân bố Tính chất',
     planetSignDist: 'Hành tinh và cung hoàng đạo',
@@ -277,7 +276,8 @@ let strings = new I18n({
     hours: "Giờ",
     minutes: "Phút",
     loadingAnswer: "Đang tải câu trả lời...",
-    recommendation: "Chào {name}, Bạn có dự định gì sắp tới không? Hãy để các vì sao tiết lộ điều gì đang chờ đón bạn! 😉"
+    recommendation: "Chào {name}, Bạn có dự định gì sắp tới không? Hãy để các vì sao tiết lộ điều gì đang chờ đón bạn! 😉",
+    txtPlanetsAndSign: "Các hành tinh và cung hoàng đạo"
   },
 });
 strings.enableFallback = true;

@@ -2,13 +2,15 @@ import React from 'react';
 import { Text, TouchableOpacity, StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Image } from 'expo-image';
+import { textStyle } from '@/core/styles/TypeStyle';
 interface Props {
   title?: string;
   onPress: () => void;
   containerStyle?: any;
   buttonStyle?: any;
   textStyle?: any
-  icon?: any
+  icon?: any;
+  subTitle?: string;
 }
 const Button = ({ title, onPress, containerStyle, buttonStyle, textStyle }: Props) => {
   return (
@@ -22,10 +24,17 @@ const Button = ({ title, onPress, containerStyle, buttonStyle, textStyle }: Prop
     </TouchableOpacity>
   );
 };
-function BackButton({ onPress, containerStyle }: Props) {
-  return <TouchableOpacity onPress={onPress} style={containerStyle}>
+function BackButton({ onPress, containerStyle, subTitle, title }: Props) {
+  return <TouchableOpacity onPress={onPress} style={[styles.container, containerStyle]}>
     <Image source={require('@/assets/images/ic_back.png')}
       style={{ width: 56, height: 56, marginHorizontal: 16 }} />
+    {title &&
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text style={[textStyle.title, styles.text]}>{title}</Text>
+        {subTitle && <Text style={[textStyle.text]}>{subTitle}</Text>}
+      </View>
+    }
+    <View style={{ width: 56, height: 56, marginHorizontal: 16 }} />
   </TouchableOpacity>
 }
 
@@ -39,6 +48,11 @@ function ButtonIcon({ icon, onPress, containerStyle }: Props) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   wrapper: {
     minHeight: 48,
     borderRadius: 20,

@@ -3,85 +3,68 @@ import { usePlanetStore } from '@/core/stores';
 import { spacing } from '@/core/styles';
 import { ImageBackground } from 'expo-image';
 import { useRouter } from 'expo-router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ScrollView, StyleSheet, View, Text, FlatList, Dimensions, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { PlanetItem } from '@/components/personal/planet';
 import { colors, textStyle } from '@/core/styles';
+import { GET_SUBJECT } from '@/core/apollo/queries';
+import { useMutation, useQuery } from '@apollo/client';
+import strings from '@/core/localization';
+import { ASTROME } from '@/core/apollo/mutations';
 
-const { width } = Dimensions.get('window');
-
-const MenuItem = ({ text, isActive, onPress }: { text: string; isActive: boolean; onPress: () => void }) => {
-  return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={[styles.menuItem, isActive && styles.activeMenuItem]}
-    >
-      <Text style={[textStyle.text, styles.menuText, isActive && styles.activeMenuText]}>
-        {text}
-      </Text>
-    </TouchableOpacity>
-  );
-};
 
 export default function PlanetsScreen() {
+    const { data: dataSubject, loading, error, refetch } = useQuery(GET_SUBJECT);
     const planets = usePlanetStore(state => state.planets);
+    const setPlanets = usePlanetStore(state => state.actions.setPlanets);
+    const setPlanet = usePlanetStore(state => state.actions.setPlanet);
     const router = useRouter();
     const insets = useSafeAreaInsets();
-    const [activeMenu, setActiveMenu] = React.useState('planets');
-
-    const menuItems = [
-        { id: 'planets', text: 'Planets' },
-        { id: 'houses', text: 'Houses' },
-        { id: 'aspects', text: 'Aspects' },
-    ];
-
+    const [AstroMe, { data: astroMe, loading: loadingMe, error: errorMe }] =
+    useMutation(ASTROME);
     const planetList = Array.isArray(planets) ? planets : [];
+
+    useEffect(() => {
+        if (dataSubject?.get_subject) {
+            setPlanets(dataSubject.get_subject.planets);
+        }
+    }, [dataSubject]);
 
     const renderItem = ({ item }: any) => {
         return (
             <PlanetItem
                 data={item}
                 onPress={() => {
-                    //   actionPlanet.setPlanet(item);
-                    //   navigation.navigate('PlanetScreen');
-                    //   AstroMe({
-                    //     variables: {
-                    //       planet: item.name,
-                    //       sign: item.sign_name,
-                    //     },
-                    //   });
+                      setPlanet(item);
+                      router.push('/PlanetScreen');
+                      AstroMe({
+                        variables: {
+                          planet: item.name,
+                          sign: item.sign_name,
+                        },
+                      });
                 }}
             />
         );
     };
 
     return <ImageBackground source={require('@/assets/images/bg_planet.png')} style={{ flex: 1, paddingTop: insets.top }}>
-        <BackButton onPress={() => router.back()} />
+        <BackButton onPress={() => router.back()} title={strings.t('txtPlanetsAndSign')} />
         <View style={styles.container}>
-            <View style={styles.menuContainer}>
-                {menuItems.map((item) => (
-                    <MenuItem
-                        key={item.id}
-                        text={item.text}
-                        isActive={activeMenu === item.id}
-                        onPress={() => setActiveMenu(item.id)}
-                    />
-                ))}
-            </View>
             <FlatList
                 data={planetList}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => item.name + index}
                 numColumns={2}
                 contentContainerStyle={{
-                    paddingHorizontal: spacing.large,
+                    paddingHorizontal: spacing.ssm,
                     paddingBottom: spacing.big,
-                    paddingTop: 16,
+                    paddingTop: 12,
                 }}
                 columnWrapperStyle={{
                     justifyContent: 'space-between',
-                    marginBottom: 16,
+                    marginBottom: 12,
                 }}
                 showsVerticalScrollIndicator={false}
             />
