@@ -1,7 +1,7 @@
 import { BackButton, ButtonIcon } from "@/components/Button";
 import { CardView } from "@/components/Card";
 import { Distribution, InfoChartProperties } from "@/components/personal/distribution";
-import { colors, spacing, textStyle } from "@/core/styles";
+import { colors, fontSize, spacing, textStyle } from "@/core/styles";
 import { ImageBackground } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
@@ -84,9 +84,8 @@ function PersonalScreen() {
                         paddingVertical: spacing.extraLarge,
                         marginHorizontal: spacing.large
                     }}
-                    textStyleProp={[textStyle.bodyText, {
-                        fontSize: 12,
-                        lineHeight: 19
+                    textStyleProp={[textStyle.bodyText2, {
+                        fontSize: 14
                     }]}
                     description="Xử Nữ là biểu tượng của sự hoàn hảo, tỉ mỉ và logic. Trong công việc, bạn luôn chú trọng đến chi tiết nhỏ nhất và không ngại đối mặt với các nhiệm vụ phức tạp đòi hỏi sự cẩn thận. Điều này khiến bạn trở thành một chuyên gia đáng tin cậy trong mắt đồng nghiệp và cấp trên. Tuy nhiên, chính sự cầu toàn đôi khi khiến bạn cảm thấy áp lực và dễ mất động lực nếu mọi thứ không theo ý muốn. Với tính cách cẩn trọng, bạn thường thích các công việc có quy trình rõ ràng, yêu cầu tính tổ chức cao, và không để lại nhiều không gian cho sự hỗn loạn hoặc bất định.
 Một điểm mạnh lớn của Xử Nữ là khả năng phân tích. Bạn có thể nhanh chóng tìm ra điểm mạnh và điểm yếu trong bất kỳ dự án nào, đồng thời đề xuất các giải pháp hợp lý. Chính điều này giúp bạn nổi bật trong các nhóm làm việc, đặc biệt là trong các vai trò liên quan đến quản lý dự án, kiểm "

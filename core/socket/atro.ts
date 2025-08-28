@@ -78,7 +78,7 @@ export function useAtroMessageHandler() {
 
   const handleError = (error: Event) => {
     if (!error.isTrusted) {
-      actionAuth.onLogout();
+      // actionAuth.onLogout();
     }
   };
 

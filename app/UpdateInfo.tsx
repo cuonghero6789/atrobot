@@ -157,7 +157,7 @@ export default function UpdateInfoScreen() {
                 style={styles.body}
             >
                 <ScrollView contentContainerStyle={{ paddingBottom: SIZE_SUN * 0.6 }} style={{ flex: 1 }}>
-                    <View style={{ transform: [{ scaleX: 1 / 1.3 }] }}>
+                    <View>
                         <Text style={styles.title}>{strings.t("updateInfo")}</Text>
                         {
                             status === AuthAction.AUTH_HOME &&
@@ -256,9 +256,8 @@ const styles = StyleSheet.create({
     },
     body: {
         flex: 1,
-        borderTopLeftRadius: 300,
-        borderTopRightRadius: 300,
-        transform: [{ scaleX: 1.3 }],
+        borderTopLeftRadius: 100,
+        borderTopRightRadius: 100,
     },
     container: {
         flex: 1,

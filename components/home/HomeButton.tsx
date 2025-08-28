@@ -1,7 +1,7 @@
 import { colors, spacing, textStyle } from "@/core/styles";
 import { ImageBackground } from "expo-image";
-import { memo } from "react";
-import { TouchableOpacity, StyleSheet, Text, View, Dimensions } from "react-native";
+import { useEffect, useRef } from "react";
+import { TouchableOpacity, StyleSheet, Text, View, Dimensions, Animated, Easing } from "react-native";
 const { width, height } = Dimensions.get('window');
 const WIDTH = width;
 const HEIGHT = WIDTH * 72 / 390;
@@ -13,10 +13,40 @@ interface Props {
 }
 
 function HomeButton({ onPress, text }: Props) {
+    const pulse = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+        const animation = Animated.loop(
+            Animated.sequence([
+                Animated.timing(pulse, {
+                    toValue: 1,
+                    duration: 1200,
+                    easing: Easing.inOut(Easing.quad),
+                    useNativeDriver: true,
+                }),
+                Animated.timing(pulse, {
+                    toValue: 0,
+                    duration: 1200,
+                    easing: Easing.inOut(Easing.quad),
+                    useNativeDriver: true,
+                })
+            ])
+        );
+        animation.start();
+        return () => {
+            animation.stop();
+        };
+    }, [pulse]);
+
+    const scale = pulse.interpolate({ inputRange: [0, 1], outputRange: [1, 1.05] });
+    const opacity = pulse.interpolate({ inputRange: [0, 1], outputRange: [0.9, 1] });
+
     return <View style={{ alignItems: 'center' }}>
-        <TouchableOpacity onPress={onPress} style={styles.container}>
-            <Text style={[textStyle.subTitle, styles.text]}>{text}</Text>
-        </TouchableOpacity>
+        <Animated.View style={{ transform: [{ scale }], opacity }}>
+            <TouchableOpacity onPress={onPress} style={styles.container}>
+                <Text style={[textStyle.subTitle, styles.text]}>{text}</Text>
+            </TouchableOpacity>
+        </Animated.View>
     </View>
 }
 function HomeButtonBackground({ onPress, text, subText }: Props) {
@@ -45,10 +75,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: spacing.md,
         paddingVertical: spacing.sm,
         justifyContent: 'center',
-        backgroundColor: '#FFFFFF33',
+        backgroundColor: '#FFFFFF44',
         shadowColor: colors.black,
-        shadowOffset: { width: 10, height: 10 },
-        shadowOpacity: 0.8,
+        shadowOffset: { width: 20, height: 20 },
+        shadowOpacity: 1,
         shadowRadius: 50,
         width: 142,
         height: 31

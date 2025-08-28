@@ -2,13 +2,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { UserModel } from '@/core/types/common';
 import { IAuthState } from '@/core/stores/interfaces';
 import { AuthAction } from '@/core/stores/interfaces/common/IAuthState';
-import auth from '@react-native-firebase/auth';
+import { getAuth, signOut } from '@react-native-firebase/auth';
 
 export const onLogout = (set: any, get: any) => async () => {
   try {
-    await auth()
-      .signOut()
-      .then(() => console.log('User signed out!'));
+    await signOut(getAuth());
+    console.log('User signed out!');
     /** save cache for login fast */
     AsyncStorage.removeItem('AUTH_USER');
     AsyncStorage.removeItem('AUTH_STATUS');

@@ -8,7 +8,7 @@ let strings = new I18n({
     divine: 'Cosmic Plan',
     chat: 'Chat',
     shop: 'Shop',
-    introHome: "What do the stars say about you?",
+    introHome: "What do the stars say?",
     elementDist: 'Elemental Distribution',
     quantityDist: 'Quality Distribution',
     planetSignDist: 'Planets and Signs',
@@ -139,7 +139,8 @@ let strings = new I18n({
     minutes: "Minutes",
     loadingAnswer: "Loading answer...",
     recommendation: "Hello {name}, Do you have any plans coming up? Let the stars reveal what awaits you! 😉",
-    txtPlanetsAndSign: "The planets and zodiac signs"
+    txtPlanetsAndSign: "The planets and zodiac signs",
+    noInternetConnection: "No Internet Connection"
   },
   vi: {
     chooseBirthday: "Chọn ngày sinh",
@@ -166,7 +167,7 @@ let strings = new I18n({
     divine: 'Cosmic Plan',
     chat: 'Trò chuyện',
     shop: 'Cửa hàng',
-    introHome: 'Các chòm sao hé lộ điều gì về bạn?',
+    introHome: 'Các chòm sao hé lộ điều gì?',
     elementDist: 'Phân bố Nguyên tố',
     quantityDist: 'Phân bố Tính chất',
     planetSignDist: 'Hành tinh và cung hoàng đạo',
@@ -277,7 +278,8 @@ let strings = new I18n({
     minutes: "Phút",
     loadingAnswer: "Đang tải câu trả lời...",
     recommendation: "Chào {name}, Bạn có dự định gì sắp tới không? Hãy để các vì sao tiết lộ điều gì đang chờ đón bạn! 😉",
-    txtPlanetsAndSign: "Các hành tinh và cung hoàng đạo"
+    txtPlanetsAndSign: "Các hành tinh và cung hoàng đạo",
+    noInternetConnection: "Không có kết nối mạng"
   },
 });
 strings.enableFallback = true;

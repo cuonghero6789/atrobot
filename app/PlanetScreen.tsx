@@ -10,6 +10,7 @@ import { ScrollView, StyleSheet, View, Text, Dimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import LoadingLuna from '@/components/loading/LoadingLuna';
+import { StatusBar } from 'expo-status-bar';
 
 const width = Dimensions.get('window').width;
 export default function PlanetScreen() {
@@ -29,6 +30,7 @@ export default function PlanetScreen() {
 
 
     return <ImageBackground source={require('@/assets/images/bg_planet.png')} style={{ flex: 1, paddingTop: insets.top }}>
+        <StatusBar style="light" backgroundColor="#000" />
         <BackButton onPress={() => router.back()} title={`${planet?.name_label} ${planet?.sign_label}`} />
         <ScrollView contentContainerStyle={{ paddingHorizontal: spacing.large, paddingBottom: spacing.big }}>
             <View style={{ flex: 1 }}>

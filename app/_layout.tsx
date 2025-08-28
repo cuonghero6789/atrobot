@@ -14,6 +14,7 @@ import Loading, { CanShowLoading } from '@/components/Loading';
 import Toast from 'react-native-toast-message';
 import { View } from 'react-native';
 import { setConfig } from '@/core';
+import NetworkIndicator from '@/components/NetworkIndicator';
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -66,8 +67,9 @@ export default function RootLayout() {
   if (loading) {
     return <View style={{ flex: 1, backgroundColor: 'white' }} />;
   }
-
+  
   return (<GestureHandlerRootView style={{ flex: 1 }}>
+    <NetworkIndicator />
     <ApolloProvider client={client}>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
@@ -82,7 +84,7 @@ export default function RootLayout() {
           <Stack.Screen name="UpdateInfo" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
-        <StatusBar style="auto" />
+        <StatusBar style="dark" backgroundColor="#fff" />
         <Loading ref={global.loadingRef} />
         <Toast />
       </ThemeProvider>

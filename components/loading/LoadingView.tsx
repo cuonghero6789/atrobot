@@ -39,7 +39,7 @@ const SkeletonLoaderEvent = () => (
         width={WIDTH + 120}
         height={100}
         viewBox={`0 0 ${WIDTH + 120} 100`}
-        backgroundColor={'rgba(45, 121, 229, 0.52)'}
+        backgroundColor={'rgba(170, 198, 240, 0.52)'}
         foregroundColor="#ecebeb"
     >
         <Rect x="0" y="0" rx="4" ry="4" width={WIDTH * 0.9} height="10" />

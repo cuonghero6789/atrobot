@@ -10,20 +10,42 @@
       "channel": "development",
       "ios": {
         "simulator": true
+      },
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleDebug"
       }
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleRelease"
+      },
+      "ios": {
+        "buildConfiguration": "Release"
+      }
     },
     "production": {
       "autoIncrement": true,
-      "credentialsSource": "local"
+      "credentialsSource": "local",
+      "android": {
+        "buildType": "app-bundle",
+        "gradleCommand": ":app:bundleRelease"
+      },
+      "ios": {
+        "buildConfiguration": "Release"
+      }
     }
   },
   "submit": {
     "production": {
       "ios": {
         "ascAppId": "6702026745"
+      },
+      "android": {
+        "serviceAccountKeyPath": "./android-service-account.json",
+        "track": "internal"
       }
     }
   }

@@ -146,7 +146,7 @@ function ChatScreen() {
           }}
         />
       )}
-      <View style={{ height: insets.bottom + 80, backgroundColor: 'transparent' }} />
+      <View style={{ height: insets.bottom + 60, backgroundColor: 'transparent' }} />
     </LinearGradient>
   </ImageBackground>
 }

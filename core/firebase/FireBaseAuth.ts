@@ -1,4 +1,4 @@
-import auth from '@react-native-firebase/auth';
+import { getAuth, signInWithCredential, FacebookAuthProvider, GoogleAuthProvider, AppleAuthProvider } from '@react-native-firebase/auth';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { LoginManager, AccessToken, AuthenticationToken } from 'react-native-fbsdk-next';
@@ -11,7 +11,7 @@ GoogleSignin.configure({
 });
 export default class FireBaseAuth {
     static async getIdToken() {
-        return await auth().currentUser?.getIdToken();
+        return await getAuth().currentUser?.getIdToken();
     }
 
     static async onFacebookLimitedLogin() {
@@ -41,14 +41,14 @@ export default class FireBaseAuth {
 
         // Create a Firebase credential with the AuthenticationToken
         // and the nonce (Firebase will validates the hash against the nonce)
-        const facebookCredential = auth.FacebookAuthProvider.credential(
+        const facebookCredential = FacebookAuthProvider.credential(
             data.authenticationToken,
             nonce,
         );
 
         // Sign-in the user with the credential
-        await auth().signInWithCredential(facebookCredential);
-        const idToken = await auth()?.currentUser?.getIdToken();
+        await signInWithCredential(getAuth(), facebookCredential);
+        const idToken = await getAuth()?.currentUser?.getIdToken();
         console.log('idToken facebook login limited ==== ', idToken);
         return idToken;
     }
@@ -69,11 +69,11 @@ export default class FireBaseAuth {
         }
 
         // Create a Firebase credential with the AccessToken
-        const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
+        const facebookCredential = FacebookAuthProvider.credential(data.accessToken);
 
         // Sign-in the user with the credential
-        await auth().signInWithCredential(facebookCredential);
-        const _idToken = await auth()?.currentUser?.getIdToken();
+        await signInWithCredential(getAuth(), facebookCredential);
+        const _idToken = await getAuth()?.currentUser?.getIdToken();
         console.log('idToken facebook login ==== ', _idToken);
         return _idToken;
     }
@@ -91,10 +91,10 @@ export default class FireBaseAuth {
             }
             // Create a Firebase credential from the response
             const { identityToken } = appleAuthRequestResponse;
-            const appleCredential = auth.AppleAuthProvider.credential(identityToken);
+            const appleCredential = AppleAuthProvider.credential(identityToken);
             // Sign the user in with the credential
-            await auth().signInWithCredential(appleCredential);
-            const idToken = await auth()?.currentUser?.getIdToken();
+            await signInWithCredential(getAuth(), appleCredential);
+            const idToken = await getAuth()?.currentUser?.getIdToken();
             return idToken;
             // signed in
         } catch (e) {
@@ -111,11 +111,11 @@ export default class FireBaseAuth {
             const { data } = await GoogleSignin.signIn();
             if (!data?.idToken) return null;
             // Create a Google credential with the token
-            const googleCredential = auth.GoogleAuthProvider.credential(data.idToken);
+            const googleCredential = GoogleAuthProvider.credential(data.idToken);
 
             // Sign-in the user with the credential
-            await auth().signInWithCredential(googleCredential);
-            const _idToken = await auth()?.currentUser?.getIdToken();
+            await signInWithCredential(getAuth(), googleCredential);
+            const _idToken = await getAuth()?.currentUser?.getIdToken();
             console.log('idToken google login ==== ', _idToken);
             return _idToken;
 

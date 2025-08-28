@@ -1,17 +1,17 @@
-import messaging from '@react-native-firebase/messaging';
+import { getMessaging, requestPermission, AuthorizationStatus, getToken } from '@react-native-firebase/messaging';
 export default class FirebaseNotify {
     static async requestUserPermission() {
-        const authStatus = await messaging().requestPermission();
+        const authStatus = await requestPermission(getMessaging());
         const enabled =
-            authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-            authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+            authStatus === AuthorizationStatus.AUTHORIZED ||
+            authStatus === AuthorizationStatus.PROVISIONAL;
 
         if (enabled) {
             console.log('Authorization status:', authStatus);
         }
     }
     static async getToken() {
-        let token = await messaging().getToken();
+        let token = await getToken(getMessaging());
         console.log('fcm token === ', token);
 
         if (token) {
