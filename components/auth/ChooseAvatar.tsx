@@ -107,16 +107,16 @@ export function ChooseAvatar({ onImageSelected }: ChooseAvatarProps) {
                         <TouchableOpacity 
                             style={styles.button} 
                             onPress={handleTakePhoto}
-                            activeOpacity={0.7}
+                            activeOpacity={0.85}
                         >
-                            <MaterialIcons name="camera-alt" size={24} color={colors.white} />
+                            <MaterialIcons name="camera-alt" size={24} color={colors.success} />
                         </TouchableOpacity>
                         <TouchableOpacity 
                             style={styles.button} 
                             onPress={handleSelectFromLibrary}
-                            activeOpacity={0.7}
+                            activeOpacity={0.85}
                         >
-                            <MaterialIcons name="photo-library" size={24} color={colors.white} />
+                            <MaterialIcons name="photo-library" size={24} color={colors.success} />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -143,7 +143,14 @@ const styles = StyleSheet.create({
         // elevation: 8,
     },
     gradient: {
-        padding: spacing.md,
+        paddingVertical: spacing.large,
+        paddingHorizontal: spacing.xl,
+        borderRadius: 20,
+        backgroundColor: '#FFFFFF',
+        shadowColor: '#000',
+        shadowOpacity: 0.08,
+        shadowRadius: 10,
+        shadowOffset: { width: 0, height: 6 },
     },
     buttons: {
         flexDirection: 'row',
@@ -151,13 +158,17 @@ const styles = StyleSheet.create({
         gap: spacing.xxxl,
     },
     button: {
-        width: 68,
-        height: 68,
-        borderRadius: 34,
-        backgroundColor: '#2D79E5',
+        width: 72,
+        height: 72,
+        borderRadius: 36,
+        backgroundColor: '#FFFFFF',
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: 'rgba(255, 255, 255, 0.3)',
+        borderColor: 'rgba(0, 0, 0, 0.06)',
+        shadowColor: '#000',
+        shadowOpacity: 0.07,
+        shadowRadius: 8,
+        shadowOffset: { width: 0, height: 4 },
     },
 });

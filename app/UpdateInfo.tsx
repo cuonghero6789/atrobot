@@ -150,14 +150,14 @@ export default function UpdateInfoScreen() {
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <View style={styles.icon}>
                 <BackButton onPress={() => router.back()} containerStyle={{ position: 'absolute', top: 0, left: 0 }} />
-                <Image source={require('@/assets/images/ic_logo.png')} style={{ width: 88, height: 88 }} />
+                <Image source={require('@/assets/images/ic_logo.png')} style={{ width: 72, height: 72 }} />
             </View>
             <LinearGradient
-                colors={['#2D79E5', '#B2D1FD']}
+                colors={['#5E99E6', '#D6E4F2']}
                 style={styles.body}
             >
                 <ScrollView contentContainerStyle={{ paddingBottom: SIZE_SUN * 0.6 }} style={{ flex: 1 }}>
-                    <View>
+                    <View style={[styles.formCard, { borderTopLeftRadius: 70, borderTopRightRadius: 70, marginTop: 16 }]}>
                         <Text style={styles.title}>{strings.t("updateInfo")}</Text>
                         {
                             status === AuthAction.AUTH_HOME &&
@@ -189,18 +189,20 @@ export default function UpdateInfoScreen() {
                                 });
                             }} />
                     </View>
-                    <View style={{ transform: [{ scaleX: 1 / 1.3 }], height: SIZE_SUN * 0.6 }}>
+                    <View style={{ height: SIZE_SUN * 0.6 }}>
                         <Image tintColor={colors.white} source={require('@/assets/images/bg_sun.png')}
-                            style={{ width: SIZE_SUN, height: SIZE_SUN * 762 / 676, position: 'absolute', right: 0 }} />
-                        <ChooseValue data={RELATIONSHIPS}
-                            onSelected={(text) => {
-                                setRelationships(text);
-                            }} text={relationships || ""} title={strings.t("iAm")} />
-                        <CustomButton container={styles.btnConfirm}
-                            text={styles.btnText} title={strings.t("continue")}
-                            onPress={() => {
-                                onPressContinue();
-                            }} />
+                            style={{ width: SIZE_SUN, height: SIZE_SUN * 762 / 676, position: 'absolute', right: 0, transform: [{ scaleX: 1 / 1.3 }] }} />
+                        <View style={styles.actionCard}>
+                            <ChooseValue data={RELATIONSHIPS}
+                                onSelected={(text) => {
+                                    setRelationships(text);
+                                }} text={relationships || ""} title={strings.t("iAm")} />
+                            <CustomButton container={styles.btnConfirm}
+                                text={styles.btnText} title={strings.t("continue")}
+                                onPress={() => {
+                                    onPressContinue();
+                                }} />
+                        </View>
                     </View>
                 </ScrollView>
             </LinearGradient>
@@ -242,13 +244,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 80
     },
     title: {
-        fontSize: 24,
+        fontSize: 22,
         fontWeight: '700',
-        lineHeight: 28,
+        lineHeight: 26,
         color: colors.white,
         textAlign: 'center',
-        marginTop: 60,
-        marginBottom: 20
+        marginTop: 48,
+        marginBottom: 16
     },
     icon: {
         justifyContent: 'center',
@@ -256,8 +258,37 @@ const styles = StyleSheet.create({
     },
     body: {
         flex: 1,
-        borderTopLeftRadius: 100,
-        borderTopRightRadius: 100,
+        borderTopLeftRadius: 70,
+        borderTopRightRadius: 70,
+        borderLeftWidth: 1,
+        borderRightWidth: 1,
+        borderColor: 'rgba(255,255,255,0.45)'
+    },
+    formCard: {
+        marginHorizontal: 16,
+        marginTop: 8,
+        paddingVertical: 16,
+        paddingHorizontal: 12,
+        borderRadius: 20,
+        backgroundColor: 'rgba(255,255,255,0.12)',
+        shadowColor: '#000',
+        shadowOpacity: 0.12,
+        shadowRadius: 10,
+        shadowOffset: { width: 0, height: 6 },
+    },
+    actionCard: {
+        marginTop: 8,
+        marginHorizontal: 16,
+        paddingVertical: 16,
+        paddingHorizontal: 12,
+        borderRadius: 20,
+        backgroundColor: 'rgba(255,255,255,0.12)',
+        shadowColor: '#000',
+        shadowOpacity: 0.12,
+        shadowRadius: 10,
+        shadowOffset: { width: 0, height: 6 },
+        borderWidth: 1,
+        borderColor: 'rgba(255,255,255,0.45)'
     },
     container: {
         flex: 1,

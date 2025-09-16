@@ -14,10 +14,12 @@ interface Props {
 }
 const Button = ({ title, onPress, containerStyle, buttonStyle, textStyle }: Props) => {
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.wrapper, containerStyle]}>
+    <TouchableOpacity onPress={onPress} style={[styles.wrapper, containerStyle]} activeOpacity={0.85}>
       <LinearGradient
-        colors={['rgba(234, 255, 254, 0.5)', 'rgba(205, 201, 241, 0.5)']}
+        colors={['#6AA3EE', '#357FE9']}
         style={[styles.button, buttonStyle]}
+        start={{ x: 0, y: 0.5 }}
+        end={{ x: 1, y: 0.5 }}
       >
         <Text style={[styles.text, textStyle]}>{title}</Text>
       </LinearGradient>
