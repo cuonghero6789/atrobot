@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import strings from '../../core/localization';
-import { FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import moment from 'moment-timezone';
 import SearchInput from '../../components/SearchInput';
 import { colors, spacing } from "@/core/styles"
@@ -14,7 +14,8 @@ function TimeZonesScreen(): JSX.Element {
   const router = useRouter();
   const userTmp = useAccountStore(state => state.userTmp);
   const actions = useAccountStore(state => state.actions);
-  const [timeZone, setTimeZone] = React.useState(moment.tz.names());
+  const allTimezonesRef = useRef<string[]>(moment.tz.names());
+  const [timeZone, setTimeZone] = React.useState<string[]>(allTimezonesRef.current);
 
   const insets = useSafeAreaInsets();
   const { name } = useLocalSearchParams<{ name: string }>();
@@ -24,20 +25,34 @@ function TimeZonesScreen(): JSX.Element {
     setUserInfo({ timezone: name });
   }, [name]);
 
+  const prettify = useCallback((tz: string) => tz.replace(/_/g, ' '), []);
+
   const renderItem = useCallback(
     ({ item }: { item: string }) => {
+      const pretty = prettify(item);
+      const offset = moment.tz(item).format('Z');
+      const now = moment().tz(item).format('HH:mm');
+      const selected = userTmp?.timezone === item;
       return (
         <TouchableOpacity
           key={item}
           onPress={() => {
             setUserInfo({ timezone: item });
           }}
-          style={userTmp?.timezone == item ? styles.itemSelected : styles.item}>
-          <Text style={{ fontSize: 16, color: colors.line2 }}>{item}</Text>
+          style={[styles.row, selected ? styles.rowSelected : undefined]}
+          activeOpacity={0.8}
+        >
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.rowTitle, selected ? styles.rowTitleSelected : undefined]}>{pretty}</Text>
+            <Text style={styles.rowSub}>{`GMT${offset} · ${now}`}</Text>
+          </View>
+          {selected && (
+            <Text style={styles.tick}>✓</Text>
+          )}
         </TouchableOpacity>
       );
     },
-    [userTmp],
+    [userTmp?.timezone, prettify],
   );
 
   const setUserInfo = useCallback((data: any) => {
@@ -57,14 +72,13 @@ function TimeZonesScreen(): JSX.Element {
           onPressBack={() => router.back()}
           onPressClose={() => {
             setText('');
-            setUserInfo({ timezone: moment.tz.names() });
+            setTimeZone(allTimezonesRef.current);
           }}
           text={text}
           onChangeText={(value: string) => {
             setText(value);
-            const data = moment.tz
-              .names()
-              .filter(item => item.toUpperCase().includes(value.toUpperCase()));
+            const query = value.trim().toUpperCase();
+            const data = allTimezonesRef.current.filter(item => item.toUpperCase().includes(query));
             setTimeZone(data);
           }}
           placeholder={strings.t("inputTimezone")}
@@ -74,6 +88,11 @@ function TimeZonesScreen(): JSX.Element {
           data={timeZone}
           contentContainerStyle={{ paddingHorizontal: 16, paddingVertical: 16 }}
           keyExtractor={item => item}
+          ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+          initialNumToRender={20}
+          windowSize={10}
+          maxToRenderPerBatch={20}
+          removeClippedSubviews
         />
       </LinearGradient>
     </SafeAreaView>
@@ -86,14 +105,37 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
   },
-  itemSelected: {
-    backgroundColor: colors.success,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
-    borderRadius: spacing.large,
+  row: {
+    borderRadius: 14,
+    backgroundColor: 'rgba(255,255,255,0.18)',
+    paddingHorizontal: spacing.large,
+    paddingVertical: spacing.md,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  item: {
-    padding: spacing.large,
+  rowSelected: {
+    backgroundColor: 'rgba(255,255,255,0.30)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.6)'
+  },
+  rowTitle: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  rowTitleSelected: {
+    color: '#fff'
+  },
+  rowSub: {
+    color: 'rgba(255,255,255,0.8)',
+    fontSize: 12,
+    marginTop: 4,
+  },
+  tick: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '700',
+    marginLeft: spacing.large,
   },
   container: {
     flex: 1,
