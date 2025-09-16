@@ -19,8 +19,8 @@ interface AppConfigType {
 
 const defaultConfig: AppConfigType = {
   API: {
-    BASE_URL: 'https://api.example.com',
-    WS_URL: 'wss://api.example.com',
+    BASE_URL: 'http://localhost:9005/v1',
+    WS_URL: 'ws://localhost:9005/ws',
     TIMEOUT: 30000,
     RETRY_ATTEMPTS: 3,
   },

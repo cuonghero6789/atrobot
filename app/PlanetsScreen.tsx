@@ -1,5 +1,5 @@
 import { BackButton } from '@/components/Button';
-import { usePlanetStore } from '@/core/stores';
+import { usePlanetStore, useSubjectStore } from '@/core/stores';
 import { spacing } from '@/core/styles';
 import { ImageBackground } from 'expo-image';
 import { useRouter } from 'expo-router';
@@ -8,42 +8,32 @@ import { ScrollView, StyleSheet, View, Text, FlatList, Dimensions, TouchableOpac
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { PlanetItem } from '@/components/personal/planet';
 import { colors, textStyle } from '@/core/styles';
-import { GET_SUBJECT } from '@/core/apollo/queries';
 import { useMutation, useQuery } from '@apollo/client';
 import strings from '@/core/localization';
 import { ASTROME } from '@/core/apollo/mutations';
 
 
 export default function PlanetsScreen() {
-    const { data: dataSubject, loading, error, refetch } = useQuery(GET_SUBJECT);
-    const planets = usePlanetStore(state => state.planets);
-    const setPlanets = usePlanetStore(state => state.actions.setPlanets);
-    const setPlanet = usePlanetStore(state => state.actions.setPlanet);
+    const { planets, actions } = usePlanetStore(state => state);
     const router = useRouter();
     const insets = useSafeAreaInsets();
     const [AstroMe, { data: astroMe, loading: loadingMe, error: errorMe }] =
-    useMutation(ASTROME);
+        useMutation(ASTROME);
     const planetList = Array.isArray(planets) ? planets : [];
-
-    useEffect(() => {
-        if (dataSubject?.get_subject) {
-            setPlanets(dataSubject.get_subject.planets);
-        }
-    }, [dataSubject]);
 
     const renderItem = ({ item }: any) => {
         return (
             <PlanetItem
                 data={item}
                 onPress={() => {
-                      setPlanet(item);
-                      router.push('/PlanetScreen');
-                      AstroMe({
+                    actions.setPlanet(item);
+                    router.push('/PlanetScreen');
+                    AstroMe({
                         variables: {
-                          planet: item.name,
-                          sign: item.sign_name,
+                            planet: item.name,
+                            sign: item.sign_name,
                         },
-                      });
+                    });
                 }}
             />
         );

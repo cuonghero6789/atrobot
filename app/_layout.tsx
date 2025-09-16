@@ -30,8 +30,8 @@ export default function RootLayout() {
   useEffect(() => {
     setConfig({
       API: {
-        BASE_URL: 'https://api.astrolive.bot/v1',
-        WS_URL: 'wss://api.astrolive.bot/ws',
+        BASE_URL: 'http://localhost:9005/v1',
+        WS_URL: 'ws://localhost:9005/ws',
         TIMEOUT: 30000,
         RETRY_ATTEMPTS: 3,
       },
@@ -82,6 +82,7 @@ export default function RootLayout() {
           <Stack.Screen name="questions" options={{ headerShown: false }} />
           <Stack.Screen name="personal" options={{ headerShown: false }} />
           <Stack.Screen name="UpdateInfo" options={{ headerShown: false }} />
+          <Stack.Screen name="WeeklyDetail" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
         <StatusBar style="dark" backgroundColor="#fff" />

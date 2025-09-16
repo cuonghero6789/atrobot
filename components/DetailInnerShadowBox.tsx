@@ -1,7 +1,7 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Image } from 'react-native';
-import { colors, spacing, textStyle } from '@/core/styles';
+import { colors, fontWeight, spacing, textStyle } from '@/core/styles';
 import { Button } from "./Button";
 import { memo } from "react";
 import { SkeletonLoaderQuestion } from "./loading/LoadingView";
@@ -33,7 +33,7 @@ function DetailInnerShadowBox({ colorStart, colorEnd, iconSource, answer, loadin
                 style={styles.innerShadow}
             />
             <Image source={iconSource} resizeMode="contain" style={{ width: 130, height: 156, position: 'absolute', right: spacing.sm, top: spacing.large }} />
-            <Text style={[  textStyle.textBold2, { color: colors.white, marginBottom: spacing.md }]}>{"Kế hoạch sắp tới của\ntôi có suôn sẻ không?"}</Text>
+            <Text style={[  textStyle.textBold2, { color: colors.white, marginBottom: spacing.md, fontSize: 15 }]}>{"Kế hoạch sắp tới của\ntôi có suôn sẻ không?"}</Text>
             {/* <Button title={"Tối nay tôi đi hẹn hò, cuộc hẹn sẽ diễn ra như thế nào?"}
                 onPress={() => { }}
                 containerStyle={{ marginTop: spacing.sm, borderRadius: 5, height: 64 }}
@@ -42,7 +42,7 @@ function DetailInnerShadowBox({ colorStart, colorEnd, iconSource, answer, loadin
             <Text style={[textStyle.textBold2, { color: "#2155A0BF", marginBottom: spacing.xxs }]}>{"Luna"}</Text>
             <View style={{ backgroundColor: "#2155A0BF", borderRadius: spacing.sm, padding: spacing.large }}>
                 {!loadingAnswer ?
-                    <Text style={[textStyle.bodyText2, { color: colors.white }]}>
+                    <Text style={[textStyle.bodyText2, { color: colors.white, fontSize: 15, fontWeight: fontWeight.regular }]}>
                         {answer}
                     </Text> :
                     <LoadingLuna />
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: spacing.large,
         borderRadius: 30,
-        paddingHorizontal: spacing.xl,
+        paddingHorizontal: spacing.md,
         paddingTop: spacing.xl,
         paddingBottom: spacing.bigx2,
         overflow: "hidden",

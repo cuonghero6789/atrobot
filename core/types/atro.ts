@@ -55,6 +55,7 @@ export interface PlanetSignModel {
 export interface DominantModel {
   quality?: string;
   element?: string;
+  personality?: string;
 }
 
 // Astrology types

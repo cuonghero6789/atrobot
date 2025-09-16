@@ -1,4 +1,4 @@
-import {PlanetModel, PlanetSignModel} from '@/core/types/atro';
+import { PlanetModel, PlanetSignModel } from '@/core/types/atro';
 
 export const setPlanets =
   (set: any, get: any) => async (data: PlanetModel[]) => {

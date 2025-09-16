@@ -5,5 +5,6 @@ export interface IYouState {
 
   actions: {
     setDominant: (_dominant: DominantModel) => void;
+    getCacheDominant: () => void;
   };
 }

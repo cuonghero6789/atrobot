@@ -2,7 +2,7 @@ import { BackButton } from '@/components/Button';
 import { CardView } from '@/components/Card';
 import strings from '@/core/localization';
 import { usePlanetStore } from '@/core/stores';
-import { colors, spacing, textStyle } from '@/core/styles';
+import { colors, fontFamily, fontSize, spacing, textStyle } from '@/core/styles';
 import { ImageBackground } from 'expo-image';
 import { useRouter } from 'expo-router';
 import React from 'react';
@@ -58,8 +58,11 @@ export default function PlanetScreen() {
 
                 {!loading && planetSign?.paraphrase && (
                     <CardView
-                        textStyleProp={[textStyle.bodyText2, {
-                            lineHeight: 23
+                        textStyleProp={[textStyle.subTitleMedium1, {
+                            lineHeight: 23,
+                            fontSize: 14,
+                            color: colors.white,
+                            fontFamily: fontFamily.regular
                         }]}
                         description={planetSign.paraphrase}
                         style={{

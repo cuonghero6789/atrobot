@@ -21,10 +21,6 @@ interface Props {
 
 export default function InnerShadowBox({ colorStart, colorEnd, iconSource, onPress, data, type }: Props) {
     const loadingQuestion = useQuestionStore(state => state.loadingQuestion);
-    const actions = useQuestionStore(state => state.actions);
-    const [AstroGenQuestion, { data: dataGenQuestion, loading: loadingGenQuestion, error: errorGenQuestion }] =
-        useMutation(ASTROME_GEN_QUESTION);
-
     return (
         <LinearGradient
             colors={[colorStart, colorEnd]}
@@ -72,7 +68,7 @@ export default function InnerShadowBox({ colorStart, colorEnd, iconSource, onPre
                     />
                 ))
             }
-            <TouchableOpacity onPress={() => {
+            {/* <TouchableOpacity onPress={() => {
                 actions.setLoadingQuestion(true);
                 AstroGenQuestion({
                     variables: {
@@ -83,7 +79,7 @@ export default function InnerShadowBox({ colorStart, colorEnd, iconSource, onPre
                 <Text style={[textStyle.textBold3, { color: colors.white }]}>
                     {"Gợi ý thêm"}
                 </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <ActionInput
                 placeholder="Hoặc tự viết câu hỏi của bạn"
                 onPress={(text) => onPress(text)}

@@ -11,4 +11,5 @@ export {
   useDailyStore,
   useQuestionStore,
   useYouStore,
+  useSubjectStore,
 } from './atro'; 

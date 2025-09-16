@@ -75,6 +75,7 @@ export const setMonthly =
 export const setDaily =
   (set: any, get: any) => async (weekly: AtroDailyModel) => {
     AsyncStorage.setItem('weekly', JSON.stringify(weekly));
+    AsyncStorage.setItem('weekly_cached_at', Date.now().toString());
     try {
       set(
         (state: IDailyState) => {
@@ -87,6 +88,52 @@ export const setDaily =
       console.log('setDaily error:', error.message);
     }
   };
+
+/**
+ * Read cached weekly with TTL. If expired, it will not set state and optionally clears cache.
+ * @param ttlMs Time-to-live in milliseconds
+ * @returns boolean indicating whether valid cache was applied
+ */
+export const getCacheDailyWithTTL = (set: any, get: any) => async (ttlMs: number): Promise<boolean> => {
+  try {
+    const [value, cachedAtStr] = await Promise.all([
+      AsyncStorage.getItem('weekly'),
+      AsyncStorage.getItem('weekly_cached_at'),
+    ]);
+
+    if (!value || !cachedAtStr) {
+      return false;
+    }
+
+    const cachedAt = parseInt(cachedAtStr, 10);
+    if (!cachedAt || Number.isNaN(cachedAt)) {
+      return false;
+    }
+
+    const isFresh = Date.now() - cachedAt <= ttlMs;
+    if (!isFresh) {
+      // Expired - cleanup stale cache
+      await Promise.all([
+        AsyncStorage.removeItem('weekly'),
+        AsyncStorage.removeItem('weekly_cached_at'),
+      ]);
+      return false;
+    }
+
+    const weekly = JSON.parse(value);
+    set(
+      (state: IDailyState) => {
+        state.weekly = weekly;
+      },
+      false,
+      'getCacheDailyWithTTLSuccess',
+    );
+    return true;
+  } catch (error: any) {
+    console.log('getCacheDailyWithTTL error:', error.message);
+    return false;
+  }
+};
 
 export const getCacheMonthly = (set: any, get: any) => async () => {
   try {

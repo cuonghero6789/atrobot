@@ -46,7 +46,7 @@ const CustomCarousel = ({ daily, scores }: Props) => {
         });
     };
 
-    if (!daily) return <SkeletonLoader />;
+    if (!daily || daily?.length <= 0) return <SkeletonLoader />;
 
     return (
         <View style={styles.container}>

@@ -22,9 +22,10 @@ export function useWebSocketConnection(config: WebSocketConfig) {
     }
 
     const wsUrl = config.token 
-      ? `${config.url}?Authorization=${config.token}`
+      ? `${config.url}?Authorization=${encodeURIComponent(config.token)}`
       : config.url;
 
+    console.log(`Opening WebSocket: ${wsUrl}`);
     ws.current = new WebSocket(wsUrl);
 
     ws.current.onopen = () => {
@@ -43,13 +44,24 @@ export function useWebSocketConnection(config: WebSocketConfig) {
     };
 
     ws.current.onerror = (error: Event) => {
-      console.error('WebSocket error:', error);
+      const anyErr: any = error as any;
+      const target = anyErr?.target;
+      console.error('WebSocket error detail:', {
+        message: anyErr?.message || String(anyErr),
+        url: target?.url,
+        readyState: target?.readyState,
+        protocol: target?.protocol,
+      });
       setIsConnected(false);
       config.onError?.(error);
     };
 
-    ws.current.onclose = () => {
-      console.log('WebSocket connection closed');
+    ws.current.onclose = (e: any) => {
+      console.log('WebSocket connection closed', {
+        code: e?.code,
+        reason: e?.reason,
+        wasClean: e?.wasClean,
+      });
       setIsConnected(false);
       config.onClose?.();
     };

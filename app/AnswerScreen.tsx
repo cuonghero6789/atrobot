@@ -19,8 +19,8 @@ function AnswerScreen() {
 
     return <ImageBackground source={require('@/assets/images/bg_home.png')} style={{ flex: 1, paddingTop: insets.top }}>
         <BackButton onPress={() => router.back()} />
-            <ScrollView contentContainerStyle={{ paddingHorizontal: spacing.large, paddingBottom: spacing.big }}>
-            <CardView name={userAccount?.display_name} contanerStyle={{ paddingBottom: spacing.extraLarge, marginHorizontal: spacing.large }} />
+            <ScrollView contentContainerStyle={{ paddingHorizontal: spacing.md, paddingBottom: spacing.big }}>
+            <CardView name={userAccount?.display_name} contanerStyle={{ paddingBottom: spacing.extraLarge, marginHorizontal: spacing.ssm }} />
             <DetailInnerShadowBox
                 answer={answer}
                 loadingAnswer={loadingAnswer}
