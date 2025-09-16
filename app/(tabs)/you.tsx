@@ -67,92 +67,76 @@ export default function YouScreen() {
     }, [linkFb]);
 
     return <ImageBackground source={require('@/assets/images/bg_manifest.png')} style={{ flex: 1, paddingTop: insent.top }}>
-        <LinearGradient colors={['#C7D0D8BF', '#254668BF']} style={styles.container}>
-            <ScrollView style={styles.body}>
+        <LinearGradient colors={['#E3ECF7BF', '#6AA3EEBF']} style={styles.container}>
+            <ScrollView style={styles.body} contentContainerStyle={{ paddingBottom: 32 }}>
                 {renderTitle()}
-                <Item text={strings.t("profile")}
-                    style={{ paddingHorizontal: 16 }}
-                    onPress={() => {
+                <View style={styles.sectionCard}>
+                    <Item text={strings.t("profile")}
+                        onPress={() => {
+                            router.push({
+                                pathname: '/UpdateInfo',
+                                params: {}
+                            })
+                        }} />
+                </View>
+                <View style={[styles.sectionCard, { marginTop: 16 }]}>
+                    {renderLanguages()}
+                </View>
+                <View style={[styles.sectionCard, { marginTop: 16 }]}>
+                    <Item text={strings.t("linkFacebook")} onPress={handlePress} />
+                    <View style={{ height: 12 }} />
+                    <Item text={strings.t("termOfService")} onPress={() => {
                         router.push({
-                            pathname: '/UpdateInfo',
+                            pathname: '/WebScreen',
                             params: {
-
-                            }
+                                title: strings.t("termOfService"),
+                                uri: getConfig().LINKS.PRIVACY,
+                            },
                         })
                     }} />
-                {renderLanguages()}
-                <Item style={{ marginHorizontal: 16, marginBottom: 16 }} text={strings.t("linkFacebook")} onPress={() => {
-                    handlePress();
-                }} />
-
-                <Item style={{ marginHorizontal: 16, marginBottom: 16 }} text={strings.t("termOfService")} onPress={() => {
-                    router.push({
-                        pathname: '/WebScreen',
-                        params: {
-                            title: strings.t("termOfService"),
-                            uri: getConfig().LINKS.PRIVACY,
-                        },
-                    })
-                }} />
-                    <Item style={{ marginHorizontal: 16, marginBottom: 16 }} text={strings.t("termOfPrivacy")} onPress={() => {
-                    router.push({
-                        pathname: '/WebScreen',
-                        params: {
-                            title: strings.t("termOfPrivacy"),
-                            uri: getConfig().LINKS.TERMS,
-                        },
-                    })
-                }} />
-                <Item
-                    style={{ marginHorizontal: 16, marginBottom: 16 }}
-                    text={strings.t("txtLogout")}
-                    onPress={() => {
-                        Alert.alert(
-                            strings.t("hi"),
-                            strings.t("logout"),
-                            [
-                                {
-                                    text: strings.t("cancel"),
-                                    onPress: () => console.log('Cancel Pressed'),
-                                    style: 'cancel',
-                                },
-                                {
-                                    text: strings.t("agree"),
-                                    onPress: async () => {
-                                        actionAuth.onLogout();
-                                    },
-                                },
-                            ],
-                            { cancelable: true },
-                        );
-                    }}
-                />
-
-                <Item
-                    style={{ marginHorizontal: 16, marginBottom: 16 }}
-                    styleName={{ color: 'red' }}
-                    text={strings.t("txtDeleteAccount")}
-                    onPress={() => {
-                        Alert.alert(
-                            strings.t("hi"),
-                            strings.t("txtConfirmDeleteAccount"),
-                            [
-                                {
-                                    text: strings.t("cancel"),
-                                    onPress: () => console.log('Cancel Pressed'),
-                                    style: 'cancel',
-                                },
-                                {
-                                    text: strings.t("agree"),
-                                    onPress: async () => {
-                                        actionAuth.onLogout();
-                                    },
-                                },
-                            ],
-                            { cancelable: true },
-                        );
-                    }}
-                />
+                    <View style={{ height: 12 }} />
+                    <Item text={strings.t("termOfPrivacy")} onPress={() => {
+                        router.push({
+                            pathname: '/WebScreen',
+                            params: {
+                                title: strings.t("termOfPrivacy"),
+                                uri: getConfig().LINKS.TERMS,
+                            },
+                        })
+                    }} />
+                </View>
+                <View style={[styles.sectionCard, { marginTop: 16 }]}>
+                    <Item
+                        text={strings.t("txtLogout")}
+                        onPress={() => {
+                            Alert.alert(
+                                strings.t("hi"),
+                                strings.t("logout"),
+                                [
+                                    { text: strings.t("cancel"), style: 'cancel' },
+                                    { text: strings.t("agree"), onPress: async () => { actionAuth.onLogout(); } },
+                                ],
+                                { cancelable: true },
+                            );
+                        }}
+                    />
+                    <View style={{ height: 12 }} />
+                    <Item
+                        styleName={{ color: 'red' }}
+                        text={strings.t("txtDeleteAccount")}
+                        onPress={() => {
+                            Alert.alert(
+                                strings.t("hi"),
+                                strings.t("txtConfirmDeleteAccount"),
+                                [
+                                    { text: strings.t("cancel"), style: 'cancel' },
+                                    { text: strings.t("agree"), onPress: async () => { actionAuth.onLogout(); } },
+                                ],
+                                { cancelable: true },
+                            );
+                        }}
+                    />
+                </View>
             </ScrollView>
         </LinearGradient>
         <PopupBottomSheet ref={popupBottomSheetLangRef}>
@@ -176,6 +160,14 @@ const styles = StyleSheet.create({
     body: {
         flex: 1,
         paddingVertical: 16,
+    },
+    sectionCard: {
+        marginHorizontal: 16,
+        backgroundColor: 'rgba(255,255,255,0.18)',
+        borderRadius: 16,
+        padding: 12,
+        borderWidth: 1,
+        borderColor: 'rgba(255,255,255,0.45)'
     },
     title: {
         fontSize: 28,
