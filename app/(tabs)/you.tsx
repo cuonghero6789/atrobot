@@ -42,12 +42,12 @@ export default function YouScreen() {
 
     useEffect(() => {
         if (data?.updateAccount) {
-              Toast.show({
+            Toast.show({
                 type: 'success',
                 text2: strings.t("updateSuccess"),
                 position: 'bottom',
                 visibilityTime: 3000,
-              });
+            });
         }
     }, [data, dataApp]);
 
@@ -66,8 +66,10 @@ export default function YouScreen() {
         await Linking.openURL(linkFb);
     }, [linkFb]);
 
-    return <ImageBackground source={require('@/assets/images/bg_manifest.png')} style={{ flex: 1, paddingTop: insent.top }}>
-        <LinearGradient colors={['#E3ECF7BF', '#6AA3EEBF']} style={styles.container}>
+    return <ImageBackground source={require('@/assets/images/bg_manifest.png')} style={{ flex: 1, }}>
+        {/* <LinearGradient colors={['#E3ECF7BF', '#6AA3EEBF']} style={styles.container}> */}
+        <LinearGradient colors={['#C7D0D8BF', '#254668BF']} style={[styles.container, { paddingTop: insent.top }]}>
+
             <ScrollView style={styles.body} contentContainerStyle={{ paddingBottom: 32 }}>
                 {renderTitle()}
                 <View style={styles.sectionCard}>

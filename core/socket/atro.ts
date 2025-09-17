@@ -55,17 +55,17 @@ export function useAtroMessageHandler() {
         }
         break;
       case AtroOP.ASTRO_QUOTE:
-        actionDaily.setQuote(payload?.quote);
+        payload && actionDaily.setQuote(payload?.quote);
         break;
       case AtroOP.ASTRO_DAILY_MONTHLY:
-        actionDaily.setMonthly(payload);
+        payload && actionDaily.setMonthly(payload);
         break;
       case AtroOP.ASTRO_BOT:
         actionsChat.setloading(false);
         actionsChat.setMessages([payload], payload?.chat_id, user);
         break;
       case AtroOP.ASTRO_ME_DOMINANT:
-        actionYou.setDominant(payload);
+       payload && actionYou.setDominant(payload);
         break;
       case AtroOP.ASTRO_ME_MANIFEST:
         console.log('payload ASTRO_ME_MANIFEST == ', payload);

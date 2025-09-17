@@ -140,6 +140,9 @@ let strings = new I18n({
     hours: "Hours",
     minutes: "Minutes",
     loadingAnswer: "Loading answer...",
+    suggestedQuestions: 'Suggested Questions',
+    sampleQuestion: 'Will my upcoming plan go smoothly?',
+    writeYourOwnQuestion: 'Or write your own question',
     recommendation: "Hello {name}, Do you have any plans coming up? Let the stars reveal what awaits you! 😉",
     txtPlanetsAndSign: "The planets and zodiac signs",
     noInternetConnection: "No Internet Connection"
@@ -194,6 +197,9 @@ let strings = new I18n({
     others: 'câu hỏi khác',
     chatLuna: 'Bạn muốn tâm sự với Luna hôm nay? 😗',
     writeAMessage: 'Gửi tin nhắn',
+    suggestedQuestions: 'Câu hỏi gợi ý',
+    sampleQuestion: 'Kế hoạch sắp tới của\ntôi có suôn sẻ không?',
+    writeYourOwnQuestion: 'Hoặc tự viết câu hỏi của bạn',
     shopLuna:
       'Luna xin giới thiệu các sản phẩm giải mã chi tiết dựa trên bản đồ sao cá nhân của Chiêm Tinh Số và AstroBot <3 Hãy khám phá xem các chòm sao bật mí gì về bạn nè!',
     shopTitle: 'Giải mã số phận với Bản đồ sao',

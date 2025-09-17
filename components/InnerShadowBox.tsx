@@ -2,6 +2,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Image } from 'react-native';
 import { colors, spacing, textStyle } from '@/core/styles';
+import strings from '@/core/localization';
 import { Button } from "./Button";
 import ActionInput from "./ActionInput";
 import { SkeletonLoaderEvent, SkeletonLoaderQuestion } from "./loading/LoadingView";
@@ -9,6 +10,7 @@ import { useQuestionStore } from "@/core/stores";
 import { ASTROME_GEN_QUESTION } from "@/core/apollo/mutations";
 import { useMutation } from "@apollo/client";
 import { setLoadingQuestion } from "@/core/stores/actions/atro/QuestionAction";
+import Item from "./settings/Item";
 
 interface Props {
     colorStart: string;
@@ -44,12 +46,12 @@ export default function InnerShadowBox({ colorStart, colorEnd, iconSource, onPre
                 style={styles.iconImage}
             />
             <Text style={[textStyle.textBold2, styles.questionText]}>
-                {"Kế hoạch sắp tới của\ntôi có suôn sẻ không?"}
+                {strings.t('sampleQuestion')}
             </Text>
             <View style={styles.suggestionHeader}>
                 <View style={styles.suggestionLine} />
                 <Text style={[textStyle.bodyTextBold, styles.suggestionText]}>
-                    {"Câu hỏi gợi ý"}
+                    {strings.t('suggestedQuestions')}
                 </Text>
             </View>
             {data && data?.length <= 0 || loadingQuestion ? (
@@ -58,13 +60,14 @@ export default function InnerShadowBox({ colorStart, colorEnd, iconSource, onPre
                 </View>
             )
                 : data?.map((item, index) => (
-                    <Button
+                    <Item
                         key={`key_${index}`}
-                        title={item}
+                        text={item}
                         onPress={() => onPress(item)}
-                        containerStyle={styles.suggestionButton}
-                        textStyle={textStyle.subTitleMedium1}
-                        buttonStyle={styles.suggestionButtonStyle}
+                        styleName={textStyle.text}
+                        textColor={colors.surfaceModal}
+                        style={{ marginTop: spacing.ssm }}
+                        buttonStyle={{ paddingVertical: spacing.sm }}
                     />
                 ))
             }
@@ -81,7 +84,7 @@ export default function InnerShadowBox({ colorStart, colorEnd, iconSource, onPre
                 </Text>
             </TouchableOpacity> */}
             <ActionInput
-                placeholder="Hoặc tự viết câu hỏi của bạn"
+                placeholder={strings.t('writeYourOwnQuestion')}
                 onPress={(text) => onPress(text)}
             />
         </LinearGradient>

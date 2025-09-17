@@ -53,7 +53,7 @@ function UpdateLang() {
             selectedLangRef.current = selectedLang;
             UpdateLanguage({ variables: { language_code: selectedLang, ai_language: selectedContentLang } });
         } else {
-            alert(strings.t("reqestLang")), [{
+            alert(strings.t("requestLang")), [{
                 text: "OK", onPress: () => {
                 }
             }];
@@ -69,22 +69,26 @@ function UpdateLang() {
                 <Image source={require('@/assets/images/ic_logo_banner.png')} style={{ width: WIDTH_LOGO, height: HEIGHT_LOGO, alignSelf: 'center' }} />
             </View>
             <View style={{ paddingHorizontal: 48 }}>
-                <DropDownButton title="Ngôn ngữ ứng dụng*" onPress={() => popupBottomSheetRef.current?.show()} item={languages.find(item => item.value === selectedLang)} />
+                <DropDownButton title={strings.t('appLang')} placeholder={strings.t('txt_choose_a_lang')} onPress={() => popupBottomSheetRef.current?.show()} item={languages.find(item => item.value === selectedLang)} />
                 <View style={{ height: 16 }} />
-                <DropDownButton title="Ngôn ngữ hiện thị nội dung*" onPress={() => popupBottomSheetContentRef.current?.show()} item={languages.find(item => item.value === selectedContentLang)} />
-                <CustomButton container={styles.btnConfirm} text={styles.btnText} title="Tiếp Tục" onPress={onPressConfirm} />
+                <DropDownButton title={strings.t('contentLang')} placeholder={strings.t('txt_choose_a_lang')} onPress={() => popupBottomSheetContentRef.current?.show()} item={languages.find(item => item.value === selectedContentLang)} />
+                <CustomButton container={[styles.btnConfirm, (!selectedLang || !selectedContentLang) && { opacity: 0.5 }]} text={styles.btnText} title={strings.t('continue')} onPress={() => {
+                    if (selectedLang && selectedContentLang) {
+                        onPressConfirm();
+                    }
+                }} />
             </View>
             <PopupBottomSheet ref={popupBottomSheetRef}>
                 <ChooseValue data={languages} onSelected={(text) => {
                     popupBottomSheetRef.current?.hide();
                     setSelectedLang(text);
-                }} text={selectedLang} title="Language App*" />
+                }} text={selectedLang} title={strings.t('appLang')} />
             </PopupBottomSheet>
             <PopupBottomSheet ref={popupBottomSheetContentRef}>
                 <ChooseValue data={languages} onSelected={(text) => {
                     popupBottomSheetContentRef.current?.hide();
                     setSelectedContentLang(text);
-                }} text={selectedContentLang} title="Language Content*" />
+                }} text={selectedContentLang} title={strings.t('contentLang')} />
             </PopupBottomSheet>
         </ImageBackground>
     </LinearGradient>

@@ -81,7 +81,7 @@ function ChatScreen() {
     },
     [chat_id, user],
   );
-  
+
   const renderInputToolbar = (props: any) => {
     return (
       <InputToolbar
@@ -108,8 +108,8 @@ function ChatScreen() {
     );
   };
 
-  return <ImageBackground source={require('@/assets/images/bg_home.png')} style={[styles.container, { paddingTop: insets.top }]}>
-    <LinearGradient colors={['#C7D0D8BF', '#254668BF']} style={styles.container}>
+  return <ImageBackground source={require('@/assets/images/bg_home.png')} style={[styles.container]}>
+    <LinearGradient colors={['#C7D0D8BF', '#254668BF']} style={[styles.container, { paddingTop: insets.top }]}>
 
       {messages?.length == 0 && (
         <View style={{ paddingHorizontal: 16 }}>

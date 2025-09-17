@@ -38,7 +38,7 @@ const Card = ({ daily, score }: CardProps) => {
             <View style={{ alignItems: 'center' }}>
                 <Image source={imageToDisplay ?? require('@/assets/images/ic_carier.png')} style={{ width: 43, height: 43 }} />
                 <Text style={[textStyle.btnSecondary, { color: colors.white }]}>{`${label}`}</Text>
-                <Text style={[textStyle.subTitle, { color: colors.white }]}>{`${score?.score}`}</Text>
+                <Text style={[textStyle.subTitle, { color: colors.white }]}>{`${score?.score || "--"}`}</Text>
             </View>
             <Text style={[textStyle.bodyText1, styles.text]}>{text}</Text>
         </View>

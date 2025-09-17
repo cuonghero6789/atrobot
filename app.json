@@ -10,6 +10,9 @@
     "newArchEnabled": true,
     "jsEngine": "hermes",
     "ios": {
+      "entitlements": {
+        "com.apple.developer.networking.wifi-info": true
+      },
       "usesAppleSignIn": true,
       "runtimeVersion": "1.0.1",
       "supportsTablet": true,
@@ -37,7 +40,8 @@
         "UIStatusBarStyle": "UIStatusBarStyleLightContent"
       },
       "buildConfiguration": "Release",
-      "hermes": true
+      "hermes": true,
+      "appleTeamId": "AHPJK3BV3J"
     },
     "android": {
       "googleServicesFile": "./google-services.json",
@@ -46,6 +50,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.atrobot",
+      "versionCode": 1,
       "permissions": [
         "android.permission.INTERNET",
         "android.permission.ACCESS_COARSE_LOCATION",
@@ -77,6 +82,35 @@
       [
         "expo-build-properties",
         {
+          "android": {
+            "minSdkVersion": 24,
+            "compileSdkVersion": 35,
+            "targetSdkVersion": 34,
+            "buildToolsVersion": "35.0.0",
+            "ndkVersion": "26.1.10909125",
+            "enableProguardInReleaseBuilds": false,
+            "enableShrinkResourcesInReleaseBuilds": false,
+            "enablePngCrunchInReleaseBuilds": true,
+            "useLegacyPackaging": false,
+            "useAndroidX": true,
+            "newArchEnabled": true,
+            "hermesEnabled": true,
+            "reactNativeArchitectures": [
+              "armeabi-v7a",
+              "arm64-v8a",
+              "x86",
+              "x86_64"
+            ],
+            "packagingOptions": {
+              "pickFirsts": [],
+              "excludes": [],
+              "merges": [],
+              "doNotStrip": []
+            },
+            "proguardFiles": [
+              "proguard-rules.pro"
+            ]
+          },
           "ios": {
             "useFrameworks": "static",
             "deploymentTarget": "15.1",

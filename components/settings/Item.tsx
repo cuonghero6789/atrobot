@@ -1,20 +1,22 @@
-import { colors } from '@/core/styles';
+import { colors, fontFamily } from '@/core/styles';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 interface Props {
   text: string;
   onPress?: () => void;
   style?: any;
-  styleName?: any
+  styleName?: any;
+  textColor?: string;
+  buttonStyle?: any;
 }
-const Item = ({ text, onPress, style, styleName }: Props) => {
+const Item = ({ text, onPress, style, styleName, textColor, buttonStyle }: Props) => {
   return (
     <TouchableOpacity onPress={onPress} style={[styles.wrapper, style]}>
       <LinearGradient
         colors={['rgba(234, 255, 254, 0.5)', 'rgba(205, 201, 241, 0.5)']}
-        style={[styles.button]}
+        style={[styles.button, buttonStyle]}
       >
-        <Text style={[styles.text, styleName]}>{text}</Text>
+        <Text style={[styles.text, styleName, textColor ? { color: textColor } : null]}>{text}</Text>
       </LinearGradient>
     </TouchableOpacity>
   );
@@ -24,7 +26,7 @@ export default Item;
 
 const styles = StyleSheet.create({
   wrapper: {
-    height: 48,
+    minHeight: 48,
     borderRadius: 8,
     overflow: 'hidden', // Ensures border radius is applied correctly
   },
@@ -43,6 +45,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
     color: '#000',
+    fontFamily: fontFamily.regular,
   },
   container: {
     paddingVertical: 16,

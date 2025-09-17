@@ -17,6 +17,7 @@ const Button = ({ title, onPress, containerStyle, buttonStyle, textStyle }: Prop
     <TouchableOpacity onPress={onPress} style={[styles.wrapper, containerStyle]} activeOpacity={0.85}>
       <LinearGradient
         colors={['#6AA3EE', '#357FE9']}
+        // colors={['rgba(234, 255, 254, 0.5)', 'rgba(205, 201, 241, 0.5)']}
         style={[styles.button, buttonStyle]}
         start={{ x: 0, y: 0.5 }}
         end={{ x: 1, y: 0.5 }}
