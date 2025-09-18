@@ -18,7 +18,7 @@ const data = [
     { key: '6', text: 'Slide 3' },
 ];
 
-export const CAROUSEL_HEIGHT = 171;
+export const CAROUSEL_HEIGHT = 181;
 export const CAROUSEL_WIDTH = width - 32;
 
 interface Props {
