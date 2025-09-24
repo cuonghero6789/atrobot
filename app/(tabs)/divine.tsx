@@ -62,7 +62,11 @@ export default function DivineScreen() {
                     });
                 }} />
                 <View style={{ height: spacing.large }} />
-                <HomeButtonBackground text={strings.t("luckyDay")} subText={strings.t("luckyDayMessage")} onPress={() => { }} />
+                <HomeButtonBackground text={strings.t("luckyDay")} subText={strings.t("luckyDayMessage")} onPress={() => {
+                    router.push({
+                        pathname: "/LuckyDay"
+                    })
+                }} />
             </ScrollView>
         </View>
     </ImageBackground>

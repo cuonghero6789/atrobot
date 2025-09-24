@@ -1,5 +1,5 @@
 import { getConfig } from '@/core';
-import { useAccountStore, useAuthStore, useChatStore, useDailyStore, usePlanetStore, useQuestionStore, useYouStore } from '@/core/stores';
+import { useAccountStore, useAuthStore, useChatStore, useDailyStore, usePlanetStore, useQuestionStore, useStarMatesStore, useYouStore } from '@/core/stores';
 import { useRouter } from 'expo-router';
 import { useWebSocketConnection, useAppStateWebSocket } from './common';
 
@@ -14,6 +14,7 @@ export enum AtroOP {
   ASTRO_BOT = 'astro_bot',
   ASTRO_ME_DOMINANT = 'astro_me_dominant',
   ASTRO_ME_MANIFEST = 'astro_me_manifest',
+  ASTRO_CUSTOM = 'astro_custom',
 }
 
 // AtroBot message handler
@@ -26,6 +27,7 @@ export function useAtroMessageHandler() {
   const actionYou = useYouStore(state => state.actions);
   const actionAuth = useAuthStore(state => state.actions);
   const user = useAccountStore(state => state.user);
+  const actionStarMates = useStarMatesStore(state => state.actions);
 
   const handleMessage = (data: any) => {
     const { payload, op } = data || {};
@@ -62,7 +64,8 @@ export function useAtroMessageHandler() {
         break;
       case AtroOP.ASTRO_BOT:
         actionsChat.setloading(false);
-        actionsChat.setMessages([payload], payload?.chat_id, user);
+        console.log('payload ASTRO_BOT == ', payload);
+       payload && actionsChat.setMessages([payload], payload?.chat_id, user);
         break;
       case AtroOP.ASTRO_ME_DOMINANT:
        payload && actionYou.setDominant(payload);
@@ -70,6 +73,9 @@ export function useAtroMessageHandler() {
       case AtroOP.ASTRO_ME_MANIFEST:
         console.log('payload ASTRO_ME_MANIFEST == ', payload);
         // actionPlanet.setManifest(payload);
+        break;
+      case AtroOP.ASTRO_CUSTOM:
+        actionStarMates.setStarMate(payload);
         break;
       default:
         break;

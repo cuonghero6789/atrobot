@@ -28,9 +28,12 @@ const Button = ({ title, onPress, containerStyle, buttonStyle, textStyle }: Prop
   );
 };
 function BackButton({ onPress, containerStyle, subTitle, title }: Props) {
-  return <TouchableOpacity onPress={onPress} style={[styles.container, containerStyle]}>
-    <Image source={require('@/assets/images/ic_back.png')}
-      style={{ width: 56, height: 56, marginHorizontal: 16 }} />
+  return <View style={[styles.container, containerStyle]}>
+    <TouchableOpacity onPress={onPress}>
+      <Image source={require('@/assets/images/ic_back.png')}
+        style={{ width: 56, height: 56, marginHorizontal: 16 }} />
+    </TouchableOpacity>
+
     {title &&
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text style={[textStyle.title, styles.text]}>{title}</Text>
@@ -38,7 +41,7 @@ function BackButton({ onPress, containerStyle, subTitle, title }: Props) {
       </View>
     }
     <View style={{ width: 56, height: 56, marginHorizontal: 16 }} />
-  </TouchableOpacity>
+  </View>
 }
 
 function ButtonIcon({ icon, onPress, containerStyle }: Props) {

@@ -19,3 +19,11 @@ export const replationships = [
   },
   { label: 'In a relationship', value: 'In a relationship' },
 ]; 
+
+export const starmates = [
+  { label: 'colleague', value: 'colleague' },
+  { label: 'friend', value: 'friend' },
+  { label: 'lover', value: 'lover' },
+  { label: 'family', value: 'family' },
+  { label: 'marriage', value: 'marriage' },
+];

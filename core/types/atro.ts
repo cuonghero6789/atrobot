@@ -40,6 +40,11 @@ export interface DailyModel {
   text: string;
 }
 
+export interface StarMateModel {
+  action?: string;
+  content?: string;
+}
+
 export interface ScoreModel {
   key: string;
   score: string;

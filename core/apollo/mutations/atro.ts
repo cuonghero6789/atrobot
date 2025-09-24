@@ -56,6 +56,7 @@ export const ASTRO_BOT = gql`
   }
 `;
 
+
 export const ASTROME_DOMINANT = gql`
   mutation AstroMeDominant {
     astroMeDominant
@@ -67,3 +68,10 @@ export const ASTROME_MANIFEST = gql`
     astroMeManifest
   }
 `; 
+
+// Custom, generic JSON-input mutation
+export const ASTRO_STAR_MATES = gql`
+  mutation AstroCustom($action: String!, $user_input: String!) {
+    astroCustom(input: {action: $action, user_input: $user_input})
+  }
+`;

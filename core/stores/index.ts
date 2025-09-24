@@ -12,4 +12,5 @@ export {
   useQuestionStore,
   useYouStore,
   useSubjectStore,
+  useStarMatesStore
 } from './atro'; 

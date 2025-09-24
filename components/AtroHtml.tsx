@@ -13,6 +13,8 @@ const AtroHtml = ({ desc }: Props) => {
         stylesheet={{
             p: {
                 ...textStyle.body,
+                fontSize: 15,
+                lineHeight: 24,
                 color: colors.white,
                 marginTop: spacing.large,
             }

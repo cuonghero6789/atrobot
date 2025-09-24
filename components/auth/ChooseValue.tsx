@@ -2,6 +2,8 @@ import { colors, spacing } from "@/core/styles";
 import { ItemPickerModel } from "@/core/types/atro";
 import { memo, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import strings from '@/core/localization';
+
 interface Props {
     title: string;
     onSelected: (text: string) => void;
@@ -19,6 +21,21 @@ function ChooseList({ onSelected, text, data, title }: Props) {
                 </TouchableOpacity>
             })
         }
+    </View>
+}
+
+export function ChooseListStarmates({ onSelected, text, data, title }: Props) {
+    return <View style={styles.container}>
+        <Text style={styles.title}>{title}</Text>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+            {
+                data.map((item, index) => {
+                    return <TouchableOpacity onPress={() => onSelected(item.value)} key={`relationship-${index}`} style={[text === item.value ? styles.btnSelect : styles.btn, { marginRight: spacing.md, marginBottom: spacing.sm }]}>
+                        <Text style={styles.text}>{strings.t(item.label)}</Text>
+                    </TouchableOpacity>
+                })
+            }
+        </View>
     </View>
 }
 

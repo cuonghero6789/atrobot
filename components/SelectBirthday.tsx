@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { View, Button, Text } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from 'moment';
@@ -13,6 +13,10 @@ const SelectBirthday = ({ onSelectedDate, birthday }: Props) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [selectedDate, setSelectedDate] = useState(moment(birthday).format('YYYY-MM-DD'));
 
+  useEffect(()=>{
+    birthday && setSelectedDate(birthday);
+  },[birthday]);
+  
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };

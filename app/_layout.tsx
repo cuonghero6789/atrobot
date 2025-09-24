@@ -1,6 +1,5 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack, useRouter } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
 import 'react-native-reanimated';
@@ -15,8 +14,6 @@ import Toast from 'react-native-toast-message';
 import { View } from 'react-native';
 import { setConfig } from '@/core';
 import NetworkIndicator from '@/components/NetworkIndicator';
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -58,12 +55,6 @@ export default function RootLayout() {
     }
   }, [status, loading]);
 
-  useEffect(() => {
-    if (!loading) {
-      SplashScreen.hideAsync();
-    }
-  }, [loading]);
-
   if (loading) {
     return <View style={{ flex: 1, backgroundColor: 'white' }} />;
   }
@@ -75,6 +66,7 @@ export default function RootLayout() {
         <Stack>
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="LuckyDay" options={{ headerShown: false }} />
           <Stack.Screen name="WebScreen" options={{ headerShown: false }} />
           <Stack.Screen name="AnswerScreen" options={{ headerShown: false }} />
           <Stack.Screen name="PlanetScreen" options={{ headerShown: false }} />
@@ -83,6 +75,8 @@ export default function RootLayout() {
           <Stack.Screen name="personal" options={{ headerShown: false }} />
           <Stack.Screen name="UpdateInfo" options={{ headerShown: false }} />
           <Stack.Screen name="WeeklyDetail" options={{ headerShown: false }} />
+          <Stack.Screen name="LuckyCategoryDay" options={{ headerShown: false }} />
+          <Stack.Screen name="StarMateDetail" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
         <StatusBar style="dark" backgroundColor="#fff" />
