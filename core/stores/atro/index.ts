@@ -5,3 +5,4 @@ export { default as useQuestionStore } from './QuestionStore';
 export { default as useYouStore } from './YouStore'; 
 export { default as useSubjectStore } from './SubjectStore'; 
 export { default as useStarMatesStore } from './StarMatesStore'; 
+export { default as useLuckyDayStore } from './LuckyDayStore'; 

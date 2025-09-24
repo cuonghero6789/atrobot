@@ -117,3 +117,12 @@ export enum AstroTopic {
   PERSONALITY = 'PERSONALITY',
   LIFE_PATH = 'LIFE_PATH',
 }
+
+export interface LuckyDayModel {
+  date: string;
+  love: number;
+  money: number;
+  health: number;
+  career: number;
+  score: number;
+}

@@ -1,5 +1,5 @@
 import { getConfig } from '@/core';
-import { useAccountStore, useAuthStore, useChatStore, useDailyStore, usePlanetStore, useQuestionStore, useStarMatesStore, useYouStore } from '@/core/stores';
+import { useAccountStore, useAuthStore, useChatStore, useDailyStore, useLuckyDayStore, usePlanetStore, useQuestionStore, useStarMatesStore, useYouStore } from '@/core/stores';
 import { useRouter } from 'expo-router';
 import { useWebSocketConnection, useAppStateWebSocket } from './common';
 
@@ -28,6 +28,7 @@ export function useAtroMessageHandler() {
   const actionAuth = useAuthStore(state => state.actions);
   const user = useAccountStore(state => state.user);
   const actionStarMates = useStarMatesStore(state => state.actions);
+  const actionLuckyDay = useLuckyDayStore(state => state.actions);
 
   const handleMessage = (data: any) => {
     const { payload, op } = data || {};
@@ -65,17 +66,23 @@ export function useAtroMessageHandler() {
       case AtroOP.ASTRO_BOT:
         actionsChat.setloading(false);
         console.log('payload ASTRO_BOT == ', payload);
-       payload && actionsChat.setMessages([payload], payload?.chat_id, user);
+        payload && actionsChat.setMessages([payload], payload?.chat_id, user);
         break;
       case AtroOP.ASTRO_ME_DOMINANT:
-       payload && actionYou.setDominant(payload);
+        payload && actionYou.setDominant(payload);
         break;
       case AtroOP.ASTRO_ME_MANIFEST:
         console.log('payload ASTRO_ME_MANIFEST == ', payload);
         // actionPlanet.setManifest(payload);
         break;
       case AtroOP.ASTRO_CUSTOM:
-        actionStarMates.setStarMate(payload);
+        if (payload?.action === "astro_starmates") {
+          actionStarMates.setStarMate(payload);
+        } else if (payload?.range == "week") {
+          actionLuckyDay.setWeek(payload.days);
+        } else if (payload?.range == "month") {
+          actionLuckyDay.setMonth(payload.days);
+        }
         break;
       default:
         break;

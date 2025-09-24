@@ -12,5 +12,6 @@ export {
   useQuestionStore,
   useYouStore,
   useSubjectStore,
-  useStarMatesStore
+  useStarMatesStore,
+  useLuckyDayStore
 } from './atro'; 

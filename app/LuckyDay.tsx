@@ -8,30 +8,56 @@ import { colors, spacing, textStyle } from '@/core/styles';
 import strings from '@/core/localization';
 import { router } from 'expo-router';
 import { BackButton } from '@/components/Button';
+import { useLuckyDayStore } from '@/core/stores';
+import { ASTRO_STAR_MATES } from '@/core/apollo/mutations/atro';
+import { useMutation } from '@apollo/client';
+import LoadingLuna from '@/components/loading/LoadingLuna';
 
 type Period = 'week' | 'month';
-type CategoryKey = 'love' | 'finance' | 'health' | 'career';
-
-type ResultItem = {
-  date: Date;
-  score: number; // 0 - 100 weighted score
-  breakdown: Record<CategoryKey, number>; // 0 - 100 per category
-};
 
 export default function LuckyDayScreen() {
   const insets = useSafeAreaInsets();
   const [selectedPeriod, setSelectedPeriod] = useState<Period>('week');
-  const [results, setResults] = useState<ResultItem[]>([]);
+  const [AstroCustom, { data: dataCustom, loading: loadingCustom, error: errorCustom }] =
+    useMutation(ASTRO_STAR_MATES);
+  const { week, month, isLoading, actions } = useLuckyDayStore(state => state);
 
-  const formatDate = useCallback((d: Date) => {
+  const parseDate = useCallback((dateStr: string) => {
+    const [yyyy, mm, dd] = (dateStr || '').split('-').map(Number);
+    return new Date(yyyy || 0, (mm || 1) - 1, dd || 1);
+  }, []);
+
+  const formatDate = useCallback((dateStr: string) => {
+    const d = parseDate(dateStr);
     const dd = `${d.getDate()}`.padStart(2, '0');
     const mm = `${d.getMonth() + 1}`.padStart(2, '0');
     const yyyy = d.getFullYear();
     return `${dd}/${mm}/${yyyy}`;
-  }, []);
+  }, [parseDate]);
 
-  const formatWeekday = useCallback((d: Date) => {
-    const day = d.getDay();
+  useEffect(() => {
+    const dateRange = selectedPeriod === 'week' ? week : month;
+    if (dateRange?.length) {
+      actions.setIsLoading(false);
+      return;
+    }
+
+    actions.setIsLoading(true);
+    AstroCustom({
+      variables: {
+        action: "astro_lucky_day",
+        user_input: JSON.stringify({
+          date_range: selectedPeriod,
+          top: 7
+        })
+      }
+    }).catch(() => {
+      actions.setIsLoading(false);
+    });
+  }, [selectedPeriod, week, month, actions]);
+
+  const formatWeekday = useCallback((dateStr: string) => {
+    const day = parseDate(dateStr).getDay();
     switch (day) {
       case 0:
         return 'Chủ nhật';
@@ -50,58 +76,19 @@ export default function LuckyDayScreen() {
       default:
         return '';
     }
-  }, []);
+  }, [parseDate]);
 
-  const getDateRange = useCallback((period: Period): Date[] => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const count = period === 'week' ? 7 : 30;
-    const out: Date[] = [];
-    for (let i = 0; i < count; i++) {
-      const d = new Date(today);
-      d.setDate(today.getDate() + i);
-      out.push(d);
-    }
-    return out;
-  }, []);
-
-  const pseudoRandom01 = (seed: number) => {
-    // Basic deterministic hash → [0,1)
-    const s = Math.sin(seed) * 10000;
-    return s - Math.floor(s);
-  };
-
-  const categoryScoreForDate = (date: Date, category: CategoryKey): number => {
-    const key = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${category}`;
-    let hash = 0;
-    for (let i = 0; i < key.length; i++) {
-      hash = ((hash << 5) - hash + key.charCodeAt(i)) | 0;
-    }
-    const rnd = pseudoRandom01(hash);
-    return Math.round(rnd * 100);
-  };
-
-  const computeLuckyDays = useCallback(() => {
-    const days = getDateRange(selectedPeriod);
-    const computed: ResultItem[] = days.map((d) => {
-      const breakdown: Record<CategoryKey, number> = {
-        love: categoryScoreForDate(d, 'love'),
-        finance: categoryScoreForDate(d, 'finance'),
-        health: categoryScoreForDate(d, 'health'),
-        career: categoryScoreForDate(d, 'career'),
-      };
-      // Overall score: simple average of the four categories
-      const score = (breakdown.love + breakdown.finance + breakdown.health + breakdown.career) / 4;
-      return { date: d, score: Math.round(score), breakdown };
-    });
-    computed.sort((a, b) => b.score - a.score);
-    setResults(computed.slice(0, 3));
-  }, [getDateRange, selectedPeriod]);
-
-  // Auto compute whenever period or filter changes (and on mount)
+  // Stop loading when data for current period arrives
   useEffect(() => {
-    computeLuckyDays();
-  }, [computeLuckyDays]);
+    if ((selectedPeriod === 'week' && week && week.length) || (selectedPeriod === 'month' && month && month.length)) {
+      actions.setIsLoading(false);
+    }
+  }, [week, month, selectedPeriod]);
+
+  const data = selectedPeriod === 'week' ? week : month;
+  const sortedData = useMemo(() => {
+    return (data ? [...data].sort((a, b) => (b.score || 0) - (a.score || 0)) : []);
+  }, [data]);
 
   return (
     <ImageBackground source={require('@/assets/images/bg_home.png')} style={{ flex: 1, paddingTop: insets.top }}>
@@ -117,13 +104,15 @@ export default function LuckyDayScreen() {
           {/* Filter removed per request */}
 
           <View style={styles.results}>
-            {results.length === 0 ? (
+            {isLoading ? (
+              <LoadingLuna />
+            ) : !sortedData.length ? (
               <Text style={[textStyle.bodyText2, styles.emptyText]}>
                 {strings.t('noResultsYet') || 'Results will appear here'}
               </Text>
             ) : (
-              results.map((r, idx) => (
-                <View key={`${r.date.toISOString()}-${idx}`} style={styles.card}>
+              sortedData.map((r, idx) => (
+                <View key={`${r.date}-${idx}`} style={styles.card}>
                   <LinearGradient
                     colors={idx === 0 ? ['#FFD700', '#FFC107'] : idx === 1 ? ['#C0C0C0', '#B0BEC5'] : ['#CD7F32', '#A1887F']}
                     start={{ x: 0, y: 0 }}
@@ -132,55 +121,59 @@ export default function LuckyDayScreen() {
                   >
                     <Text style={styles.rankBadge}>#{idx + 1}</Text>
                     <Text style={styles.cardTitle}>{`${formatWeekday(r.date)} · ${formatDate(r.date)}`}</Text>
-                    <Text style={styles.cardScore}>Score {r.score}</Text>
+                    <Text style={styles.cardScore}>Score {Math.round(r.score)}</Text>
                   </LinearGradient>
 
                   <TouchableOpacity
+                    disabled
                     style={styles.progressGroup}
                     activeOpacity={0.7}
-                    onPress={() => router.push({ pathname: '/LuckyCategoryDay', params: { category: 'love', date: r.date.toISOString() } })}
+                    onPress={() => router.push({ pathname: '/LuckyCategoryDay', params: { category: 'love', date: r.date } })}
                   >
                     <Text style={styles.progressLabel}>{strings.t('love') || 'Love'}</Text>
                     <View style={styles.progressTrack}>
-                      <View style={[styles.progressFill, { width: `${r.breakdown.love}%`, backgroundColor: '#E91E63' }]} />
+                      <View style={[styles.progressFill, { width: `${r.love}%`, backgroundColor: '#E91E63' }]} />
                     </View>
-                    <Text style={styles.progressValue}>{r.breakdown.love}</Text>
+                    <Text style={styles.progressValue}>{Math.round(r.love)}</Text>
                   </TouchableOpacity>
 
                   <TouchableOpacity
+                    disabled
                     style={styles.progressGroup}
                     activeOpacity={0.7}
-                    onPress={() => router.push({ pathname: '/LuckyCategoryDay', params: { category: 'finance', date: r.date.toISOString() } })}
+                    onPress={() => router.push({ pathname: '/LuckyCategoryDay', params: { category: 'finance', date: r.date } })}
                   >
                     <Text style={styles.progressLabel}>{strings.t('finance') || 'Finance'}</Text>
                     <View style={styles.progressTrack}>
-                      <View style={[styles.progressFill, { width: `${r.breakdown.finance}%`, backgroundColor: '#4CAF50' }]} />
+                      <View style={[styles.progressFill, { width: `${r.money}%`, backgroundColor: '#4CAF50' }]} />
                     </View>
-                    <Text style={styles.progressValue}>{r.breakdown.finance}</Text>
+                    <Text style={styles.progressValue}>{Math.round(r.money)}</Text>
                   </TouchableOpacity>
 
                   <TouchableOpacity
+                    disabled
                     style={styles.progressGroup}
                     activeOpacity={0.7}
-                    onPress={() => router.push({ pathname: '/LuckyCategoryDay', params: { category: 'health', date: r.date.toISOString() } })}
+                  // onPress={() => router.push({ pathname: '/LuckyCategoryDay', params: { category: 'health', date: r.date } })}
                   >
                     <Text style={styles.progressLabel}>{strings.t('health') || 'Health'}</Text>
                     <View style={styles.progressTrack}>
-                      <View style={[styles.progressFill, { width: `${r.breakdown.health}%`, backgroundColor: '#2196F3' }]} />
+                      <View style={[styles.progressFill, { width: `${r.health}%`, backgroundColor: '#2196F3' }]} />
                     </View>
-                    <Text style={styles.progressValue}>{r.breakdown.health}</Text>
+                    <Text style={styles.progressValue}>{Math.round(r.health)}</Text>
                   </TouchableOpacity>
 
                   <TouchableOpacity
+                    disabled
                     style={styles.progressGroup}
                     activeOpacity={0.7}
-                    onPress={() => router.push({ pathname: '/LuckyCategoryDay', params: { category: 'career', date: r.date.toISOString() } })}
+                    onPress={() => router.push({ pathname: '/LuckyCategoryDay', params: { category: 'career', date: r.date } })}
                   >
                     <Text style={styles.progressLabel}>{strings.t('career') || 'Career'}</Text>
                     <View style={styles.progressTrack}>
-                      <View style={[styles.progressFill, { width: `${r.breakdown.career}%`, backgroundColor: '#FF9800' }]} />
+                      <View style={[styles.progressFill, { width: `${r.career}%`, backgroundColor: '#FF9800' }]} />
                     </View>
-                    <Text style={styles.progressValue}>{r.breakdown.career}</Text>
+                    <Text style={styles.progressValue}>{Math.round(r.career)}</Text>
                   </TouchableOpacity>
                 </View>
               ))
