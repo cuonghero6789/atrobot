@@ -14,6 +14,7 @@ import Toast from 'react-native-toast-message';
 import { View } from 'react-native';
 import { setConfig } from '@/core';
 import NetworkIndicator from '@/components/NetworkIndicator';
+import ConfigUtil from '@/core/utils/config/ConfigUtil';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -27,8 +28,8 @@ export default function RootLayout() {
   useEffect(() => {
     setConfig({
       API: {
-        BASE_URL: 'http://localhost:9005/v1',
-        WS_URL: 'ws://localhost:9005/ws',
+        BASE_URL: ConfigUtil.URL_MAIN,
+        WS_URL: ConfigUtil.URL_WS,
         TIMEOUT: 30000,
         RETRY_ATTEMPTS: 3,
       },

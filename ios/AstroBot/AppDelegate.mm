@@ -17,7 +17,18 @@
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
 
-  return [super application:application didFinishLaunchingWithOptions:launchOptions];
+  // Call super to let Expo set up the window and root view controller first
+  BOOL result = [super application:application didFinishLaunchingWithOptions:launchOptions];
+
+  // Ensure initial window and root view backgrounds are white to avoid any black flash
+  if (self.window != nil) {
+    self.window.backgroundColor = [UIColor whiteColor];
+    if (self.window.rootViewController != nil && self.window.rootViewController.view != nil) {
+      self.window.rootViewController.view.backgroundColor = [UIColor whiteColor];
+    }
+  }
+
+  return result;
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge

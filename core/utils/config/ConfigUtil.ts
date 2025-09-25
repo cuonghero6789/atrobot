@@ -1,5 +1,7 @@
-let URL_ROOT = 'https://astro-api.gbvlabs.com/';
-const WS_ROOT = 'wss://astro-api.gbvlabs.com/';
+// let URL_ROOT = 'https://astro-api.gbvlabs.com/';
+// const WS_ROOT = 'wss://astro-api.gbvlabs.com/';
+let URL_ROOT = 'http://localhost:9005/';
+const WS_ROOT = 'ws://localhost:9005/';
 
 export default {
   URL_MAIN: URL_ROOT + 'v1',
