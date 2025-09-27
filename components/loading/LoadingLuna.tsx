@@ -1,6 +1,7 @@
 import { colors, fontWeight } from "@/core/styles";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { Image } from "expo-image";
+import strings from '@/core/localization';
 const width = Dimensions.get('window').width;
 const SIZE_ITEM_LARGE = (3 * width) / 4 - 32;
 const SIZE_ITEM = 80;
@@ -24,7 +25,7 @@ const LoadingLuna = ({ style }: Props) => {
                         style={{ width: SIZE_ITEM, height: SIZE_ITEM }}
                     />
                 </Image>
-                <Text style={styles.text}>{"Đang tải..."}</Text>
+                <Text style={styles.text}>{strings.t('loading')}</Text>
             </View>
         </View>
     );
