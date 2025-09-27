@@ -137,7 +137,8 @@ let strings = new I18n({
     luckyDayMessage: 'of you',
     week: 'Week',
     month: 'Month',
-    pleaseFillInYourInformation: 'Please fill in your information!',
+    noResultsYet: 'Results will appear here',
+    pleaseFillInYourInformation: 'Please fill in your missing information',
     updateInfoSuccess: 'Update information successfully!',
     requestLang: "Please choose both language and content",
     chooseBirthday: "Choose birthday",
@@ -174,7 +175,9 @@ let strings = new I18n({
     friend: 'Friend',
     lover: 'Lover',
     family: 'Family',
-    marriage: 'Marriage'
+    marriage: 'Marriage',
+    required: 'Required',
+    fieldRequired: '{field} is required'
   },
   vi: {
     chooseBirthday: "Chọn ngày sinh",
@@ -315,7 +318,8 @@ let strings = new I18n({
     luckyDayMessage: 'của bạn',
     week: 'Tuần này',
     month: 'Tháng này',
-    pleaseFillInYourInformation: 'Vui lòng điền thông tin của bạn!',
+    noResultsYet: 'Kết quả sẽ hiển thị tại đây',
+    pleaseFillInYourInformation: 'Vui lòng điền thông tin còn thiếu!',
     updateInfoSuccess: 'Cập nhật thông tin thành công!',
     updateInfoSuccessAvatar: "Cập nhật ảnh đại diện thành công!",
     dayMonthYear: "Ngày/Tháng/Năm*",
@@ -347,7 +351,9 @@ let strings = new I18n({
     friend: 'Bạn bè',
     lover: 'Người yêu',
     family: 'Gia đình',
-    marriage: 'Vợ chồng'
+    marriage: 'Vợ chồng',
+    required: 'Bắt buộc',
+    fieldRequired: '{field} là bắt buộc'
   },
 });
 strings.enableFallback = true;

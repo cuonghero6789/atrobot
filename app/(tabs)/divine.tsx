@@ -13,6 +13,7 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { StyleSheet, View, Text, ScrollView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { TAB_HEIGHT } from "./_layout";
 
 export default function DivineScreen() {
     const [AstroDaily, { data, loading: loadingAstroDaily, error }] = useMutation(ASTROME_DAILY);
@@ -45,8 +46,8 @@ export default function DivineScreen() {
             <Text style={[textStyle.bodyText1, { color: colors.gray, textAlign: "center", marginTop: spacing.sm }]}>{strings.t("manifestMessage")}</Text>
         </View>
         <View style={styles.profile}>
-            <ScrollView>
-                <View style={{ paddingHorizontal: spacing.big, paddingTop: spacing.bigx2 }}>
+            <ScrollView contentContainerStyle={{ paddingBottom: TAB_HEIGHT + 16 }}>
+                <View style={{ paddingHorizontal: spacing.big, paddingTop: spacing.bigx2}}>
                     <Text style={[textStyle.subTitle2, { color: colors.white, textAlign: 'center' }]}>{quote}</Text>
                 </View>
                 {/* <ManifestDays /> */}

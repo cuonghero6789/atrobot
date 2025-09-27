@@ -28,6 +28,7 @@ import { ASTRO_BOT } from '@/core/apollo/mutations';
 import { MESSAGES } from '@/core/apollo/queries';
 import { ImageBackground } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
+import { TAB_HEIGHT } from './_layout';
 
 function ChatScreen() {
   const insets = useSafeAreaInsets();
@@ -102,7 +103,7 @@ function ChatScreen() {
             </View>
           </Send>
         )}
-        containerStyle={styles.toolbar}
+        containerStyle={[styles.toolbar]}
         textInputStyle={{ color: colors.white }}
       />
     );
@@ -146,7 +147,7 @@ function ChatScreen() {
           }}
         />
       )}
-      <View style={{ height: insets.bottom + 60, backgroundColor: 'transparent' }} />
+      <View style={{ height:TAB_HEIGHT + 16, backgroundColor: 'transparent' }} />
     </LinearGradient>
   </ImageBackground>
 }

@@ -12,13 +12,14 @@ import { ImageBackground } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import strings from "@/core/localization";
 import React, { useEffect } from "react";
-import { StyleSheet, View, Text, ScrollView, Alert, KeyboardAvoidingView, Platform, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, ScrollView, KeyboardAvoidingView, Platform, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAccountStore, useStarMatesStore } from "@/core/stores";
 import { ASTRO_STAR_MATES } from "@/core/apollo/mutations/atro";
 import { useMutation } from "@apollo/client";
 import { starmates } from "@/core/data/common";
 import { router } from "expo-router";
+import { TAB_HEIGHT } from "./_layout";
 
 export default function StarMatesScreen() {
     const insets = useSafeAreaInsets();
@@ -33,6 +34,7 @@ export default function StarMatesScreen() {
     const [selectTimeOfBirth, setSelectTimeOfBirth] = React.useState<string>("");
     const [selectGender, setSelectGender] = React.useState<string>("");
     const [selectRelationship, setSelectRelationship] = React.useState<string>("");
+    const [submitAttempted, setSubmitAttempted] = React.useState(false);
     const [AstroCustom, { data: dataCustom, loading: loadingCustom, error: errorCustom }] =
         useMutation(ASTRO_STAR_MATES);
     const listUserHistory = useStarMatesStore(state => state.listUserHistory) || [];
@@ -52,7 +54,7 @@ export default function StarMatesScreen() {
             <KeyboardAvoidingView
                 style={{ flex: 1 }}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-                <ScrollView contentContainerStyle={[{ paddingTop: spacing.bigx2, paddingBottom: spacing.bigx2 * 2 }]}>
+                <ScrollView contentContainerStyle={[{ paddingTop: spacing.bigx2, paddingBottom: TAB_HEIGHT + 16 }]}>
                     <DropDownButton
                         title={strings.t("choosePersonToView")}
                         styleContainer={{ paddingHorizontal: spacing.large }}
@@ -61,22 +63,38 @@ export default function StarMatesScreen() {
                         placeholder={strings.t("selectHere")} onPress={() => {
                             actionStarMates.getListUserHistory();
                             historySheetRef.current?.show();
-                         }} />
+                        }} />
                     <View style={{ paddingHorizontal: spacing.large, paddingTop: spacing.big }}>
                         <Text style={[textStyle.title, { color: colors.white }]}>{strings.t("orViewForOthers")}</Text>
                     </View>
-                    <CustomInput placeholder={strings.t("nameOrNickName")} name={strings.t("nameOrNickName")} text={selectName} onChangeText={(text) => { setSelectName(text) }} />
+                    <CustomInput placeholder={strings.t("nameOrNickName")} name={strings.t("nameOrNickName") + "*"} text={selectName} onChangeText={(text) => { setSelectName(text) }} />
+                    {submitAttempted && !selectName?.trim() && (
+                        <Text style={styles.errorText}>{strings.t('required')}</Text>
+                    )}
                     <SelectBirthday birthday={selectBirthday} onSelectedDate={(date) => {
-                         setSelectBirthday(date) }} />
+                        setSelectBirthday(date)
+                    }} />
+                    {submitAttempted && !selectBirthday && (
+                        <Text style={styles.errorText}>{strings.t('required')}</Text>
+                    )}
                     <SelectTimeOfBirth onSelectedTime={(time) => { setSelectTimeOfBirth(time) }} />
-                    <InfoButton name={strings.t("gender")} placeholder={strings.t("gender")} text={selectGender} onPress={() => { popupBottomSheetRef.current?.show(); }} />
-                    <ChooseListStarmates data={starmates} onSelected={(text) => { setSelectRelationship(text) }} text={selectRelationship} title={strings.t("chooseRelationshipStarmates")} />
+                    {submitAttempted && !selectTimeOfBirth && (
+                        <Text style={styles.errorText}>{strings.t('required')}</Text>
+                    )}
+                    <InfoButton name={strings.t("gender")+ "*"} placeholder={strings.t("gender")} text={selectGender} onPress={() => { popupBottomSheetRef.current?.show(); }} />
+                    {submitAttempted && !selectGender && (
+                        <Text style={styles.errorText}>{strings.t('required')}</Text>
+                    )}
+                    <ChooseListStarmates data={starmates} onSelected={(text) => { setSelectRelationship(text) }} text={selectRelationship} title={strings.t("chooseRelationship") + "*"} />
+                    {submitAttempted && !selectRelationship && (
+                        <Text style={styles.errorText}>{strings.t('required')}</Text>
+                    )}
                     <CustomButton container={styles.btnConfirm} text={styles.btnText} title={strings.t("done")} onPress={() => {
                         if (loadingCustom) {
                             return;
                         }
+                        setSubmitAttempted(true);
                         if (!selectName?.trim() || !selectBirthday || !selectTimeOfBirth || !selectGender || !selectRelationship) {
-                            Alert.alert('Hi!', strings.t("pleaseFillInYourInformation"));
                             return;
                         }
                         actionStarMates.setUser({
@@ -133,7 +151,7 @@ export default function StarMatesScreen() {
                                     setSelectName(name);
                                     setSelectedPerson(name);
                                     console.log('datePart ===> ', datePart);
-                                    
+
                                     if (datePart) setSelectBirthday(datePart);
                                     if (timePart) setSelectTimeOfBirth(timePart);
                                     setSelectGender(u.gender || "");
@@ -176,7 +194,7 @@ export default function StarMatesScreen() {
 }
 
 const styles = StyleSheet.create({
-    history_item:{
+    history_item: {
         backgroundColor: '#FFFFFFB3',
         borderRadius: 14,
         padding: spacing.md,
@@ -187,7 +205,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 3 },
         elevation: 4
     },
-    history_item_selected:{
+    history_item_selected: {
         backgroundColor: '#3A6AA3',
         borderColor: '#FFFFFF',
         borderWidth: 1
@@ -219,5 +237,11 @@ const styles = StyleSheet.create({
         elevation: 5,
         marginTop: spacing.big,
         paddingHorizontal: 80
+    },
+    errorText: {
+        color: '#FF4D4F',
+        marginTop: 6,
+        marginHorizontal: spacing.large,
+        ...textStyle.text
     },
 });

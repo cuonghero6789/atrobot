@@ -233,6 +233,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   results: {
+    flex: 1
   },
   card: {
     backgroundColor: '#FFFFFFB3',

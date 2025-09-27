@@ -2,6 +2,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Image } from 'react-native';
 import { colors, fontWeight, spacing, textStyle } from '@/core/styles';
+import strings from '@/core/localization';
 import { Button } from "./Button";
 import { memo } from "react";
 import { SkeletonLoaderQuestion } from "./loading/LoadingView";
@@ -33,7 +34,7 @@ function DetailInnerShadowBox({ colorStart, colorEnd, iconSource, answer, loadin
                 style={styles.innerShadow}
             />
             <Image source={iconSource} resizeMode="contain" style={{ width: 130, height: 156, position: 'absolute', right: spacing.sm, top: spacing.large }} />
-            <Text style={[  textStyle.textBold2, { color: colors.white, marginBottom: spacing.md, fontSize: 15 }]}>{"Kế hoạch sắp tới của\ntôi có suôn sẻ không?"}</Text>
+            <Text style={[  textStyle.textBold2, { color: colors.white, marginBottom: spacing.md, fontSize: 15 }]}>{strings.t('sampleQuestion')}</Text>
             {/* <Button title={"Tối nay tôi đi hẹn hò, cuộc hẹn sẽ diễn ra như thế nào?"}
                 onPress={() => { }}
                 containerStyle={{ marginTop: spacing.sm, borderRadius: 5, height: 64 }}

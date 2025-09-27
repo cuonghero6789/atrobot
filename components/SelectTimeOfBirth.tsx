@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { View, Button, Text } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from 'moment';
@@ -11,8 +11,14 @@ interface Props {
 
 const SelectTimeOfBirth = ({ onSelectedTime, birthday }: Props) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [hours, setHours] = useState(moment(birthday).format('HH'));
-  const [minutes, setMinutes] = useState(moment(birthday).format('mm'));
+  const [hours, setHours] = useState("");
+  const [minutes, setMinutes] = useState("");
+
+  useEffect(() => {
+    birthday && setHours(moment(birthday).format('HH'));
+    birthday && setMinutes(moment(birthday).format('mm'));
+  }, [birthday]);
+
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -35,7 +41,7 @@ const SelectTimeOfBirth = ({ onSelectedTime, birthday }: Props) => {
       <InfoButton
         placeholder={strings.t("hoursMinutes")}
         onPress={showDatePicker}
-        name={strings.t("timeOfBirth")}
+        name={strings.t("timeOfBirth") + "*"}
         text={hours == "Invalid date" ? "" : (hours && minutes && `${strings.t("hours")}:  ${hours}, ${strings.t("minutes")}: ${minutes}`)}
       />
       <DateTimePickerModal

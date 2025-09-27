@@ -39,8 +39,8 @@ export default function RootLayout() {
         BUILD_NUMBER: '1',
       },
       LINKS: {
-        TERMS: 'https://astrolive.bot/term.html',
-        PRIVACY: 'https://astrolive.bot/privacy.html',
+        TERMS: ConfigUtil.URL_TERM_OF_USE,
+        PRIVACY: ConfigUtil.URL_PRIVACY,
         SUPPORT: 'https://astrolive.bot/support.html',
       },
     });

@@ -37,7 +37,7 @@ const SelectBirthday = ({ onSelectedDate, birthday }: Props) => {
       <InfoButton
         onPress={showDatePicker}
         placeholder={strings.t("dayMonthYear")}
-        name={strings.t("birthday")}
+        name={strings.t("birthday") + "*"}
         text={birthday ? selectedDate?.toString() : ""}
       />
       <DateTimePickerModal

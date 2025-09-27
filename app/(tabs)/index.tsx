@@ -81,7 +81,7 @@ export default function DailyScreen() {
             })
           }} />
           <Image source={require('@/assets/images/bg_star.png')} style={{ width, height: width, position: 'absolute', marginTop: spacing.big }} />
-          <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: TAB_HEIGHT }}>
+          <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: TAB_HEIGHT + 16 }}>
             <View style={{ flexDirection: 'row', paddingBottom: spacing.extraLarge, paddingTop: spacing.bigx2 }}>
               <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <HomeCalendar />
