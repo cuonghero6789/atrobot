@@ -16,32 +16,17 @@
       "usesAppleSignIn": true,
       "runtimeVersion": "1.0.1",
       "supportsTablet": true,
-      "bundleIdentifier": "com.unikon.astrobot",
-      "googleServicesFile": "./GoogleService-Info.plist",
-      "teamId": "AHPJK3BV3J",
+      "bundleIdentifier": "com.gbv.astrobot",
+      "googleServicesFile": "ios/AstroBot/GoogleService-Info.plist",
+      "teamId": "YP79F7ANUK",
       "infoPlist": {
-        "NSUserTrackingUsageDescription": "This identifier will be used to deliver personalized ads to you.",
         "NSCameraUsageDescription": "We need access to your camera to take photos for your profile and share moments with others.",
-        "SKAdNetworkItems": [
-          {
-            "SKAdNetworkIdentifier": "v9wttpbfk9.skadnetwork"
-          },
-          {
-            "SKAdNetworkIdentifier": "n38lu8286q.skadnetwork"
-          },
-          {
-            "SKAdNetworkIdentifier": "v9wttpbfk9.skadnetwork"
-          },
-          {
-            "SKAdNetworkIdentifier": "n38lu8286q.skadnetwork"
-          }
-        ],
         "ITSAppUsesNonExemptEncryption": false,
         "UIStatusBarStyle": "UIStatusBarStyleLightContent"
       },
       "buildConfiguration": "Release",
       "hermes": true,
-      "appleTeamId": "AHPJK3BV3J"
+      "appleTeamId": "YP79F7ANUK"
     },
     "android": {
       "googleServicesFile": "./google-services.json",
@@ -70,7 +55,12 @@
     },
     "plugins": [
       "expo-router",
-      
+      [
+        "expo-system-ui",
+        {
+          "rootViewBackgroundColor": "#ffffff"
+        }
+      ],
       [
         "expo-build-properties",
         {
@@ -128,8 +118,7 @@
           "scheme": "fb2199634063722889",
           "advertiserIDCollectionEnabled": false,
           "autoLogAppEventsEnabled": false,
-          "isAutoInitEnabled": true,
-          "iosUserTrackingPermission": "This identifier will be used to deliver personalized ads to you."
+          "isAutoInitEnabled": true
         }
       ],
       "expo-localization",
@@ -182,7 +171,8 @@
       "url": "https://u.expo.dev/5788c1d0-2c97-487a-96eb-82a4a2c32cf5"
     },
     "androidStatusBar": {
-      "backgroundColor": "#000000"
+      "backgroundColor": "#ffffff",
+      "barStyle": "dark-content"
     }
   }
 }

@@ -52,7 +52,7 @@ let strings = new I18n({
     lang: 'Language',
     profile: 'Profile',
     termOfService: 'Terms of Service',
-    termOfPrivacy: 'Term of Privacy',
+    termOfPrivacy: 'Privacy Policy',
     hi: 'Hi!',
     logout: 'Are you sure you want to Logout Account?',
     updatePicture: 'Update Profile Picture',

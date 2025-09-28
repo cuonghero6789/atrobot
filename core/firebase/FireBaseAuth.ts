@@ -7,6 +7,7 @@ import * as Crypto from 'expo-crypto';
 // 745936822115-8abv2v3uj5u9dkcepc059cv1i207mdf1.apps.googleusercontent.com
 GoogleSignin.configure({
     webClientId: '970774422293-u230dd9ec24vij3927k5gniv9182glp5.apps.googleusercontent.com',
+    iosClientId: '970774422293-6j281hum16i8lotep39ghds2fvf99pm1.apps.googleusercontent.com',
     offlineAccess: false
 });
 export default class FireBaseAuth {
@@ -79,17 +80,17 @@ export default class FireBaseAuth {
     }
     static async onAppleLogin() {
         try {
-            const rawNonce = Math.random().toString(36).substring(2, 10);
-            const state = Math.random().toString(36).substring(2, 10);
-            const hashedNonce = await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, rawNonce);
-
+            // Check availability first to avoid silent failures on unsupported devices/simulators
+            const isAvailable = await AppleAuthentication.isAvailableAsync();
+            if (!isAvailable) {
+                console.log('error apple login ==== ', JSON.stringify({ message: 'Apple Sign-In not available' }));
+                return null;
+            }
             const appleAuthRequestResponse = await AppleAuthentication.signInAsync({
                 requestedScopes: [
                     AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
                     AppleAuthentication.AppleAuthenticationScope.EMAIL,
                 ],
-                nonce: hashedNonce,
-                state,
             });
             // Ensure Apple returned a user identityToken
             if (!appleAuthRequestResponse.identityToken) {
@@ -97,14 +98,19 @@ export default class FireBaseAuth {
             }
             // Create a Firebase credential from the response
             const { identityToken } = appleAuthRequestResponse;
-            const appleCredential = auth.AppleAuthProvider.credential(identityToken, rawNonce);
+            const appleCredential = auth.AppleAuthProvider.credential(identityToken);
             // Sign the user in with the credential
             await auth().signInWithCredential(appleCredential);
             const idToken = await auth().currentUser?.getIdToken();
             return idToken;
             // signed in
-        } catch (e) {
-            console.log('error apple login ==== ', JSON.stringify(e));
+        } catch (e: any) {
+            // Normalize error output; expo-apple-authentication throws with code on cancel
+            const normalized = {
+                message: e?.message ?? 'Unknown error',
+                code: e?.code ?? e?.name ?? undefined,
+            };
+            console.log('error apple login ==== ', JSON.stringify(normalized));
             return null;
         }
 

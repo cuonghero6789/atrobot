@@ -1,6 +1,7 @@
 import { Stack } from "expo-router";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
+import * as AppleAuthentication from 'expo-apple-authentication';
 import { Image, ImageBackground } from 'expo-image';
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "@/components/CustomButton";
@@ -28,6 +29,7 @@ export default function IndexScreen() {
     const user = useAuthStore(state => state.user);
     const userAccount = useAccountStore(state => state.user);
     const [onLogin, { data, loading, error }] = useMutation(LOGIN);
+    const [isAppleAvailable, setIsAppleAvailable] = useState(false);
 
     const {
         data: dataAccount,
@@ -50,6 +52,21 @@ export default function IndexScreen() {
             }
         }
     }, [status, data]);
+
+    // Check Apple Sign-In availability
+    useEffect(() => {
+        let isMounted = true;
+        AppleAuthentication.isAvailableAsync()
+            .then((available) => {
+                if (isMounted) setIsAppleAvailable(!!available);
+            })
+            .catch(() => {
+                if (isMounted) setIsAppleAvailable(false);
+            });
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
     /**
      *  data when user call request login
@@ -101,8 +118,12 @@ export default function IndexScreen() {
     }, []);
 
     const onAppleLogin = useCallback(async () => {
+        global.loadingRef.current?.show();
         const token = await FireBaseAuth.onAppleLogin();
-        global.loadingRef.current?.hide();
+        if (!token) {
+            global.loadingRef.current?.hide();
+            return;
+        }
         onLogin({ variables: { token: token, ...getDeviceInfo() } });
     }, []);
 
@@ -147,8 +168,10 @@ export default function IndexScreen() {
                     <View style={{ paddingHorizontal: 48, flex: 1 }}>
                         <Button containerStyle={{ marginBottom: 16 }} title={strings.t("continueGoogle")} onPress={onGoogleLogin}
                             textStyle={{ color: colors.white, fontFamily: fontFamily.bold, fontWeight: fontWeight.bold }} />
-                        <Button containerStyle={{ marginBottom: 16 }} title={strings.t("continueApple")} onPress={onAppleLogin} 
-                        textStyle={{ color: colors.white, fontFamily: fontFamily.bold, fontWeight: fontWeight.bold }} />
+                        {isAppleAvailable && (
+                            <Button containerStyle={{ marginBottom: 16 }} title={strings.t("continueApple")} onPress={onAppleLogin}
+                                textStyle={{ color: colors.white, fontFamily: fontFamily.bold, fontWeight: fontWeight.bold }} />
+                        )}
                         {/* <CustomButton title={strings.t("continueApple")} onPress={onAppleLogin} /> */}
                     </View>
                     <View style={styles.footer}>
