@@ -4,11 +4,12 @@ import strings from '../../core/localization';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import moment from 'moment-timezone';
 import SearchInput from '../../components/SearchInput';
-import { colors, spacing } from "@/core/styles"
+import { colors, fontFamily, spacing } from "@/core/styles"
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAccountStore } from '@/core/stores';
+import { ImageBackground } from 'expo-image';
 
 function TimeZonesScreen(): JSX.Element {
   const router = useRouter();
@@ -63,39 +64,41 @@ function TimeZonesScreen(): JSX.Element {
   }, [userTmp]);
 
   return (
-    <SafeAreaView edges={[]} style={[styles.container]}>
-      <LinearGradient
-        colors={['#2D79E5', '#B2D1FD']}
-        style={[styles.body, { paddingTop: insets.top }]}
-      >
-        <SearchInput
-          onPressBack={() => router.back()}
-          onPressClose={() => {
-            setText('');
-            setTimeZone(allTimezonesRef.current);
-          }}
-          text={text}
-          onChangeText={(value: string) => {
-            setText(value);
-            const query = value.trim().toUpperCase();
-            const data = allTimezonesRef.current.filter(item => item.toUpperCase().includes(query));
-            setTimeZone(data);
-          }}
-          placeholder={strings.t("inputTimezone")}
-        />
-        <FlatList
-          renderItem={renderItem}
-          data={timeZone}
-          contentContainerStyle={{ paddingHorizontal: 16, paddingVertical: 16 }}
-          keyExtractor={item => item}
-          ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-          initialNumToRender={20}
-          windowSize={10}
-          maxToRenderPerBatch={20}
-          removeClippedSubviews
-        />
-      </LinearGradient>
-    </SafeAreaView>
+    <ImageBackground source={require('@/assets/images/bg_manifest.png')} style={{ flex: 1, }}>
+      <SafeAreaView edges={[]} style={[styles.container]}>
+        <LinearGradient
+          colors={['#C7D0D8BF', '#254668BF']}
+          style={[styles.body, { paddingTop: insets.top }]}
+        >
+          <SearchInput
+            onPressBack={() => router.back()}
+            onPressClose={() => {
+              setText('');
+              setTimeZone(allTimezonesRef.current);
+            }}
+            text={text}
+            onChangeText={(value: string) => {
+              setText(value);
+              const query = value.trim().toUpperCase();
+              const data = allTimezonesRef.current.filter(item => item.toUpperCase().includes(query));
+              setTimeZone(data);
+            }}
+            placeholder={strings.t("inputTimezone")}
+          />
+          <FlatList
+            renderItem={renderItem}
+            data={timeZone}
+            contentContainerStyle={{ paddingHorizontal: 16, paddingVertical: 16 }}
+            keyExtractor={item => item}
+            ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+            initialNumToRender={20}
+            windowSize={10}
+            maxToRenderPerBatch={20}
+            removeClippedSubviews
+          />
+        </LinearGradient>
+      </SafeAreaView>
+    </ImageBackground>
   );
 }
 
@@ -119,17 +122,19 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255,255,255,0.6)'
   },
   rowTitle: {
-    color: '#fff',
+    color:  colors.black,
+    fontFamily: fontFamily.bold,
     fontSize: 16,
     fontWeight: '600',
   },
   rowTitleSelected: {
-    color: '#fff'
+    color: colors.black
   },
   rowSub: {
-    color: 'rgba(255,255,255,0.8)',
+    color: 'rgba(33, 31, 31, 0.8)',
     fontSize: 12,
     marginTop: 4,
+    fontFamily: fontFamily.regular
   },
   tick: {
     color: '#fff',
