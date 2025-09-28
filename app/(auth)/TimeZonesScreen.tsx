@@ -110,14 +110,14 @@ const styles = StyleSheet.create({
   },
   row: {
     borderRadius: 14,
-    backgroundColor: 'rgba(255,255,255,0.18)',
+    backgroundColor: 'rgba(255, 255, 255, 0.35)',
     paddingHorizontal: spacing.large,
     paddingVertical: spacing.md,
     flexDirection: 'row',
     alignItems: 'center',
   },
   rowSelected: {
-    backgroundColor: 'rgba(255,255,255,0.30)',
+    backgroundColor: 'rgba(255,255,255,0.50)',
     borderWidth: 1,
     borderColor: 'rgba(255,255,255,0.6)'
   },
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     color: colors.black
   },
   rowSub: {
-    color: 'rgba(33, 31, 31, 0.8)',
+    color: 'rgba(27, 27, 27, 0.8)',
     fontSize: 12,
     marginTop: 4,
     fontFamily: fontFamily.regular
