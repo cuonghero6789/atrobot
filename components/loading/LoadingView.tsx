@@ -12,7 +12,7 @@ const SkeletonLoader = () => (
         colors={['rgba(45, 121, 229, 0.52)', 'rgba(39, 72, 119, 0.72)']}
         start={{ x: 0.5, y: 0 }}
         end={{ x: 0.5, y: 1 }}
-        style={styles.card}
+        style={[styles.card, { paddingVertical: 16 }]}
     >
         <ContentLoader
             height={140}
@@ -25,7 +25,7 @@ const SkeletonLoader = () => (
             <Rect x="16" y="0" rx="5" ry="5" width="44" height="44" />
             <Rect x="16" y="50" rx="5" ry="5" width="44" height="6" />
             <Rect x="23" y="60" rx="5" ry="5" width="30" height="6" />
-            <Rect x="80" y="0" rx="4" ry="4" width={WIDTH} height="8" />
+            <Rect x="80" y="0" rx="4" ry="4" width="280" height="8" />
             <Rect x="80" y="18" rx="3" ry="3" width="250" height="8" />
             <Rect x="80" y="36" rx="3" ry="3" width="200" height="8" />
             <Rect x="80" y="54" rx="3" ry="3" width="100" height="8" />

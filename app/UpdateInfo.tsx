@@ -216,9 +216,12 @@ export default function UpdateInfoScreen() {
             <ChooseAvatar onImageSelected={(uri, base64, fileName, type) => {
                 if (uri) {
                     setAvatar(uri);
-                    const _file = new File([uri], fileName, { type, lastModified: Date.now() });
+                    const name = fileName || `avatar_${Date.now()}.jpg`;
+                    const mime = type || 'image/jpeg';
+                    const normalizedUri = uri.startsWith('file://') ? uri : `file://${uri}`;
+                    const uploadFile = { uri: normalizedUri, name, type: mime } as any;
                     actionsAccount.setAccount({ ...user, avatar: uri });
-                    UpdateAvatar({ variables: { file: _file, base64 } });
+                    UpdateAvatar({ variables: { file: uploadFile, base64: base64 || '' } });
                 }
                 popupBottomSheetRefAvatar.current?.hide();
             }} />

@@ -1,6 +1,7 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { Platform, Image, StyleSheet, View, ImageBackground, Dimensions, Text } from 'react-native';
+import * as Device from 'expo-device';
 import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
@@ -44,8 +45,8 @@ export default function TabLayout() {
             height: TAB_HEIGHT,
             borderColor: 'transparent',
             backgroundColor: '#ADB4BC',
-            borderTopLeftRadius: 44,
-            borderTopRightRadius: 44,
+            borderTopLeftRadius: Device.deviceType === Device.DeviceType.TABLET ? 110 : 44,
+            borderTopRightRadius: Device.deviceType === Device.DeviceType.TABLET ? 110 : 44,
             overflow: 'hidden',
           },
           android: {

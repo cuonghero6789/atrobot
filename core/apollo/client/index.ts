@@ -41,6 +41,16 @@ import {
       fetch,
       fetchOptions: {credentials: 'include'},
       credentials: 'include',
+      // Treat React Native file-like objects as uploadable
+      isExtractableFile: (value: any): value is File => {
+        return (
+          value &&
+          typeof value === 'object' &&
+          typeof value.uri === 'string' &&
+          typeof value.name === 'string' &&
+          typeof value.type === 'string'
+        );
+      },
     }),
     // new HttpLink({
     //   uri: ConfigUtil.URL_MAIN
