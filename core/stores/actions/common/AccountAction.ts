@@ -5,14 +5,17 @@ import strings from '@/core/localization';
 import { getLocales } from 'expo-localization';
 export const setAccount = (set: any, get: any) => async (user: UserModel) => {
   try {
-    if (strings.locale !== user.language_code && user?.language_code) {
-      strings.locale = user.language_code || 'en';
+    const currentUser = (get() as IAccountState)?.user as UserModel | undefined;
+    const mergedUser: UserModel = { ...(currentUser || {} as UserModel), ...(user || {} as UserModel) } as UserModel;
+
+    if (strings.locale !== mergedUser.language_code && mergedUser?.language_code) {
+      strings.locale = mergedUser.language_code || 'en';
     }
     /** save cache for login fast */
-    AsyncStorage.setItem('ACCOUNT_USER', JSON.stringify({ user }));
+    AsyncStorage.setItem('ACCOUNT_USER', JSON.stringify({ user: mergedUser }));
     set(
       (state: IAccountState) => {
-        state.user = user;
+        state.user = mergedUser;
       },
       false,
       'setAccountSuccess',
