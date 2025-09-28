@@ -5,7 +5,7 @@ export async function getCurrentLocation(): Promise<Location.LocationObject | nu
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
         Alert.alert(
-            strings.t("hi"),
+            strings.t("hello"),
             strings.t("requestLocation"),
             [
                 {

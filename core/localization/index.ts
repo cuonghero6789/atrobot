@@ -108,6 +108,8 @@ let strings = new I18n({
       'Your current location is used to enable app features and is not shared with third parties',
     requestLib:
       'Images uploaded to the app are solely for display purposes within the app and will not be shared with third parties',
+    requestCamera:
+      'Camera access is needed to take your profile photo. You can enable it in Settings.',
     linkFacebook: "Follow Us on Facebook",
     starMates: 'View your astrological interpretation\nand that of the person you care about',
     choosePersonToView: 'Choose the person you want to view',
@@ -305,6 +307,8 @@ let strings = new I18n({
       'Địa điểm hiện tại của bạn được sử dụng để thực hiện tính năng của ứng dụng và sẽ không được chia sẻ cho bên thứ ba',
     requestLib:
       'Hình ảnh tải lên ứng dụng chỉ được sử dụng để hiển thị trên ứng dụng và sẽ không được chia sẻ cho bên thứ ba',
+    requestCamera:
+      'Cần quyền Camera để chụp ảnh hồ sơ. Bạn có thể bật trong Cài đặt.',
     linkFacebook: "Theo dõi chúng tôi trên Facebook",
     futureOfYou: 'Tương lai của bạn',
     futureOfYouMessage: ' thế nào',

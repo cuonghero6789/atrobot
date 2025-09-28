@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, StyleSheet, Animated } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Animated, Alert, Linking, Platform } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useCameraPermission } from '@/core/permission/useCamera';
 import { useMediaLibraryPermission } from '@/core/permission/useMediaLibrary';
 import * as ImagePicker from 'expo-image-picker';
+import strings from '@/core/localization';
 import { colors, spacing } from '@/core/styles';
 
 interface ChooseAvatarProps {
@@ -34,7 +35,18 @@ export function ChooseAvatar({ onImageSelected }: ChooseAvatarProps) {
         animatePress();
         if (!hasCameraPermission) {
             const granted = await requestCameraPermission();
-            if (!granted) return;
+            if (!granted) {
+                Alert.alert(
+                    strings.t('hello'),
+                    strings.t('requestCamera'),
+                    [
+                        { text: strings.t('cancel'), style: 'cancel' },
+                        { text: strings.t('settings') || 'Settings', onPress: () => Linking.openSettings() },
+                    ],
+                    { cancelable: true }
+                );
+                return;
+            }
         }
 
         try {
@@ -67,7 +79,18 @@ export function ChooseAvatar({ onImageSelected }: ChooseAvatarProps) {
         animatePress();
         if (!hasMediaPermission) {
             const granted = await requestMediaPermission();
-            if (!granted) return;
+            if (!granted) {
+                Alert.alert(
+                    strings.t('hello'),
+                    strings.t('requestLib'),
+                    [
+                        { text: strings.t('cancel'), style: 'cancel' },
+                        { text: strings.t('settings') || 'Settings', onPress: () => Linking.openSettings() },
+                    ],
+                    { cancelable: true }
+                );
+                return;
+            }
         }
 
         try {
