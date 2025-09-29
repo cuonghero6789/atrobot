@@ -28,18 +28,18 @@ export default function DailyScreen() {
     moment().format('YYYY-MM-DD').toString(),
   );
 
-  useEffect(()=>{
+  useEffect(() => {
+    if (userAccount?.ai_language && fromDate) {
+      onRefresh(fromDate);
+    }
+  }, [userAccount?.ai_language, fromDate]);
+
+  useEffect(() => {
     actions.getCacheScores();
     actions.getCacheQuote();
     actions.getCacheMonthly();
     actions.getCacheDaily();
-  },[]);
-  // init app
-  useEffect(()=> {
-    if(fromDate) {
-      onRefresh(fromDate);
-    }
-  },[fromDate]);
+  }, []);
 
   useAtroWebSocket(() => {
     onRefresh(fromDate);

@@ -1,6 +1,6 @@
 import { ASTROME_DAILY, ASTROME_DOMINANT, ASTROME_MANIFEST, ASTROME_QUOTE, UPDATE_LOCATION_INFO } from "@/core/apollo/mutations";
-import { ACCOUNT, CHATS } from "@/core/apollo/queries";
-import { useAccountStore, useChatStore } from "@/core/stores";
+import { ACCOUNT, CHATS, GET_SUBJECT } from "@/core/apollo/queries";
+import { useAccountStore, useChatStore, usePlanetStore, useSubjectStore } from "@/core/stores";
 import { useMutation, useQuery } from "@apollo/client";
 import { useCallback, useEffect } from "react";
 
@@ -26,6 +26,25 @@ export default function useSync() {
     error: errorAccount,
     refetch: refretchAccount,
   } = useQuery(ACCOUNT);
+
+  const { data: dataSubject,
+    loading: loadingSubject,
+    error: errorSubject,
+    refetch: refreshSubject } = useQuery(GET_SUBJECT, {
+      onCompleted: (result) => {
+        try {
+          if (result?.get_subject) {
+            actionSubject.setSubject(result.get_subject);
+            result?.get_subject?.planets && actionsPlanet.setPlanets(result.get_subject.planets);
+          }
+        } catch (e) {
+          console.warn('onCompleted GET_SUBJECT error', e);
+        }
+      },
+    });
+
+  const { actions: actionSubject } = useSubjectStore(state => state);
+  const actionsPlanet = usePlanetStore(state => state.actions);
   // const { data: dataManifest, loading: loadingManifest, error: errorManifest, refetch } = useQuery(ASTROME_MANIFEST);
   const actionChat = useChatStore(state => state.actions);
   const actionAccount = useAccountStore(state => state.actions);
@@ -33,6 +52,13 @@ export default function useSync() {
     UpdateLocationInfo,
     { data: dataLocation, loading: loadingLocation, error: errorLocation },
   ] = useMutation(UPDATE_LOCATION_INFO);
+
+  useEffect(() => {
+    if (dataSubject) {
+      actionSubject.setSubject(dataSubject.get_subject);
+      dataSubject?.get_subject?.planets && actionsPlanet.setPlanets(dataSubject.get_subject.planets); // update planets
+    }
+  }, [dataSubject]);
 
   useEffect(() => {
     if (dataAccount?.account) {
@@ -61,6 +87,7 @@ export default function useSync() {
     AstroQuote({ variables: { from_date: fromDate } });
     AstroMeDominant({ variables: {} });
     refetchChat();
+    refreshSubject();
   }
 
   const getAstroDaily = (fromDate: string) => {

@@ -151,8 +151,10 @@ export default function YouScreen() {
         </PopupBottomSheet>
         <PopupBottomSheet ref={popupBottomSheetAiLangRef}>
             <ChooseValue data={languages} onSelected={(value) => {
-                actions.setAccount({ ...user, ai_language: value });
                 UpdateAILanguage({ variables: { ai_language: value } });
+                setTimeout(() => {
+                    actions.setAccount({ ...user, ai_language: value });
+                }, 200);
                 popupBottomSheetAiLangRef.current?.hide();
             }} text={user?.ai_language || languages[0].value} title={strings.t("contentLang")} />
         </PopupBottomSheet>

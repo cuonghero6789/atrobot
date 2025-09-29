@@ -8,9 +8,6 @@ import { Href, useRouter } from "expo-router";
 import { memo, useEffect, useState } from "react";
 import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { LineChart } from 'react-native-gifted-charts';
-import { GET_SUBJECT } from "@/core/apollo/queries";
-import { useMutation, useQuery } from "@apollo/client";
 import { useDailyStore, usePlanetStore, useSubjectStore, useYouStore } from "@/core/stores";
 import { ASTROME_MANIFEST } from "@/core";
 import strings from '@/core/localization';
@@ -21,8 +18,6 @@ import LoadingLuna from "@/components/loading/LoadingLuna";
 function PersonalScreen() {
     const router = useRouter();
     const insets = useSafeAreaInsets();
-    const { data: dataSubject, loading, error, refetch } = useQuery(GET_SUBJECT);
-    const actions = usePlanetStore(state => state.actions);
     const { actions: actionSubject, subject } = useSubjectStore(state => state);
     const { dominant, actions: actionYou } = useYouStore(state => state);
     const weekly = useDailyStore(state => state.weekly?.weekly);
@@ -39,22 +34,9 @@ function PersonalScreen() {
         } as unknown as Href);
     };
 
-    // const [
-    //     AstroManifest,
-    //     { data: dataManifest, loading: loadingManifest, error: errorManifest },
-    // ] = useMutation(ASTROME_MANIFEST);
-
     useEffect(() => {
         actionYou.getCacheDominant();
     }, [actionYou]);
-
-    useEffect(() => {
-        if (dataSubject) {
-            console.log('dataManifest', JSON.stringify(dataSubject));
-            actionSubject.setSubject(dataSubject.get_subject);
-            dataSubject?.get_subject?.planets && actions.setPlanets(dataSubject.get_subject.planets); // update planets
-        }
-    }, [dataSubject]);
 
     return <ImageBackground source={require('@/assets/images/bg_home.png')} style={{ flex: 1, paddingTop: insets.top }}>
         <BackButton onPress={() => router.back()} title={strings.t('personal')} subTitle={strings.t('introHome')} />

@@ -63,6 +63,7 @@ export default function UpdateInfoScreen() {
     const [gender, setGender] = useState<string>(user?.gender || "");
     const [relationships, setRelationships] = useState<string>(user?.relationships || "");
     const [avatar, setAvatar] = useState<string>(user?.avatar || "");
+    const textGender = GENDERS.find(item => item.value === gender)?.label || "";
 
     const [
         UpdateAvatar,
@@ -175,7 +176,7 @@ export default function UpdateInfoScreen() {
                         <SelectTimeOfBirth birthday={user?.birthday} onSelectedTime={(time) => {
                             setTimeOfBirth(time);
                         }} />
-                        <InfoButton name={strings.t("gender")} placeholder={strings.t("gender")} text={gender || ""} onPress={() => {
+                        <InfoButton name={strings.t("gender")} placeholder={strings.t("gender")} text={textGender || ""} onPress={() => {
                             popupBottomSheetRef.current?.show();
                         }} />
                         <InfoButton name={strings.t("placeOfBirth")}
