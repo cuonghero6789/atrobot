@@ -22,6 +22,11 @@ import { router } from "expo-router";
 import { TAB_HEIGHT } from "./_layout";
 
 export default function StarMatesScreen() {
+    const GENDERS = [
+        { label: strings.t("male"), value: 'Male' },
+        { label: strings.t("female"), value: 'Female' },
+        { label: strings.t("other"), value: 'Other' },
+    ];
     const insets = useSafeAreaInsets();
     const userAccount = useAccountStore(state => state.user);
     const actionStarMates = useStarMatesStore(state => state.actions);
@@ -35,6 +40,8 @@ export default function StarMatesScreen() {
     const [selectGender, setSelectGender] = React.useState<string>("");
     const [selectRelationship, setSelectRelationship] = React.useState<string>("");
     const [submitAttempted, setSubmitAttempted] = React.useState(false);
+    const textGender = GENDERS.find(item => item.value === selectGender)?.label || "";
+
     const [AstroCustom, { data: dataCustom, loading: loadingCustom, error: errorCustom }] =
         useMutation(ASTRO_STAR_MATES);
     const listUserHistory = useStarMatesStore(state => state.listUserHistory) || [];
@@ -77,11 +84,11 @@ export default function StarMatesScreen() {
                     {submitAttempted && !selectBirthday && (
                         <Text style={styles.errorText}>{strings.t('required')}</Text>
                     )}
-                    <SelectTimeOfBirth onSelectedTime={(time) => { setSelectTimeOfBirth(time) }} />
+                    <SelectTimeOfBirth birthday={`${selectBirthday} ${selectTimeOfBirth}`} onSelectedTime={(time) => { setSelectTimeOfBirth(time) }} />
                     {submitAttempted && !selectTimeOfBirth && (
                         <Text style={styles.errorText}>{strings.t('required')}</Text>
                     )}
-                    <InfoButton name={strings.t("gender")+ "*"} placeholder={strings.t("gender")} text={selectGender} onPress={() => { popupBottomSheetRef.current?.show(); }} />
+                    <InfoButton name={strings.t("gender")+ "*"} placeholder={strings.t("gender")} text={textGender} onPress={() => { popupBottomSheetRef.current?.show(); }} />
                     {submitAttempted && !selectGender && (
                         <Text style={styles.errorText}>{strings.t('required')}</Text>
                     )}
@@ -131,7 +138,7 @@ export default function StarMatesScreen() {
                 {/* </View> */}
             </KeyboardAvoidingView>
             <PopupBottomSheet ref={popupBottomSheetRef}>
-                <ChooseValue data={genders} onSelected={(text) => { setSelectGender(text) }} text={selectGender} title="Gender*" />
+                <ChooseValue data={GENDERS} onSelected={(text) => { setSelectGender(text) }} text={selectGender} title={strings.t("gender") + "*"} />
             </PopupBottomSheet>
             <PopupBottomSheet ref={historySheetRef} snapPoints={["45%", "75%"]}>
                 <View style={{ paddingHorizontal: spacing.large, paddingTop: spacing.large }}>

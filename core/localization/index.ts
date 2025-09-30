@@ -111,7 +111,7 @@ let strings = new I18n({
     requestCamera:
       'Camera access is needed to take your profile photo. You can enable it in Settings.',
     linkFacebook: "Follow Us on Facebook",
-    starMates: 'View your astrological interpretation\nand that of the person you care about',
+    starMates: 'You & someone you care about',
     choosePersonToView: 'Choose the person you want to view',
     orViewForOthers: 'Or view for others',
     iAm: 'I am:',
@@ -201,7 +201,7 @@ let strings = new I18n({
     done: 'Xong rồi',
     orViewForOthers: 'Hoặc xem cho người khác nữa!',
     choosePersonToView: 'Chọn người bạn muốn xem',
-    starMates: 'Xem diễn giải chiêm tinh của bạn\nvà người bạn quan tâm',
+    starMates: 'Bạn & người bạn quan tâm',
     daily_heath: 'Sức khỏe',
     you: 'Cá Nhân',
     daily: 'Hàng ngày',
