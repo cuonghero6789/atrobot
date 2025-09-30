@@ -15,6 +15,7 @@ import { View } from 'react-native';
 import { setConfig } from '@/core';
 import NetworkIndicator from '@/components/NetworkIndicator';
 import ConfigUtil from '@/core/utils/config/ConfigUtil';
+import { ensureDeviceIdInitialized } from '@/core/utils/device/DeviceInfoUtil';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -44,6 +45,7 @@ export default function RootLayout() {
         SUPPORT: 'https://astrolive.bot/support.html',
       },
     });
+    ensureDeviceIdInitialized().catch(() => {});
     actions.getCacheAuthUser();
     actionsAcocunt.getAccount();
   }, []);

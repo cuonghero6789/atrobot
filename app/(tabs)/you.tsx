@@ -1,4 +1,4 @@
-import { UPDATE_AI_LANGUAGE, UPDATE_APP_LANGUAGE } from "@/core/apollo/mutations";
+import { LOGOUT, UPDATE_AI_LANGUAGE, UPDATE_APP_LANGUAGE } from "@/core/apollo/mutations";
 import ChooseValue from "@/components/auth/ChooseValue";
 import DropDownButton from "@/components/DropDownButton";
 import PopupBottomSheet, { CanShowBottomSheet } from "@/components/PopupBottomSheet";
@@ -19,6 +19,7 @@ import { TAB_HEIGHT } from "./_layout";
 
 export default function YouScreen() {
     const insent = useSafeAreaInsets();
+    const [Logout, { data: dataLogout, loading: loadingLogout, error: errorLogout }] = useMutation(LOGOUT);
     const popupBottomSheetLangRef = React.useRef<CanShowBottomSheet>(null);
     const popupBottomSheetAiLangRef = React.useRef<CanShowBottomSheet>(null);
     const linkFb = "https://www.facebook.com/profile.php?id=61567195358592";
@@ -117,7 +118,13 @@ export default function YouScreen() {
                                 strings.t("logout"),
                                 [
                                     { text: strings.t("cancel"), style: 'cancel' },
-                                    { text: strings.t("agree"), onPress: async () => { actionAuth.onLogout(); } },
+                                    {
+                                        text: strings.t("agree"), onPress: async () => {
+                                            const device_id = global.device_id;
+                                            Logout({ variables: { device_id } });
+                                            actionAuth.onLogout();
+                                        }
+                                    },
                                 ],
                                 { cancelable: true },
                             );
@@ -133,7 +140,13 @@ export default function YouScreen() {
                                 strings.t("txtConfirmDeleteAccount"),
                                 [
                                     { text: strings.t("cancel"), style: 'cancel' },
-                                    { text: strings.t("agree"), onPress: async () => { actionAuth.onLogout(); } },
+                                    {
+                                        text: strings.t("agree"), onPress: async () => {
+                                            const device_id = global.device_id;
+                                            Logout({ variables: { device_id } });
+                                            actionAuth.onLogout();
+                                        }
+                                    },
                                 ],
                                 { cancelable: true },
                             );
