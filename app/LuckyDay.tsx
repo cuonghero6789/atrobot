@@ -8,7 +8,7 @@ import { colors, spacing, textStyle } from '@/core/styles';
 import strings from '@/core/localization';
 import { router } from 'expo-router';
 import { BackButton } from '@/components/Button';
-import { useLuckyDayStore } from '@/core/stores';
+import { useAccountStore, useLuckyDayStore } from '@/core/stores';
 import { ASTRO_STAR_MATES } from '@/core/apollo/mutations/atro';
 import { useMutation } from '@apollo/client';
 import LoadingLuna from '@/components/loading/LoadingLuna';
@@ -21,6 +21,7 @@ export default function LuckyDayScreen() {
   const [AstroCustom, { data: dataCustom, loading: loadingCustom, error: errorCustom }] =
     useMutation(ASTRO_STAR_MATES);
   const { week, month, isLoading, actions } = useLuckyDayStore(state => state);
+  const user = useAccountStore(state => state.user);
 
   const parseDate = useCallback((dateStr: string) => {
     const [yyyy, mm, dd] = (dateStr || '').split('-').map(Number);
@@ -95,7 +96,7 @@ export default function LuckyDayScreen() {
       <BackButton onPress={() => router.back()} />
       <ScrollView contentContainerStyle={{ paddingBottom: spacing.large }}>
         <View style={styles.header}>
-          <Text style={[textStyle.text, styles.greeting]}>{strings.t('hello') + " Phan Cường"}</Text>
+          <Text style={[textStyle.text, styles.greeting]}>{strings.t('hello') + " " + (user?.display_name || "")}</Text>
           <Text style={[textStyle.textBold, styles.title]}>{strings.t('luckyDayTitle') || 'Lucky Day'}</Text>
         </View>
 

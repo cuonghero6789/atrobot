@@ -14,6 +14,8 @@ import AtroHtml from '@/components/AtroHtml';
 import { SkeletonLoaderEvent } from '@/components/loading/LoadingView';
 import strings from '@/core/localization';
 import { useAtroWebSocket } from '@/core/socket';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Onboarding from '@/components/Onboarding';
 import { TAB_HEIGHT } from './_layout';
 const { width, height } = Dimensions.get('window');
 export default function DailyScreen() {
@@ -22,6 +24,7 @@ export default function DailyScreen() {
   const weekly = useDailyStore(state => state.weekly);
   const actions = useDailyStore(state => state.actions);
   const userAccount = useAccountStore(state => state.user);
+  const [showOnboarding, setShowOnboarding] = useState<boolean>(false);
 
   const { onRefresh, updateCurrentLocation } = useSync();
   const [fromDate, setFromDate] = useState<string>(
@@ -40,6 +43,33 @@ export default function DailyScreen() {
     actions.getCacheMonthly();
     actions.getCacheDaily();
   }, []);
+
+  useEffect(() => {
+    const checkOnboarding = async () => {
+      try {
+        const seen = await AsyncStorage.getItem('ONBOARDING_SEEN_V1');
+        if (!seen) setShowOnboarding(true);
+      } catch {}
+    };
+    checkOnboarding();
+  }, []);
+
+  const closeOnboarding = async () => {
+    try { await AsyncStorage.setItem('ONBOARDING_SEEN_V1', '1'); } catch {}
+    setShowOnboarding(false);
+  };
+
+  const goToChat = async () => {
+    try { await AsyncStorage.setItem('ONBOARDING_SEEN_V1', '1'); } catch {}
+    setShowOnboarding(false);
+    router.navigate({ pathname: '/chat' });
+  };
+
+  const goToManifest = async () => {
+    try { await AsyncStorage.setItem('ONBOARDING_SEEN_V1', '1'); } catch {}
+    setShowOnboarding(false);
+    router.navigate({ pathname: '/divine' });
+  };
 
   useAtroWebSocket(() => {
     onRefresh(fromDate);
@@ -107,6 +137,12 @@ export default function DailyScreen() {
         </View>
       </View>
     </View>
+    <Onboarding
+      visible={showOnboarding}
+      onClose={closeOnboarding}
+      onGoToChat={goToChat}
+      onGoToManifest={goToManifest}
+    />
   </ImageBackground>
 }
 

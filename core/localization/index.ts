@@ -179,7 +179,17 @@ let strings = new I18n({
     family: 'Family',
     marriage: 'Marriage',
     required: 'Required',
-    fieldRequired: '{field} is required'
+    fieldRequired: '{field} is required',
+    // Onboarding
+    onboarding_chat_title: 'AI Astrologer Chat',
+    onboarding_chat_subtitle: 'Contextual Q&A, not just static horoscopes',
+    onboarding_manifest_title: 'Manifest Days',
+    onboarding_manifest_subtitle: 'Turn transits into step-by-step action plans',
+    onboarding_timing_title: 'Category-based Lucky Day',
+    onboarding_timing_subtitle: 'Optimize timing for Love, Money, Career, Health',
+    onboarding_start_chat: 'Start Chat',
+    onboarding_explore_manifest: 'Explore Manifest',
+    onboarding_later: 'Later'
   },
   vi: {
     chooseBirthday: "Chọn ngày sinh",
@@ -357,7 +367,17 @@ let strings = new I18n({
     family: 'Gia đình',
     marriage: 'Vợ chồng',
     required: 'Bắt buộc',
-    fieldRequired: '{field} là bắt buộc'
+    fieldRequired: '{field} là bắt buộc',
+    // Onboarding
+    onboarding_chat_title: 'AI Astrologer Chat',
+    onboarding_chat_subtitle: 'Hỏi đáp theo ngữ cảnh, không chỉ là tử vi tĩnh',
+    onboarding_manifest_title: 'Manifest Days',
+    onboarding_manifest_subtitle: 'Biến transit thành kế hoạch hành động từng bước',
+    onboarding_timing_title: 'Lucky Day theo hạng mục',
+    onboarding_timing_subtitle: 'Tối ưu thời điểm cho Love, Money, Career, Health',
+    onboarding_start_chat: 'Bắt đầu Chat',
+    onboarding_explore_manifest: 'Khám phá Manifest',
+    onboarding_later: 'Để sau'
   },
 });
 strings.enableFallback = true;

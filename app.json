@@ -10,9 +10,6 @@
     "newArchEnabled": true,
     "jsEngine": "hermes",
     "ios": {
-      "entitlements": {
-        "com.apple.developer.networking.wifi-info": true
-      },
       "usesAppleSignIn": true,
       "runtimeVersion": "1.0.1",
       "supportsTablet": true,
