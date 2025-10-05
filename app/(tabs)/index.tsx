@@ -48,7 +48,8 @@ export default function DailyScreen() {
     const checkOnboarding = async () => {
       try {
         const seen = await AsyncStorage.getItem('ONBOARDING_SEEN_V1');
-        if (!seen) setShowOnboarding(true);
+        if (!seen) 
+          setShowOnboarding(true);
       } catch {}
     };
     checkOnboarding();

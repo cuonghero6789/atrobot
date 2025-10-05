@@ -155,7 +155,7 @@ let strings = new I18n({
     sampleQuestion: 'Will my upcoming plan go smoothly?',
     writeYourOwnQuestion: 'Or write your own question',
     recommendation: "Hello {name}, Do you have any plans coming up? Let the stars reveal what awaits you! 😉",
-    txtPlanetsAndSign: "The planets and zodiac signs",
+    txtPlanetsAndSign: "Planets and signs",
     noInternetConnection: "No Internet Connection",
     // Astrology Detail (demo) keys
     detail: 'Detail',
@@ -182,14 +182,19 @@ let strings = new I18n({
     fieldRequired: '{field} is required',
     // Onboarding
     onboarding_chat_title: 'AI Astrologer Chat',
-    onboarding_chat_subtitle: 'Contextual Q&A, not just static horoscopes',
+    onboarding_chat_subtitle: 'Ask natural questions and get context-aware guidance tailored to your chart and current transits',
     onboarding_manifest_title: 'Manifest Days',
-    onboarding_manifest_subtitle: 'Turn transits into step-by-step action plans',
+    onboarding_manifest_subtitle: 'Turn today’s transits into a focused checklist with reminders so you can act—not just read',
     onboarding_timing_title: 'Category-based Lucky Day',
-    onboarding_timing_subtitle: 'Optimize timing for Love, Money, Career, Health',
+    onboarding_timing_subtitle: 'See your best windows for Love, Money, Career, and Health with category-based Lucky Day timing',
     onboarding_start_chat: 'Start Chat',
     onboarding_explore_manifest: 'Explore Manifest',
-    onboarding_later: 'Later'
+    onboarding_later: 'Later',
+    onboarding_core_title: 'Core features',
+    onboarding_core_ai_chat: 'AI Chat: Contextual Q&A, personalized coaching',
+    onboarding_core_starmate: 'StarMate: Compatibility scores with actionable tips',
+    onboarding_core_manifest: 'Manifest: Step-by-step action plans from transits',
+    onboarding_core_lucky_day: 'Lucky Day: Timing by Love, Money, Career, Health'
   },
   vi: {
     chooseBirthday: "Chọn ngày sinh",
@@ -221,7 +226,7 @@ let strings = new I18n({
     introHome: 'Các chòm sao hé lộ điều gì?',
     elementDist: 'Phân bố Nguyên tố',
     quantityDist: 'Phân bố Tính chất',
-    planetSignDist: 'Hành tinh và cung hoàng đạo',
+    planetSignDist: 'Hành tinh và cung',
     Earth: 'Đất',
     Fire: 'Lửa',
     Water: 'Nước',
@@ -343,7 +348,7 @@ let strings = new I18n({
     minutes: "Phút",
     loadingAnswer: "Đang tải câu trả lời...",
     recommendation: "Chào {name}, Bạn có dự định gì sắp tới không? Hãy để các vì sao tiết lộ điều gì đang chờ đón bạn! 😉",
-    txtPlanetsAndSign: "Các hành tinh và cung hoàng đạo",
+    txtPlanetsAndSign: "Các hành tinh và cung",
     noInternetConnection: "Không có kết nối mạng",
     // Astrology Detail (demo) keys
     detail: 'Chi tiết',
@@ -370,14 +375,19 @@ let strings = new I18n({
     fieldRequired: '{field} là bắt buộc',
     // Onboarding
     onboarding_chat_title: 'AI Astrologer Chat',
-    onboarding_chat_subtitle: 'Hỏi đáp theo ngữ cảnh, không chỉ là tử vi tĩnh',
+    onboarding_chat_subtitle: 'Hỏi tự nhiên và nhận hướng dẫn theo ngữ cảnh dựa trên bản đồ sao và các transit hiện tại',
     onboarding_manifest_title: 'Manifest Days',
-    onboarding_manifest_subtitle: 'Biến transit thành kế hoạch hành động từng bước',
+    onboarding_manifest_subtitle: 'Biến các transit hôm nay thành checklist tập trung kèm nhắc nhở để bạn hành động—không chỉ đọc',
     onboarding_timing_title: 'Lucky Day theo hạng mục',
-    onboarding_timing_subtitle: 'Tối ưu thời điểm cho Love, Money, Career, Health',
+    onboarding_timing_subtitle: 'Xem thời điểm tốt nhất cho Tình yêu, Tiền bạc, Sự nghiệp, Sức khỏe với Lucky Day theo hạng mục',
     onboarding_start_chat: 'Bắt đầu Chat',
     onboarding_explore_manifest: 'Khám phá Manifest',
-    onboarding_later: 'Để sau'
+    onboarding_later: 'Để sau',
+    onboarding_core_title: 'Tính năng cốt lõi',
+    onboarding_core_ai_chat: 'AI Chat: Hỏi đáp theo ngữ cảnh, huấn luyện cá nhân hóa',
+    onboarding_core_starmate: 'StarMate: Điểm tương hợp kèm gợi ý hành động',
+    onboarding_core_manifest: 'Manifest: Kế hoạch hành động từng bước từ transit',
+    onboarding_core_lucky_day: 'Lucky Day: Thời điểm theo hạng mục Love, Money, Career, Health'
   },
 });
 strings.enableFallback = true;

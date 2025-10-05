@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 8,
     position: 'absolute',
-    top: height / 2 + 32,
+    top: height / 2 + 62,
     marginTop: spacing.large,
   },
   dot: {
