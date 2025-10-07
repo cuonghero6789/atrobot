@@ -7,4 +7,5 @@
   <string name="fb_login_protocol_scheme">fb2199634063722889</string>
   <string name="expo_splash_screen_resize_mode" translatable="false">contain</string>
   <string name="expo_splash_screen_status_bar_translucent" translatable="false">false</string>
+  <string name="admob_app_id" translatable="false">ca-app-pub-8326859693302166~3956894287</string>
 </resources>

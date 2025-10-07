@@ -55,11 +55,64 @@
               "client_type": 3
             },
             {
-              "client_id": "970774422293-afcordi2tc2to3rfs41g0q556nnu3d9e.apps.googleusercontent.com",
+              "client_id": "970774422293-6j281hum16i8lotep39ghds2fvf99pm1.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "vn.unikon.astrobot",
-                "app_store_id": "6587577804"
+                "bundle_id": "com.gbv.astrobot",
+                "app_store_id": "6752971092"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970774422293:android:4cfb9945a9737d9183bf1c",
+        "android_client_info": {
+          "package_name": "com.gbv.astrobot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "970774422293-clf09kr6sef1qs2rfcq6hshauanjmpan.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gbv.astrobot",
+            "certificate_hash": "d36d2966a0e178cf0ae4fe91afc0a1a428cf9db4"
+          }
+        },
+        {
+          "client_id": "970774422293-sfb1kk3df60v5h37tlolo3ifj3n5q1ic.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gbv.astrobot",
+            "certificate_hash": "ccc8fd277b24c9e1cccfe1bac0142b83c3eaf4d1"
+          }
+        },
+        {
+          "client_id": "970774422293-u230dd9ec24vij3927k5gniv9182glp5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCW6dt978o2TObIoTUGHnFd4oaT8pc7P6U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "970774422293-u230dd9ec24vij3927k5gniv9182glp5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "970774422293-6j281hum16i8lotep39ghds2fvf99pm1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.gbv.astrobot",
+                "app_store_id": "6752971092"
               }
             }
           ]
@@ -92,11 +145,11 @@
               "client_type": 3
             },
             {
-              "client_id": "970774422293-afcordi2tc2to3rfs41g0q556nnu3d9e.apps.googleusercontent.com",
+              "client_id": "970774422293-6j281hum16i8lotep39ghds2fvf99pm1.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "vn.unikon.astrobot",
-                "app_store_id": "6587577804"
+                "bundle_id": "com.gbv.astrobot",
+                "app_store_id": "6752971092"
               }
             }
           ]

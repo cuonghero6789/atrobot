@@ -149,7 +149,9 @@
             "./assets/fonts/Montserrat-Bold.ttf"
           ]
         }
-      ]
+      ],
+      "react-native-google-mobile-ads",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true
