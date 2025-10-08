@@ -14,6 +14,7 @@ import strings from '@/core/localization';
 import ElementDistribution from "@/components/personal/ElementDistribution";
 import QualityDistribution from "@/components/personal/QualityDistribution";
 import LoadingLuna from "@/components/loading/LoadingLuna";
+import { BannerAdmob, BANNER_HEIGHT, NativeAdmob } from "@/components/ads/CustomAdmob";
 
 function PersonalScreen() {
     const router = useRouter();
@@ -43,7 +44,7 @@ function PersonalScreen() {
         {
             subject?.element_distributions?.length ?
                 <LinearGradient colors={['#DDE8F4BF', '#5E99E6BF']} style={styles.profile}>
-                    <ScrollView contentContainerStyle={{ paddingHorizontal: spacing.large, paddingBottom: spacing.big }}>
+                    <ScrollView contentContainerStyle={{ paddingHorizontal: spacing.large, paddingBottom: spacing.big + BANNER_HEIGHT }}>
                         <View style={{
                             flexDirection: 'row',
                             justifyContent: 'space-between',
@@ -68,6 +69,7 @@ function PersonalScreen() {
                                 });
                             }} />
                         </View>
+                        <NativeAdmob />
                         <Text style={[textStyle.textBold, { textAlign: 'center' }]}>{strings.t('yourPersonality')}</Text>
                         {
                             dominant?.personality &&
@@ -92,71 +94,11 @@ function PersonalScreen() {
                             subject?.quality_distributions?.length &&
                             <QualityDistribution />
                         }
-                        {/* <View style={styles.chartContainer}>
-                        <RadarChart
-                            data={radarData}
-                            gridConfig={{
-                                gradientColor: '#4C80B09C',
-                            }}
-                            polygonConfig={{
-                                gradientColor: '#79B1D6',
-                                stroke: '#92CDAB',
-                                strokeWidth: 1
-                            }}
-                            hideLabels={true}
-                            labelConfig={{
-                                fontSize: 12,
-                                fontWeight: 'bold',
-                                fontFamily: 'Montserrat-Bold',
-                            }}
-                        />
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <View>
-                                <Text style={textStyle.text}>{"Khép kín-Hướng nội:"}</Text>
-                                <Text style={textStyle.text}>{"Hoạt động nhóm:"}</Text>
-                                <Text style={textStyle.text}>{"Độc lập - phi nguyên tắc:"}</Text>
-                                <Text style={textStyle.text}>{"Khó thay đổi:"}</Text>
-                                <Text style={textStyle.text}>{"Hay thay đổi - chần chừ:"}</Text>
-                                <Text style={textStyle.text}>{"Mạo hiểm:"}</Text>
-                            </View>
-                            <View style={{ paddingLeft: 16 }}>
-                                <Text style={[textStyle.textBold, { color: colors.black }]}>{"30.5/100"}</Text>
-                                <Text style={[textStyle.textBold, { color: colors.black }]}>{"6.5/100"}</Text>
-                                <Text style={[textStyle.textBold, { color: colors.black }]}>{"16.5/100"}</Text>
-                                <Text style={[textStyle.textBold, { color: colors.black }]}>{"8.5/100"}</Text>
-                                <Text style={[textStyle.textBold, { color: colors.black }]}>{"7.5/100"}</Text>
-                                <Text style={[textStyle.textBold, { color: colors.black }]}>{"15/100"}</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.chartContainer}>
-                        <Text style={[textStyle.textBold, { marginBottom: 16 }]}>{"Dự đoán xu hướng tài chính"}</Text>
-                        <LineChart
-                            data={lineData}
-                            height={200}
-                            width={width - 64}
-                            spacing={50}
-                            rulesLength={5}
-                            rulesColor="black"
-                            rulesType="dashed"
-                            xAxisType="dashed"
-                            color="#3589E9"
-                            thickness={6}
-                            startFillColor="rgba(54, 137, 233, 0.2)"
-                            endFillColor="rgba(54, 137, 233, 0.0)"
-                            initialSpacing={0}
-                            endSpacing={0}
-                            noOfSections={4}
-                            yAxisTextStyle={{ color: 'white' }}
-                            hideDataPoints
-                            curved
-                        />
-                    </View> */}
                     </ScrollView>
                 </LinearGradient>
                 : <LoadingLuna />
         }
-
+        <BannerAdmob style={{ bottom: 0 }} />
     </ImageBackground>
 }
 

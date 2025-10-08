@@ -8,6 +8,7 @@ import { CardItem, CardView } from "@/components/Card";
 import { spacing } from "@/core/styles";
 import DetailInnerShadowBox from "@/components/DetailInnerShadowBox";
 import { useQuestionStore, useAccountStore } from "@/core/stores";
+import { BANNER_HEIGHT, BannerAdmob, NativeAdmob } from "@/components/ads/CustomAdmob";
 
 function AnswerScreen() {
     const router = useRouter();
@@ -19,8 +20,9 @@ function AnswerScreen() {
 
     return <ImageBackground source={require('@/assets/images/bg_home.png')} style={{ flex: 1, paddingTop: insets.top }}>
         <BackButton onPress={() => router.back()} />
-            <ScrollView contentContainerStyle={{ paddingHorizontal: spacing.md, paddingBottom: spacing.big }}>
+            <ScrollView contentContainerStyle={{ paddingHorizontal: spacing.md, paddingBottom: spacing.big + BANNER_HEIGHT }}>
             <CardView name={userAccount?.display_name} contanerStyle={{ paddingBottom: spacing.extraLarge, marginHorizontal: spacing.ssm }} />
+            <NativeAdmob />
             <DetailInnerShadowBox
                 answer={answer}
                 loadingAnswer={loadingAnswer}
@@ -28,6 +30,7 @@ function AnswerScreen() {
                 colorEnd="#357FE999"
                 iconSource={require('@/assets/images/ic_mode.png')} />
         </ScrollView>
+        <BannerAdmob style={{ bottom: 0 }} />
     </ImageBackground>
 }
 

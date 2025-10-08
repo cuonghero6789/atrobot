@@ -14,6 +14,7 @@ import { useQuestionStore } from "@/core/stores";
 import { TopicsEnum } from "@/core/data";
 import { useAccountStore } from "@/core/stores";
 import { TopicModel } from "@/core/types/atro";
+import { BANNER_HEIGHT, BannerAdmob } from "@/components/ads/CustomAdmob";
 
 function QuestionsScreen() {
     const router = useRouter();
@@ -64,7 +65,7 @@ function QuestionsScreen() {
         <KeyboardAvoidingView
             style={{ flex: 1 }}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-            <ScrollView contentContainerStyle={{ paddingHorizontal: spacing.large, paddingBottom: spacing.big }}>
+            <ScrollView contentContainerStyle={{ paddingHorizontal: spacing.large, paddingBottom: spacing.big + BANNER_HEIGHT }}>
                 <CardView name={userAccount?.display_name} contanerStyle={{ paddingBottom: spacing.extraLarge, marginHorizontal: spacing.large }} />
                 <ChooseTypeTopics onPress={async (item: TopicModel) => {
                     await actions.setTopic({ ...item, sourceSelect: item.source });
@@ -92,6 +93,7 @@ function QuestionsScreen() {
                     iconSource={require('@/assets/images/ic_mode.png')} />
             </ScrollView>
         </KeyboardAvoidingView>
+        <BannerAdmob style={{ bottom: 0 }} />
     </ImageBackground>
 }
 

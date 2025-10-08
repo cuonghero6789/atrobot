@@ -11,6 +11,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import ElementDistribution from '@/components/personal/ElementDistribution';
 import QualityDistribution from '@/components/personal/QualityDistribution';
+import { BANNER_HEIGHT, BannerAdmob } from '@/components/ads/CustomAdmob';
 
 export default function WeeklyDetailScreen() {
     const router = useRouter();
@@ -23,7 +24,7 @@ export default function WeeklyDetailScreen() {
     return <ImageBackground source={require('@/assets/images/bg_planet.png')} style={{ flex: 1, paddingTop: insets.top }}>
         <StatusBar style="light" backgroundColor="#000" />
         <BackButton onPress={() => router.back()} title={`${title} ${strings.t('ofYou')}`} />
-        <ScrollView contentContainerStyle={{ paddingHorizontal: spacing.large, paddingBottom: spacing.big }}>
+        <ScrollView contentContainerStyle={{ paddingHorizontal: spacing.large, paddingBottom: spacing.big + BANNER_HEIGHT }}>
             <CardView
                 contanerStyle={{
                     paddingVertical: spacing.extraLarge,
@@ -45,6 +46,7 @@ export default function WeeklyDetailScreen() {
                 <QualityDistribution />
             }
         </ScrollView>
+        <BannerAdmob style={{ bottom: 0 }} />
     </ImageBackground>
 }
 

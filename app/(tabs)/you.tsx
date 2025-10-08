@@ -16,6 +16,7 @@ import { Linking, ScrollView, Text, View, StyleSheet, Alert } from 'react-native
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
 import { TAB_HEIGHT } from "./_layout";
+import { BANNER_HEIGHT, BannerAdmob } from "@/components/ads/CustomAdmob";
 
 export default function YouScreen() {
     const insent = useSafeAreaInsets();
@@ -72,7 +73,7 @@ export default function YouScreen() {
         {/* <LinearGradient colors={['#E3ECF7BF', '#6AA3EEBF']} style={styles.container}> */}
         <LinearGradient colors={['#C7D0D8BF', '#254668BF']} style={[styles.container, { paddingTop: insent.top }]}>
 
-            <ScrollView style={styles.body} contentContainerStyle={{ paddingBottom: TAB_HEIGHT + 16 }}>
+            <ScrollView style={styles.body} contentContainerStyle={{ paddingBottom: TAB_HEIGHT + 16 + BANNER_HEIGHT}}>
                 {renderTitle()}
                 <View style={styles.sectionCard}>
                     <Item text={strings.t("profile")}
@@ -171,6 +172,7 @@ export default function YouScreen() {
                 popupBottomSheetAiLangRef.current?.hide();
             }} text={user?.ai_language || languages[0].value} title={strings.t("contentLang")} />
         </PopupBottomSheet>
+        <BannerAdmob />
     </ImageBackground>
 }
 

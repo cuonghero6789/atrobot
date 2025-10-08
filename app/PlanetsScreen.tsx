@@ -11,6 +11,7 @@ import { colors, textStyle } from '@/core/styles';
 import { useMutation, useQuery } from '@apollo/client';
 import strings from '@/core/localization';
 import { ASTROME } from '@/core/apollo/mutations';
+import { BannerAdmob, BANNER_HEIGHT } from '@/components/ads/CustomAdmob';
 
 
 export default function PlanetsScreen() {
@@ -49,7 +50,7 @@ export default function PlanetsScreen() {
                 numColumns={2}
                 contentContainerStyle={{
                     paddingHorizontal: spacing.ssm,
-                    paddingBottom: spacing.big,
+                    paddingBottom: spacing.big + BANNER_HEIGHT,
                     paddingTop: 12,
                 }}
                 columnWrapperStyle={{
@@ -59,6 +60,7 @@ export default function PlanetsScreen() {
                 showsVerticalScrollIndicator={false}
             />
         </View>
+        <BannerAdmob style={{ bottom: 0 }} />
     </ImageBackground>
 }
 

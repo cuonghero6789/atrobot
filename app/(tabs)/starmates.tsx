@@ -20,6 +20,7 @@ import { useMutation } from "@apollo/client";
 import { starmates } from "@/core/data/common";
 import { router } from "expo-router";
 import { TAB_HEIGHT } from "./_layout";
+import { BannerAdmob, BANNER_HEIGHT, NativeAdmob } from "@/components/ads/CustomAdmob";
 
 export default function StarMatesScreen() {
     const GENDERS = [
@@ -61,7 +62,7 @@ export default function StarMatesScreen() {
             <KeyboardAvoidingView
                 style={{ flex: 1 }}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-                <ScrollView contentContainerStyle={[{ paddingTop: spacing.bigx2, paddingBottom: TAB_HEIGHT + 16 }]}>
+                <ScrollView contentContainerStyle={[{ paddingTop: spacing.bigx2, paddingBottom: TAB_HEIGHT + 16 + BANNER_HEIGHT }]}>
                     <DropDownButton
                         title={strings.t("choosePersonToView")}
                         styleContainer={{ paddingHorizontal: spacing.large }}
@@ -71,6 +72,7 @@ export default function StarMatesScreen() {
                             actionStarMates.getListUserHistory();
                             historySheetRef.current?.show();
                         }} />
+                    <NativeAdmob />
                     <View style={{ paddingHorizontal: spacing.large, paddingTop: spacing.big }}>
                         <Text style={[textStyle.title, { color: colors.white }]}>{strings.t("orViewForOthers")}</Text>
                     </View>
@@ -197,6 +199,7 @@ export default function StarMatesScreen() {
                 </ScrollView>
             </PopupBottomSheet>
         </LinearGradient>
+        <BannerAdmob />
     </ImageBackground>
 }
 

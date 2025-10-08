@@ -12,6 +12,7 @@ import { useAccountStore, useLuckyDayStore } from '@/core/stores';
 import { ASTRO_STAR_MATES } from '@/core/apollo/mutations/atro';
 import { useMutation } from '@apollo/client';
 import LoadingLuna from '@/components/loading/LoadingLuna';
+import { BANNER_HEIGHT, BannerAdmob } from '@/components/ads/CustomAdmob';
 
 type Period = 'week' | 'month';
 
@@ -94,7 +95,7 @@ export default function LuckyDayScreen() {
   return (
     <ImageBackground source={require('@/assets/images/bg_home.png')} style={{ flex: 1, paddingTop: insets.top }}>
       <BackButton onPress={() => router.back()} />
-      <ScrollView contentContainerStyle={{ paddingBottom: spacing.large }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: spacing.large + BANNER_HEIGHT }}>
         <View style={styles.header}>
           <Text style={[textStyle.text, styles.greeting]}>{strings.t('hello') + " " + (user?.display_name || "")}</Text>
           <Text style={[textStyle.textBold, styles.title]}>{strings.t('luckyDayTitle') || 'Lucky Day'}</Text>
@@ -182,6 +183,7 @@ export default function LuckyDayScreen() {
           </View>
         </View>
       </ScrollView>
+      <BannerAdmob style={{ bottom: 0 }} />
     </ImageBackground>
   );
 }

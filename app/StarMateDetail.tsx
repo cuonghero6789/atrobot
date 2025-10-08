@@ -11,6 +11,7 @@ import LoadingLuna from '@/components/loading/LoadingLuna';
 import AtroHtml from '@/components/AtroHtml';
 import StarMateScore from '@/components/starmate/StarMateScore';
 import useStarMatesStore from '@/core/stores/atro/StarMatesStore';
+import { BannerAdmob } from '@/components/ads/CustomAdmob';
 const { width } = Dimensions.get('window');
 function convertMarkdownToHtml(md: string): string {
     if (!md) return '';
@@ -59,6 +60,7 @@ export default function StarMateDetailScreen() {
                     </ScrollView>
                 </LinearGradient>
             )}
+        <BannerAdmob style={{ bottom: 0 }} />
         </ImageBackground>
     );
 }
