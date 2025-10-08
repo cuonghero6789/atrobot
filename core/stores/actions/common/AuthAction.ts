@@ -86,6 +86,8 @@ export const getCacheAuthUser = (set: any, get: any) => async () => {
     if (value && authStatus) {
       const { user, token } = JSON.parse(value) || {};
       const { status = 1 } = JSON.parse(authStatus) || {};
+      console.log('status ==== ', status);
+      
       global.token = token;
       set(
         (state: IAuthState) => {

@@ -47,7 +47,7 @@ export function useWebSocketConnection(config: WebSocketConfig) {
       const anyErr: any = error as any;
       const target = anyErr?.target;
       console.error('WebSocket error detail:', {
-        message: anyErr?.message || String(anyErr),
+        message:JSON.stringify(anyErr) || String(anyErr),
         url: target?.url,
         readyState: target?.readyState,
         protocol: target?.protocol,

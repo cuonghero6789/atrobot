@@ -20,6 +20,7 @@ import strings from "@/core/localization";
 import { getConfig } from "@/core";
 import ChooseLanguage from "@/components/auth/ChooseLanguage";
 import { Button } from "@/components/Button";
+import LoadingLuna from "@/components/loading/LoadingLuna";
 
 export default function IndexScreen() {
     const router = useRouter();
@@ -30,6 +31,7 @@ export default function IndexScreen() {
     const userAccount = useAccountStore(state => state.user);
     const [onLogin, { data, loading, error }] = useMutation(LOGIN);
     const [isAppleAvailable, setIsAppleAvailable] = useState(false);
+    const loadingAuth = useAuthStore(state => state.loading);
 
     const {
         data: dataAccount,
@@ -168,10 +170,8 @@ export default function IndexScreen() {
                     <View style={{ paddingHorizontal: 48, flex: 1 }}>
                         <Button containerStyle={{ marginBottom: 16 }} title={strings.t("continueGoogle")} onPress={onGoogleLogin}
                             textStyle={{ color: colors.white, fontFamily: fontFamily.bold, fontWeight: fontWeight.bold }} />
-                        {isAppleAvailable && (
-                            <Button containerStyle={{ marginBottom: 16 }} title={strings.t("continueApple")} onPress={onAppleLogin}
-                                textStyle={{ color: colors.white, fontFamily: fontFamily.bold, fontWeight: fontWeight.bold }} />
-                        )}
+                        <Button containerStyle={{ marginBottom: 16 }} title={strings.t("continueFacebook")} onPress={onFacebookLogin}
+                            textStyle={{ color: colors.white, fontFamily: fontFamily.bold, fontWeight: fontWeight.bold }} />
                         {/* <CustomButton title={strings.t("continueApple")} onPress={onAppleLogin} /> */}
                     </View>
                     <View style={styles.footer}>

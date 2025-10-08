@@ -22,7 +22,7 @@ export default class FireBaseAuth {
         const nonceSha2562 = await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, nonce);
         // Attempt login with permissions and limited login
         const result = await LoginManager.logInWithPermissions(
-            ['public_profile', 'email'],
+            ['public_profile'],
             'limited',
             nonceSha2562,
         );

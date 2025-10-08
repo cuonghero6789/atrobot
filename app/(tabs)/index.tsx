@@ -17,6 +17,7 @@ import { useAtroWebSocket } from '@/core/socket';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Onboarding from '@/components/Onboarding';
 import { TAB_HEIGHT } from './_layout';
+import { BANNER_HEIGHT, BannerAdmob, NativeAdmob } from '@/components/ads/CustomAdmob';
 const { width, height } = Dimensions.get('window');
 export default function DailyScreen() {
   const insets = useSafeAreaInsets();
@@ -112,8 +113,8 @@ export default function DailyScreen() {
             })
           }} />
           <Image source={require('@/assets/images/bg_star.png')} style={{ width, height: width, position: 'absolute', marginTop: spacing.big }} />
-          <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: TAB_HEIGHT + 16 }}>
-            <View style={{ flexDirection: 'row', paddingBottom: spacing.extraLarge, paddingTop: spacing.bigx2 }}>
+          <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: TAB_HEIGHT + 16 + BANNER_HEIGHT }}>
+            <View style={{ flexDirection: 'row', paddingBottom: spacing.extraLarge }}>
               <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <HomeCalendar />
               </View>
@@ -121,6 +122,7 @@ export default function DailyScreen() {
                 {weekly?.events?.[0] ? <AtroHtml desc={weekly?.events?.[0] + "" || ""} /> : <SkeletonLoaderEvent />}
               </View>
             </View>
+            <NativeAdmob />
             <View style={{ backgroundColor: '#B2D1FDBF', flex: 1, flexDirection: 'row', padding: spacing.large }}>
               <View style={{ flex: 1 }}>
                 <Text style={[textStyle.subTitle1, { color: colors.success }]}>{strings.t("should")}</Text>
@@ -137,6 +139,7 @@ export default function DailyScreen() {
           </ScrollView>
         </View>
       </View>
+      <BannerAdmob />
     </View>
     <Onboarding
       visible={showOnboarding}
