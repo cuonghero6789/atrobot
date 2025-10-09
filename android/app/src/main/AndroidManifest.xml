@@ -46,7 +46,7 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="astrobot"/>
-        <data android:scheme="com.atrobot"/>
+        <data android:scheme="com.gbv.astrobot"/>
         <data android:scheme="exp+astrobot"/>
       </intent-filter>
     </activity>

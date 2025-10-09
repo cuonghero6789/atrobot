@@ -1,4 +1,4 @@
-package com.atrobot
+package com.gbv.astrobot
 import com.facebook.react.common.assets.ReactFontManager
 
 import android.app.Application
