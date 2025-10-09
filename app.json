@@ -39,9 +39,8 @@
         "android.permission.ACCESS_FINE_LOCATION",
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO",
-        "android.permission.READ_EXTERNAL_STORAGE",
-        "android.permission.WRITE_EXTERNAL_STORAGE",
-        "android.permission.ACCESS_MEDIA_LOCATION"
+        "android.permission.ACCESS_MEDIA_LOCATION",
+        "android.permission.READ_MEDIA_IMAGES"
       ],
       "hermes": true
     },
@@ -136,6 +135,14 @@
         {
           "photosPermission": "Allow $(PRODUCT_NAME) to access your photos to upload and display them in the app. Your content remains private.",
           "isAccessMediaLocationEnabled": true
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "$(PRODUCT_NAME) needs access to your camera to take photos.",
+          "photosPermission": "Allow $(PRODUCT_NAME) to access your photos to upload and display them in the app.",
+          "microphonePermission": "$(PRODUCT_NAME) needs access to your microphone when recording videos."
         }
       ],
       "expo-apple-authentication",

@@ -170,8 +170,8 @@ export default function IndexScreen() {
                     <View style={{ paddingHorizontal: 48, flex: 1 }}>
                         <Button containerStyle={{ marginBottom: 16 }} title={strings.t("continueGoogle")} onPress={onGoogleLogin}
                             textStyle={{ color: colors.white, fontFamily: fontFamily.bold, fontWeight: fontWeight.bold }} />
-                        <Button containerStyle={{ marginBottom: 16 }} title={strings.t("continueFacebook")} onPress={onFacebookLogin}
-                            textStyle={{ color: colors.white, fontFamily: fontFamily.bold, fontWeight: fontWeight.bold }} />
+                        {/* <Button containerStyle={{ marginBottom: 16 }} title={strings.t("continueFacebook")} onPress={onFacebookLogin}
+                            textStyle={{ color: colors.white, fontFamily: fontFamily.bold, fontWeight: fontWeight.bold }} /> */}
                         {/* <CustomButton title={strings.t("continueApple")} onPress={onAppleLogin} /> */}
                     </View>
                     <View style={styles.footer}>

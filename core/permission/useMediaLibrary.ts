@@ -1,7 +1,8 @@
-import { PermissionStatus, usePermissions } from 'expo-media-library';
+import * as ImagePicker from 'expo-image-picker';
+import { PermissionStatus } from 'expo-media-library';
 
 export function useMediaLibraryPermission() {
-    const [permission, requestPermission] = usePermissions();
+    const [permission, requestPermission] = ImagePicker.useMediaLibraryPermissions();
 
     const requestMediaLibraryPermission = async (): Promise<boolean> => {
         try {

@@ -18,6 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Onboarding from '@/components/Onboarding';
 import { TAB_HEIGHT } from './_layout';
 import { BANNER_HEIGHT, BannerAdmob, NativeAdmob } from '@/components/ads/CustomAdmob';
+import { StatusBar } from 'expo-status-bar';
 const { width, height } = Dimensions.get('window');
 export default function DailyScreen() {
   const insets = useSafeAreaInsets();
@@ -147,6 +148,7 @@ export default function DailyScreen() {
       onGoToChat={goToChat}
       onGoToManifest={goToManifest}
     />
+    <StatusBar style="dark" translucent backgroundColor="transparent" />
   </ImageBackground>
 }
 

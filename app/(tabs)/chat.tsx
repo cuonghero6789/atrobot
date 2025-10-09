@@ -28,6 +28,7 @@ import { ASTRO_BOT } from '@/core/apollo/mutations';
 import { MESSAGES } from '@/core/apollo/queries';
 import { ImageBackground } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
+import { StatusBar } from 'expo-status-bar';
 import { TAB_HEIGHT } from './_layout';
 
 function ChatScreen() {
@@ -119,7 +120,7 @@ function ChatScreen() {
       )}
       {messages != undefined && (
         <GiftedChat
-          bottomOffset={- (insets.bottom + 70)}
+          bottomOffset={-TAB_HEIGHT}
           messages={messages}
           isTyping={loadingChat}
           onSend={(messages: IChatMessage[]) => onSend(messages)}
@@ -147,7 +148,7 @@ function ChatScreen() {
           }}
         />
       )}
-      <View style={{ height:TAB_HEIGHT + 16, backgroundColor: 'transparent' }} />
+      <View style={{ height: TAB_HEIGHT + 16, backgroundColor: 'transparent' }} />
     </LinearGradient>
   </ImageBackground>
 }
