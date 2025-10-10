@@ -16,6 +16,7 @@ import { StyleSheet, View, Dimensions } from "react-native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import strings from "@/core/localization";
 import { useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 const { width, height } = Dimensions.get('window');
 const aspectRatio = 318 / 48;
 const WIDTH_LOGO = width - 72;
@@ -62,9 +63,9 @@ function UpdateLang() {
 
     return <LinearGradient
         colors={['#2D79E5', '#B2D1FD']}
-        style={[styles.body, { paddingTop: insets.top, paddingBottom: insets.bottom }]}
+        style={[styles.body]}
     >
-        <ImageBackground source={require('@/assets/images/ic_el.png')} style={styles.container}>
+        <ImageBackground source={require('@/assets/images/ic_el.png')} style={[styles.container, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
             <View style={{ flex: 1, paddingVertical: 36 }}>
                 <Image source={require('@/assets/images/ic_logo_banner.png')} style={{ width: WIDTH_LOGO, height: HEIGHT_LOGO, alignSelf: 'center' }} />
             </View>
@@ -91,6 +92,7 @@ function UpdateLang() {
                 }} text={selectedContentLang} title={strings.t('contentLang')} />
             </PopupBottomSheet>
         </ImageBackground>
+        <StatusBar style="dark" translucent backgroundColor="transparent" />
     </LinearGradient>
 }
 
