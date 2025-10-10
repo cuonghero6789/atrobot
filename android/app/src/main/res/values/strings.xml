@@ -1,11 +1,10 @@
 <resources>
   <string name="app_name">AstroBot</string>
-  <string name="expo_system_ui_user_interface_style" translatable="false">automatic</string>
   <string name="expo_runtime_version">1.0.1</string>
   <string name="facebook_app_id">1802586003796873</string>
-  <string name="facebook_client_token">feb31994587159ec6c74e91c09eb3ca9</string>
-  <string name="fb_login_protocol_scheme">f1802586003796873</string>
+  <string name="facebook_client_token">9f40b7b535cfc0cec350f9e358299bd7</string>
+  <string name="fb_login_protocol_scheme">fb1802586003796873</string>
+  <string name="expo_system_ui_user_interface_style" translatable="false">automatic</string>
   <string name="expo_splash_screen_resize_mode" translatable="false">contain</string>
   <string name="expo_splash_screen_status_bar_translucent" translatable="false">false</string>
-  <string name="admob_app_id" translatable="false">ca-app-pub-8326859693302166~3956894287</string>
 </resources>
