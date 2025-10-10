@@ -27,7 +27,7 @@ export default function TabLayout() {
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarIconStyle: {
-          marginTop: 23
+          marginTop: 16
         },
         tabBarLabelStyle: {
           fontSize: 11,

@@ -1,5 +1,5 @@
 import { colors, fontWeight } from "@/core/styles";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Dimensions, ImageBackground } from "react-native";
 import { Image } from "expo-image";
 import strings from '@/core/localization';
 const width = Dimensions.get('window').width;
@@ -12,7 +12,7 @@ const LoadingLuna = ({ style }: Props) => {
     return (
         <View style={[styles.container, style?.container]}>
             <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-                <Image
+                <ImageBackground
                     source={require('../../assets/images/ic_loading.gif')}
                     style={{
                         width: SIZE_ITEM_LARGE,
@@ -24,7 +24,7 @@ const LoadingLuna = ({ style }: Props) => {
                         source={require('../../assets/images/ic_loading_new.png')}
                         style={{ width: SIZE_ITEM, height: SIZE_ITEM }}
                     />
-                </Image>
+                </ImageBackground>
                 <Text style={styles.text}>{strings.t('loading')}</Text>
             </View>
         </View>

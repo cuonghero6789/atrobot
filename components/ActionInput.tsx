@@ -19,7 +19,7 @@ const ActionInput = ({ placeholder, name, onPress }: Props) => {
             >
                 <View style={{ flex: 1, ...(!isFocused && { alignItems: 'center' }) }}>
                     <TextInput
-                        style={[isFocused && styles.inputFocus, { alignItems: 'center', color: colors.white, paddingVertical: 4 }]}
+                        style={[isFocused && styles.inputFocus, { alignItems: 'center', color: colors.white, paddingVertical: 4, minHeight: 36 }]}
                         placeholder={placeholder}
                         value={text}
                         placeholderTextColor={colors.white}
