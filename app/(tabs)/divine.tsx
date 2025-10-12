@@ -48,7 +48,7 @@ export default function DivineScreen() {
         </View>
         <View style={styles.profile}>
             <ScrollView contentContainerStyle={{ paddingBottom: TAB_HEIGHT + 16 + BANNER_HEIGHT }}>
-                <View style={{ paddingHorizontal: spacing.big, paddingTop: spacing.bigx2}}>
+                <View style={{ paddingHorizontal: spacing.big, paddingTop: spacing.bigx2 }}>
                     <Text style={[textStyle.subTitle2, { color: colors.white, textAlign: 'center' }]}>{quote}</Text>
                 </View>
                 {/* <ManifestDays /> */}
@@ -58,17 +58,22 @@ export default function DivineScreen() {
                 />
                 <CustomCarousel daily={selectedPeriod === 'week' ? weekly?.weekly || [] : monthly?.monthly || []} scores={scores} />
                 <View style={{ height: spacing.large }} />
-                <HomeButtonBackground text={strings.t("futureOfYou")} subText={strings.t("futureOfYouMessage")} onPress={() => {
-                    router.push({
-                        pathname: "/questions",
-                    });
-                }} />
+                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                    <HomeButtonBackground text={strings.t("futureOfYou")} subText={strings.t("futureOfYouMessage")} onPress={() => {
+                        router.push({
+                            pathname: "/questions",
+                        });
+                    }} />
+                </View>
+
                 <View style={{ height: spacing.large }} />
-                <HomeButtonBackground text={strings.t("luckyDay")} subText={strings.t("luckyDayMessage")} onPress={() => {
-                    router.push({
-                        pathname: "/LuckyDay"
-                    })
-                }} />
+                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                    <HomeButtonBackground text={strings.t("luckyDay")} subText={strings.t("luckyDayMessage")} onPress={() => {
+                        router.push({
+                            pathname: "/LuckyDay"
+                        })
+                    }} />
+                </View>
             </ScrollView>
             <BannerAdmob />
         </View>

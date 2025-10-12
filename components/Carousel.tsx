@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Dimensions, StyleSheet } from 'react-native';
+import { View, Dimensions, StyleSheet, useWindowDimensions, Platform } from 'react-native';
 import Carousel, { ICarouselInstance, Pagination } from 'react-native-reanimated-carousel';
 import { colors, spacing } from '@/core/styles';
 import { useSharedValue } from 'react-native-reanimated';
@@ -9,17 +9,7 @@ import { SkeletonLoader } from './loading/LoadingView';
 
 const { width } = Dimensions.get('window');
 
-const data = [
-    { key: '1', text: 'Slide 1' },
-    { key: '2', text: 'Slide 2' },
-    { key: '3', text: 'Slide 3' },
-    { key: '4', text: 'Slide 3' },
-    { key: '5', text: 'Slide 3' },
-    { key: '6', text: 'Slide 3' },
-];
-
 export const CAROUSEL_HEIGHT = 191;
-export const CAROUSEL_WIDTH = width - 32;
 
 interface Props {
     daily: DailyModel[];
@@ -29,9 +19,12 @@ interface Props {
 const CustomCarousel = ({ daily, scores }: Props) => {
 
     const progress = useSharedValue<number>(0);
+    const { width: screenWidth } = useWindowDimensions();
+    // Responsive width: keep margins on small screens, cap max width for large web screens
+    const carouselWidth = Math.min(screenWidth - spacing.large * 2, 1024);
     const baseOptions = {
         vertical: false,
-        width: CAROUSEL_WIDTH,
+        width: carouselWidth,
         height: CAROUSEL_HEIGHT,
     } as const;
     const ref = React.useRef<ICarouselInstance>(null);
@@ -49,7 +42,15 @@ const CustomCarousel = ({ daily, scores }: Props) => {
     if (!daily || daily?.length <= 0) return <SkeletonLoader />;
 
     return (
-        <View style={styles.container}>
+        <View style={[
+            styles.container,
+            {
+                width: carouselWidth,
+                height: CAROUSEL_HEIGHT,
+                marginLeft: Platform.OS === 'web' ? 0 : 0,
+                alignSelf: 'center',
+            }
+        ]}>
             <Carousel
                 ref={ref}
                 {...baseOptions}
@@ -74,12 +75,9 @@ const CustomCarousel = ({ daily, scores }: Props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginLeft: spacing.large,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 20,
-        width: CAROUSEL_WIDTH,
-        height: CAROUSEL_HEIGHT,
         borderWidth: 2,
         borderColor: colors.white,
         shadowColor: "#000",

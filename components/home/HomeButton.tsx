@@ -1,7 +1,7 @@
 import { colors, spacing, textStyle } from "@/core/styles";
 import { ImageBackground } from "expo-image";
 import { useEffect, useRef } from "react";
-import { TouchableOpacity, StyleSheet, Text, View, Dimensions, Animated, Easing } from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View, Dimensions, Animated, Easing, useWindowDimensions, Platform } from "react-native";
 const { width, height } = Dimensions.get('window');
 const WIDTH = width;
 const HEIGHT = WIDTH * 72 / 390;
@@ -50,7 +50,10 @@ function HomeButton({ onPress, text }: Props) {
     </View>
 }
 function HomeButtonBackground({ onPress, text, subText }: Props) {
-    return <ImageBackground source={require('@/assets/images/bg_btn.png')} style={{ width: WIDTH, height: HEIGHT }}>
+    const { width: screenWidth } = useWindowDimensions();
+    const autoWidth = Platform.OS === 'web' ? Math.min(screenWidth - spacing.large * 2, 1084) : WIDTH;
+    const autoHeight = Platform.OS === 'web' ? (autoWidth * 72 / 390) : HEIGHT;
+    return <ImageBackground source={require('@/assets/images/bg_btn.png')} style={{ width: autoWidth, height: autoHeight }}>
         <TouchableOpacity onPress={onPress} style={styles.btn}>
             <Text style={[textStyle.textBold, styles.textGreen]}>{text}<Text style={[textStyle.text, styles.textGreen]}>{` ${subText}`}</Text></Text>
         </TouchableOpacity>

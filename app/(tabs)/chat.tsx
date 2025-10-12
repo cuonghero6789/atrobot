@@ -148,7 +148,7 @@ function ChatScreen() {
           }}
         />
       )}
-      <View style={{ height: TAB_HEIGHT + 16, backgroundColor: 'transparent' }} />
+      <View style={{ height: Platform.OS === 'web' ? 86 : TAB_HEIGHT + 16, backgroundColor: 'transparent' }} />
     </LinearGradient>
   </ImageBackground>
 }

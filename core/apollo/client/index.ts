@@ -17,7 +17,7 @@ import {
       headers: {
         ...headers,
         'Apollo-Require-Preflight': 'true',
-        authorization: token ? `Bearer ${token}` : null,
+        authorization: token ? `Bearer ${token}` : '',
       },
     };
   });

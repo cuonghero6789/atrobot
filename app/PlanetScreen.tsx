@@ -79,10 +79,10 @@ export default function PlanetScreen() {
 const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
-        shadowColor: "#000",
-        shadowOffset: { width: 5, height: 5 },
-        shadowOpacity: 0.4, // Similar to #00000052
-        shadowRadius: 4,
+        // shadowColor: "#000",
+        // shadowOffset: { width: 5, height: 5 },
+        // shadowOpacity: 0.4, // Similar to #00000052
+        // shadowRadius: 4,
         marginBottom: 16
     },
     container: {

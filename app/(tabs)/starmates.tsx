@@ -239,13 +239,13 @@ const styles = StyleSheet.create({
         color: colors.white
     },
     btnConfirm: {
-        opacity: 1,
-        shadowColor: "#000",
-        shadowOffset: { width: 5, height: 5 },
-        shadowOpacity: 0.32,
-        shadowRadius: 4,
-        elevation: 5,
-        marginTop: spacing.big,
+        // opacity: 1,
+        // shadowColor: "#000",
+        // // shadowOffset: { width: 5, height: 5 },
+        // // shadowOpacity: 0.32,
+        // shadowRadius: 4,
+        // elevation: 5,
+        // marginTop: spacing.big,
         paddingHorizontal: 80
     },
     errorText: {

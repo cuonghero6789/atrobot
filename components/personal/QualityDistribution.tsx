@@ -1,6 +1,6 @@
 import { colors, spacing, textStyle } from "@/core/styles";
 import strings from '@/core/localization';
-import { View, Text, Dimensions } from "react-native";
+import { View, Text, useWindowDimensions } from "react-native";
 import { PieChartPro } from "react-native-gifted-charts";
 import { Distribution, InfoChartProperties } from "./distribution";
 import { memo } from "react";
@@ -10,10 +10,10 @@ const QualityImages = {
     Cardinal: require('@/assets/images/icons/ic_persisent.png'),
     Fixed: require('@/assets/images/icons/ic_flexible.png'),
 }
-const { width } = Dimensions.get('window');
-const SIZE = width / 3;
+// runtime responsive values computed inside component
 
 const QualityDistribution = () => {
+    const { width: screenWidth } = useWindowDimensions();
     const { subject } = useSubjectStore(state => state);
     const { dominant } = useYouStore(state => state);
 
@@ -27,6 +27,10 @@ const QualityDistribution = () => {
         { value: qualityDistribution[1].percent, color: '#8EB3CCBF', text: qualityDistribution[1].name_label }, // Fire
         { value: qualityDistribution[2].percent, color: '#90D3FF8F', text: qualityDistribution[2].name_label }, // Air
     ];
+    // Responsive sizing similar to ElementDistribution
+    const containerWidth = Math.min(screenWidth - spacing.big * 2, 1024);
+    const SIZE = Math.max(120, Math.min(containerWidth * 0.28, 280));
+
     return (
         <View style={{ alignItems: 'center', flex: 1 }}>
             <Text style={[textStyle.textBold, { textAlign: 'center', marginVertical: spacing.big }]}>{strings.t('quantityDist')}</Text>
@@ -45,9 +49,11 @@ const QualityDistribution = () => {
                 textBackgroundRadius={26}
                 data={data}
             />
-            <View style={{ minWidth: width, flexDirection: 'row', paddingHorizontal: spacing.bigx2, paddingVertical: spacing.big, justifyContent: 'space-between' }}>
+            <View style={{ minWidth: containerWidth, flexDirection: 'row', paddingHorizontal: spacing.bigx2, paddingVertical: spacing.big, justifyContent: 'space-between' }}>
                 <InfoChartProperties icon={QualityImages[qualityDistribution[0].name as keyof typeof QualityImages]} title={qualityDistribution[0].name_label} description={qualityDistribution[0].percent.toString() + "%"} />
+                <View style={{ width: 32 }} />
                 <InfoChartProperties icon={QualityImages[qualityDistribution[1].name as keyof typeof QualityImages]} title={qualityDistribution[1].name_label} description={qualityDistribution[1].percent.toString() + "%"} />
+                <View style={{ width: 32 }} />
                 <InfoChartProperties icon={QualityImages[qualityDistribution[2].name as keyof typeof QualityImages]} title={qualityDistribution[2].name_label} description={qualityDistribution[2].percent.toString() + "%"} />
             </View>
             <View style={{ alignItems: 'flex-start' }}>

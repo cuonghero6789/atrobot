@@ -21,6 +21,7 @@ import { getConfig } from "@/core";
 import ChooseLanguage from "@/components/auth/ChooseLanguage";
 import { Button } from "@/components/Button";
 import LoadingLuna from "@/components/loading/LoadingLuna";
+const { width, height } = Dimensions.get('window');
 
 export default function IndexScreen() {
     const router = useRouter();
@@ -163,7 +164,7 @@ export default function IndexScreen() {
         <View style={styles.icon}>
             <Image source={require('@/assets/images/ic_logo.png')} style={{ width: 88, height: 88 }} />
         </View>
-        <ImageBackground source={require('@/assets/images/bg_login.png')} style={{ flex: 1, justifyContent: 'center' }}>
+        <ImageBackground source={require('@/assets/images/bg_login.png')} style={[{ flex: 1, justifyContent: 'center' }, styles.body]}>
             <ImageBackground source={require('@/assets/images/bg_astr.png')} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <View style={{ flex: 1 }} />
@@ -208,11 +209,13 @@ const styles = StyleSheet.create({
     },
     body: {
         flex: 1,
-        borderTopLeftRadius: 300,
-        borderTopRightRadius: 300,
+        borderTopLeftRadius: 100,
+        borderTopRightRadius: 100,
+        overflow: 'hidden',
     },
     container: {
         flex: 1,
+        backgroundColor: colors.white,
     },
     footer: {
         paddingHorizontal: 16,

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors, spacing, textStyle } from '@/core/styles';
-import { CAROUSEL_HEIGHT, CAROUSEL_WIDTH } from './Carousel';
+import { CAROUSEL_HEIGHT } from './Carousel';
 import { Image } from 'expo-image';
 const images = {
     emotion: require('@/assets/images/daily/ic_heath.svg'),
@@ -89,12 +89,12 @@ const styles = StyleSheet.create({
         shadowColor: "white",
     },
     gradientView: {
-        flex: 1,
-        borderRadius: 20,
-        shadowColor: "#000",
-        shadowOffset: { width: 5, height: 5 },
-        shadowOpacity: 0.4, // Similar to #00000052
-        shadowRadius: 4,
+        // flex: 1,
+        // borderRadius: 20,
+        // shadowColor: "#000",
+        // // shadowOffset: { width: 5, height: 5 },
+        // shadowOpacity: 0.4, // Similar to #00000052
+        // shadowRadius: 4,
         // elevation: 6, // Required for Android
     },
     gradient: {

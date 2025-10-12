@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View, Animated, Dimensions } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Animated, useWindowDimensions } from 'react-native';
 import { textStyle } from '@/core/styles';
 import { spacing } from '@/core/styles';
 import { useEffect, useRef } from 'react';
@@ -11,6 +11,10 @@ type PeriodSelectorProps = {
 
 export const PeriodSelector = ({ selectedPeriod, onPeriodChange }: PeriodSelectorProps) => {
     const translateX = useRef(new Animated.Value(0)).current;
+    const { width: screenWidth } = useWindowDimensions();
+    // Clamp width on large screens (web fullscreen) for better readability
+    const containerWidth = Math.min(screenWidth - (spacing.large * 2), 720);
+    const tabWidth = containerWidth / 2;
 
     useEffect(() => {
         Animated.spring(translateX, {
@@ -25,14 +29,14 @@ export const PeriodSelector = ({ selectedPeriod, onPeriodChange }: PeriodSelecto
         transform: [{
             translateX: translateX.interpolate({
                 inputRange: [0, 1],
-                outputRange: [0, (width / 2) - spacing.large],
+                outputRange: [0, tabWidth],
             })
         }]
     };
 
     return (
-        <View style={styles.periodContainer}>
-            <Animated.View style={[styles.animatedBackground, animatedStyle]} />
+        <View style={[styles.periodContainer, { width: containerWidth, alignSelf: 'center' }]}>
+            <Animated.View style={[styles.animatedBackground, animatedStyle, { width: tabWidth }]} />
             <TouchableOpacity
                 style={[styles.periodTab]}
                 onPress={() => onPeriodChange('week')}
@@ -54,9 +58,6 @@ export const PeriodSelector = ({ selectedPeriod, onPeriodChange }: PeriodSelecto
         </View>
     );
 };
-
-const { width } = Dimensions.get('window');
-const TAB_WIDTH = (width - (spacing.large * 2)) / 2;
 
 const styles = StyleSheet.create({
     periodContainer: {
@@ -85,7 +86,6 @@ const styles = StyleSheet.create({
     },
     animatedBackground: {
         position: 'absolute',
-        width: TAB_WIDTH,
         height: '100%',
         backgroundColor: '#74A7EE',
         borderRadius: 15,

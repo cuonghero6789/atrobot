@@ -13,7 +13,7 @@ const { width, height } = Dimensions.get('window');
 export const TAB_HEIGHT = Platform.select({
   ios: width * 160 / 780,
   android: width * 145 / 779, // Standard Material Design bottom navigation height
-  default: width * 180 / 780,
+  default: 120,
 });
 
 export default function TabLayout() {
@@ -60,7 +60,18 @@ export default function TabLayout() {
             borderTopWidth: 0,
             borderBottomWidth: 0,
           },
-          default: {},
+          default: {
+            borderTopLeftRadius: Device.deviceType === Device.DeviceType.TABLET ? 110 : 44,
+            borderTopRightRadius: Device.deviceType === Device.DeviceType.TABLET ? 110 : 44,
+            position: 'absolute',
+            backgroundColor: 'transparent',
+            height: TAB_HEIGHT - 44,
+            borderColor: 'transparent',
+            overflow: 'hidden',
+            bottom: 0,
+            borderTopWidth: 0,
+            borderBottomWidth: 0,
+          },
         }),
       }}>
       <Tabs.Screen
@@ -114,7 +125,7 @@ const styles = StyleSheet.create({
     elevation: 4, // Shadow on Android
   },
   tabBarBackground: {
-    width,
+    width: Platform.OS === 'web' ? '100%' : width,
     height: TAB_HEIGHT,
     position: 'absolute',
   },

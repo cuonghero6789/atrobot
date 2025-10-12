@@ -2,11 +2,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { UserModel } from '@/core/types/common';
 import { IAuthState } from '@/core/stores/interfaces';
 import { AuthAction } from '@/core/stores/interfaces/common/IAuthState';
-import { getAuth, signOut } from '@react-native-firebase/auth';
+import { Platform } from 'react-native';
 
 export const onLogout = (set: any, get: any) => async () => {
   try {
-    await signOut(getAuth());
+    if (Platform.OS === 'web') {
+      const webAuth = await import('firebase/auth');
+      await webAuth.signOut(webAuth.getAuth());
+    } else {
+      // Require at runtime to avoid bundling native module on web
+      const nativeAuth = require('@react-native-firebase/auth');
+      await nativeAuth.signOut(nativeAuth.getAuth());
+    }
     console.log('User signed out!');
     /** save cache for login fast */
     AsyncStorage.removeItem('AUTH_USER');

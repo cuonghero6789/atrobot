@@ -12,7 +12,7 @@ import { ImageBackground } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React, { useCallback, useEffect } from "react";
-import { Linking, ScrollView, Text, View, StyleSheet, Alert } from 'react-native';
+import { Linking, ScrollView, Text, View, StyleSheet, Alert, Platform } from 'react-native';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
 import { TAB_HEIGHT } from "./_layout";
@@ -38,6 +38,25 @@ export default function YouScreen() {
         { data: dataApp, loading: loadingApp, error: errorApp },
     ] = useMutation(UPDATE_APP_LANGUAGE);
     const actionAuth = useAuthStore(state => state.actions);
+
+    // Cross-platform confirm dialog: use native Alert on mobile and window.confirm on web
+    const confirmAction = useCallback((title: string, message: string, onConfirm: () => void) => {
+        if (Platform.OS === 'web') {
+            // window.confirm returns true for OK, false for Cancel
+            const ok = window.confirm(`${title}\n\n${message}`);
+            if (ok) onConfirm();
+            return;
+        }
+        Alert.alert(
+            title,
+            message,
+            [
+                { text: strings.t("cancel"), style: 'cancel' },
+                { text: strings.t("agree"), onPress: onConfirm },
+            ],
+            { cancelable: true },
+        );
+    }, []);
 
     const renderTitle = () => {
         return <Text style={[textStyle.title, { marginHorizontal: 16, marginBottom: 8 }]}>{strings.t("settings")}</Text>;
@@ -114,21 +133,11 @@ export default function YouScreen() {
                     <Item
                         text={strings.t("txtLogout")}
                         onPress={() => {
-                            Alert.alert(
-                                strings.t("hi"),
-                                strings.t("logout"),
-                                [
-                                    { text: strings.t("cancel"), style: 'cancel' },
-                                    {
-                                        text: strings.t("agree"), onPress: async () => {
-                                            const device_id = global.device_id;
-                                            Logout({ variables: { device_id } });
-                                            actionAuth.onLogout();
-                                        }
-                                    },
-                                ],
-                                { cancelable: true },
-                            );
+                            confirmAction(strings.t("hi"), strings.t("logout"), async () => {
+                                const device_id = global.device_id;
+                                Logout({ variables: { device_id } });
+                                actionAuth.onLogout();
+                            });
                         }}
                     />
                     <View style={{ height: 12 }} />
@@ -136,21 +145,11 @@ export default function YouScreen() {
                         styleName={{ color: 'red' }}
                         text={strings.t("txtDeleteAccount")}
                         onPress={() => {
-                            Alert.alert(
-                                strings.t("hi"),
-                                strings.t("txtConfirmDeleteAccount"),
-                                [
-                                    { text: strings.t("cancel"), style: 'cancel' },
-                                    {
-                                        text: strings.t("agree"), onPress: async () => {
-                                            const device_id = global.device_id;
-                                            Logout({ variables: { device_id } });
-                                            actionAuth.onLogout();
-                                        }
-                                    },
-                                ],
-                                { cancelable: true },
-                            );
+                            confirmAction(strings.t("hi"), strings.t("txtConfirmDeleteAccount"), async () => {
+                                const device_id = global.device_id;
+                                Logout({ variables: { device_id } });
+                                actionAuth.onLogout();
+                            });
                         }}
                     />
                 </View>

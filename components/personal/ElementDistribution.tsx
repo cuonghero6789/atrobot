@@ -1,12 +1,10 @@
 import { colors, fontFamily, spacing, textStyle } from "@/core/styles";
 import strings from '@/core/localization';
-import { View, Text, Dimensions } from "react-native";
+import { View, Text, useWindowDimensions } from "react-native";
 import { PieChartPro } from "react-native-gifted-charts";
 import { Distribution } from "./distribution";
 import { memo } from "react";
 import { useSubjectStore, useYouStore } from "@/core/stores";
-const { width } = Dimensions.get('window');
-const SIZE = width / 3;
 const ElementImages = {
     Earth: require('@/assets/images/icons/ic_earth.svg'),
     Air: require('@/assets/images/icons/ic_air.svg'),
@@ -14,6 +12,7 @@ const ElementImages = {
     Water: require('@/assets/images/icons/ic_water.svg'),
 }
 const ElementDistribution = () => {
+    const { width: screenWidth } = useWindowDimensions();
     const { subject } = useSubjectStore(state => state);
     const { dominant } = useYouStore(state => state);
 
@@ -28,6 +27,10 @@ const ElementDistribution = () => {
         { value: elementDistribution[2].percent, color: '#8EB3CCBF', text: elementDistribution[2].name_label }, // Fire
         { value: elementDistribution[3].percent, color: '#3589E9EB', text: elementDistribution[3].name_label }, // Air
     ];
+    // Responsive chart radius: scale with screen width, clamp to keep layout nice on web fullscreen
+    const containerWidth = Math.min(screenWidth - spacing.big * 2, 1024);
+    const SIZE = Math.max(120, Math.min(containerWidth * 0.28, 280));
+
     return (
         <View style={{ alignItems: 'center' }}>
             <Text style={[textStyle.textBold, { textAlign: 'center', marginBottom: spacing.big }]}>{strings.t('elementDist')}</Text>

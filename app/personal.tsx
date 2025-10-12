@@ -47,23 +47,26 @@ function PersonalScreen() {
                     <ScrollView contentContainerStyle={{ paddingHorizontal: spacing.large, paddingBottom: spacing.big + BANNER_HEIGHT }}>
                         <View style={{
                             flexDirection: 'row',
-                            justifyContent: 'space-between',
+                            justifyContent: 'center',
                             alignItems: 'center',
                             padding: 16,
-                            flex: 1
                         }}>
                             <ButtonIcon icon={require('@/assets/images/icons/ic_carier.png')} onPress={() => {
                                 openWeekly('career', strings.t('daily_career'));
                             }} />
+                            <View style={{ width: 16 }} />
                             <ButtonIcon icon={require('@/assets/images/icons/ic_love.png')} onPress={() => {
                                 openWeekly('love', strings.t('daily_love'));
                             }} />
+                            <View style={{ width: 16 }} />
                             <ButtonIcon icon={require('@/assets/images/icons/ic_suckhoe.png')} onPress={() => {
                                 openWeekly('heath', strings.t('daily_heath'));
                             }} />
+                            <View style={{ width: 16 }} />
                             <ButtonIcon icon={require('@/assets/images/icons/ic_finance.png')} onPress={() => {
                                 openWeekly('money', strings.t('daily_money'));
                             }} />
+                            <View style={{ width: 16 }} />
                             <ButtonIcon icon={require('@/assets/images/icons/ic_personal.png')} onPress={() => {
                                 router.push("/PlanetsScreen", {
                                 });
